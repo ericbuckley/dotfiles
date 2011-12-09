@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp vimrc ~/.vimrc
+
 # install pathogen
 mkdir -p ~/.vim/autoload ~/.vim/bundle;
 curl -so ~/.vim/autoload/pathogen.vim \
