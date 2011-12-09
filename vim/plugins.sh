@@ -3,7 +3,7 @@
 cp vimrc ~/.vimrc
 
 # install pathogen
-mkdir -p ~/.vim/autoload ~/.vim/bundle;
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/tmp/backup ~/.vim/tmp/swap ~/.vim/tmp/undo;
 curl -so ~/.vim/autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
 
