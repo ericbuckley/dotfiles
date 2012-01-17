@@ -28,3 +28,4 @@ git clone https://github.com/rodjek/vim-puppet.git
 git clone https://github.com/tpope/vim-repeat.git
 git clone https://github.com/tsaleh/vim-supertab.git
 git clone https://github.com/tpope/vim-surround.git
+git clone https://github.com/Lokaltog/vim-powerline.git
