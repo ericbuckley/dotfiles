@@ -9,9 +9,9 @@ curl -so ~/.vim/autoload/pathogen.vim \
 
 cd ~/.vim/bundle;
 # install plugins
-git clone https://github.com/wincent/Command-T.git
+git clone https://github.com/kien/ctrlp.vim.git
 git clone https://github.com/mileszs/ack.vim.git
-git clone https://github.com/manalang/jshint.vim.git; cd jshint.vim/; rake install; cd ../;
+git clone https://github.com/hallettj/jslint.vim.git; cd jslint.vim/; rake install; cd ../;
 git clone https://github.com/scrooloose/nerdcommenter.git
 git clone https://github.com/fs111/pydoc.vim.git
 git clone https://github.com/garbas/vim-snipmate.git
