@@ -11,7 +11,7 @@ cd ~/.vim/bundle;
 # install plugins
 git clone https://github.com/kien/ctrlp.vim.git
 git clone https://github.com/mileszs/ack.vim.git
-git clone https://github.com/hallettj/jslint.vim.git; cd jslint.vim/; rake install; cd ../;
+git clone https://github.com/walm/jshint.vim.git
 git clone https://github.com/scrooloose/nerdcommenter.git
 git clone https://github.com/fs111/pydoc.vim.git
 git clone https://github.com/garbas/vim-snipmate.git
