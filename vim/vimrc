@@ -14,7 +14,6 @@ set hidden
 set visualbell
 set cursorline
 set ttyfast
-set number
 set ruler
 set relativenumber
 set undofile
