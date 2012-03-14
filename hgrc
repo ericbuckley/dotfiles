@@ -1,0 +1,16 @@
+[ui]
+username = Eric Buckley <eric.buckley@gmail.com>
+merge = internal:merge
+
+[merge-patterns]
+** = filemerge
+
+[extensions]
+hgext.mq =
+hgext.convert =
+hgext.rebase =
+hgext.color =
+hgext.graphlog =
+hgext.extdiff =
+hgext.hgshelve =
+prompt = ~/.bin/prompt.py
