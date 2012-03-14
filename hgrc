@@ -12,5 +12,4 @@ hgext.rebase =
 hgext.color =
 hgext.graphlog =
 hgext.extdiff =
-hgext.hgshelve =
 prompt = ~/.bin/prompt.py
