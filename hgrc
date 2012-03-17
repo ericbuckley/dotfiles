@@ -2,6 +2,9 @@
 username = Eric Buckley <eric.buckley@gmail.com>
 merge = internal:merge
 
+[trusted]
+groups = dialout
+
 [merge-patterns]
 ** = filemerge
 
