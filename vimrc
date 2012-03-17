@@ -127,6 +127,10 @@ let g:ctrlp_working_path_mode = 2
 let g:ctrlp_match_window_reversed = 0
 " }}}
 
+" Ack settings {{{
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+" }}}
+
 " Django {{{
 au BufNewFile,BufRead admin.py     setlocal filetype=python.django
 au BufNewFile,BufRead urls.py      setlocal filetype=python.django
