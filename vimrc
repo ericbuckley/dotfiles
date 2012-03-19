@@ -29,8 +29,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-set list listchars=tab:\ \ ,trail:·
-" Use the same symbols as TextMate for tabstops and EOLs
+set list
 set listchars=tab:▸\ ,eol:¬
 "Invisible character colors
 highlight NonText guifg=#4a4a59
