@@ -1,0 +1,29 @@
+[user]
+    name = Eric Buckley
+    email = eric.buckley@gmail.com
+[color]
+    ui = auto
+[core]
+    editor = vim
+[alias]
+    pushm = push origin master
+    pullm = pull origin master
+    c = commit
+    cm = commit -m
+    cma = commit -a -m
+    ca = commit --amend
+    caa = commit -a --amend -C HEAD
+    s = status
+    d = diff
+    a = add
+    logp = log --pretty=format:'%C(red)%h%C(reset) - %C(yellow)%an%C(reset), %C(white)%ar%C(reset) : %s\n'
+    package-head = !git archive --format=tar HEAD | gzip > HEAD.tgz
+    harvest = !~/projects/scripts/harvest_git_time.py
+[branch]
+	autosetupmerge = true
+[push]
+	default = tracking
+[rerere]
+	enabled = true
+[merge]
+	stat = true
