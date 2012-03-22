@@ -107,3 +107,4 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 [ -z "$TMUX" ] && export TERM=xterm-256color
+export EDITOR=/usr/local/bin/vim
