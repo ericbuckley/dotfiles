@@ -118,6 +118,8 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['python', 'django', 'javascript', 'css'],
                            \ 'passive_filetypes': ['htmldjango'] }
+let g:syntastic_python_checker = 'flake8'
+let g:syntastic_python_checker_args = '--ignore="E231,E501"'
 let g:syntastic_javascript_checker = 'jshint'
 " }}}
 
