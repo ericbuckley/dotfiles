@@ -58,7 +58,7 @@ git_ps1() {
 }
 
 if [ "$color_prompt" = yes ]; then
-    export PS1='\[\e[1;33m\]<\W\[\e[m\]\[\e[1;36m\]$(hg_ps1)$(git_ps1)\[\e[m\]\[\e[1;33m\]> \[\e[m\]'
+    export PS1='\[\e[1;33m\]<\h:\W\[\e[m\]\[\e[1;36m\]$(hg_ps1)$(git_ps1)\[\e[m\]\[\e[1;33m\]> \[\e[m\]'
 else
     export PS1='<\W$(hg_ps1)$(git_ps1)> '
 fi
@@ -67,7 +67,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    export PS1='\[\e[1;33m\]<\W\[\e[m\]\[\e[1;36m\]$(hg_ps1)$(git_ps1)\[\e[m\]\[\e[1;33m\]> \[\e[m\]'
+    export PS1='\[\e[1;33m\]<\h:\W\[\e[m\]\[\e[1;36m\]$(hg_ps1)$(git_ps1)\[\e[m\]\[\e[1;33m\]> \[\e[m\]'
     ;;
 *)
     ;;
