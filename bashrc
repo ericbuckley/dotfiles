@@ -57,8 +57,25 @@ git_ps1() {
     __git_ps1 " (%s)" 2> /dev/null
 }
 
+function prompt {
+    local nc='\[\e[m\]'
+    local red='\[\e[1;31m\]'
+    local green='\[\e[1;32m\]'
+    local yellow='\[\e[1;33m\]'
+    local blue='\e[\e[1;34m\]'
+    local magenta='\[\e[1;35m\]'
+    local cyan='\[\e[1;36m\]'
+
+    local sep='________________________________________________________________________________\n'
+    local inf=$green'[\D{%H:%M:%S}] '$green'\u@\h:'$yellow'\w'$blue'$(hg_ps1)$(git_ps1)'$nc' \n'
+    local cmd='=> '
+    export PS1=$inf$cmd
+    export PS2=$cmd
+}
+
 if [ "$color_prompt" = yes ]; then
-    export PS1='\[\e[1;33m\]<\h:\W\[\e[m\]\[\e[1;36m\]$(hg_ps1)$(git_ps1)\[\e[m\]\[\e[1;33m\]> \[\e[m\]'
+    # export PS1='\[\e[1;31m\]\h\[\e[m\] \[\e[1;33m\]\W\[\e[m\] \[\e[1;36m\]$(hg_ps1)$(git_ps1)\[\e[m\] '
+    prompt
 else
     export PS1='<\W$(hg_ps1)$(git_ps1)> '
 fi
@@ -67,7 +84,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    export PS1='\[\e[1;33m\]<\h:\W\[\e[m\]\[\e[1;36m\]$(hg_ps1)$(git_ps1)\[\e[m\]\[\e[1;33m\]> \[\e[m\]'
+    prompt
     ;;
 *)
     ;;
@@ -89,6 +106,7 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias c='clear'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
