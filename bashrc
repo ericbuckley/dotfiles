@@ -57,6 +57,11 @@ git_ps1() {
     __git_ps1 " (%s)" 2> /dev/null
 }
 
+# function for NY Time
+ny_time() {
+    sh ~/.bin/ny_time.sh "%H:%M:%S"
+}
+
 function prompt {
     local nc='\[\e[m\]'
     local red='\[\e[1;31m\]'
@@ -67,7 +72,7 @@ function prompt {
     local cyan='\[\e[1;36m\]'
 
     local sep='________________________________________________________________________________\n'
-    local inf=$green'[\D{%H:%M:%S}] '$green'\u@\h:'$yellow'\w'$blue'$(hg_ps1)$(git_ps1)'$nc' \n'
+    local inf=$green'[$(ny_time)] '$green'\u@\h:'$yellow'\w'$blue'$(hg_ps1)$(git_ps1)'$nc' \n'
     local cmd='=> '
     export PS1=$inf$cmd
     export PS2=$cmd

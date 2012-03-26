@@ -2,5 +2,5 @@
 
 OLDTZ=$TZ
 export TZ=America/New_York
-date +"%b-%d %R"
+date +"$1"
 TZ=$OLDTZ
