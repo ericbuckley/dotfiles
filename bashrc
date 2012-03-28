@@ -111,6 +111,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias c='clear'
+alias h='history'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -127,9 +128,16 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+# and for mac os x
+if [ -f /opt/local/etc/bash_completion ] && ! shopt -oq posix; then
+    . /opt/local/etc/bash_completion
+fi
 
 # disable Ctrl-S freezing of the screen
-stty -ixon
+stty -ixon -ixoff
 
+# Set environtment variables
 [ -z "$TMUX" ] && export TERM=xterm-256color
 export EDITOR=/usr/local/bin/vim
+export PYTHONSTARTUP=~/.pythonrc.py
+export DJANGO_COLORS='light'
