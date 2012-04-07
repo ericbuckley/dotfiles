@@ -57,7 +57,7 @@ git_ps1() {
     __git_ps1 " (%s)" 2> /dev/null
 }
 
-# function for NY Time
+
 ny_time() {
     sh ~/.bin/ny_time.sh "%H:%M:%S"
 }
@@ -102,7 +102,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 # and for mac os x
 if [ -x /opt/local/bin/gdircolors ]; then
-    test -r ~/.dircolors && eval "$(gdircolors -b ~/.dircolors)" || eval "$(gdircolors -b)"
+    test -r ~/.dircolors && eval "$(/opt/local/bin/gdircolors -b ~/.dircolors)" || eval "$(/opt/local/bin/gdircolors -b)"
     color_alias
 fi
 
