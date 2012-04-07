@@ -144,8 +144,8 @@ au BufNewFile,BufRead forms.py     setlocal filetype=python.django
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango.html
 au FileType html,jinja,htmldjango setlocal foldmethod=manual
 
-" Use <localleader>f to fold the current tag.
-au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
+" Use <leader>f to fold the current tag.
+au FileType html,jinja,htmldjango nnoremap <buffer> <leader>f Vatzf
 
 " Use Shift-Return to turn this:
 "     <tag>|</tag>

@@ -20,7 +20,6 @@ git clone https://github.com/tomtom/tlib_vim.git
 git clone https://github.com/smerrill/vagrant-vim.git
 git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
 git clone https://github.com/altercation/vim-colors-solarized.git
-git clone https://github.com/skammer/vim-css-color.git
 git clone https://github.com/leshill/vim-json.git
 git clone https://github.com/rodjek/vim-puppet.git
 git clone https://github.com/tpope/vim-repeat.git
