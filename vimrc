@@ -97,7 +97,13 @@ nnoremap <leader>v V`]
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " clear highlighted matches
 noremap <leader><space> :noh<cr>:call clearmatches()<cr>
-
+" Can't be bothered to understand ESC vs <c-c> in insert mode
+imap <c-c> <esc>
+" Move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
 
@@ -181,3 +187,17 @@ if has("autocmd")
     " ends of lines. Here is one way to do it when saving your file.
     autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ function! RenameFile()
+     let old_name = expand('%')
+     let new_name = input('New file name: ', expand('%'), 'file')
+     if new_name != '' && new_name != old_name
+         exec ':saveas ' . new_name
+         exec ':silent !rm ' . old_name
+         redraw!
+     endif
+ endfunction
+ map <leader>n :call RenameFile()<cr>
