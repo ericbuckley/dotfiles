@@ -27,3 +27,4 @@ git clone https://github.com/tsaleh/vim-supertab.git
 git clone https://github.com/tpope/vim-surround.git
 git clone https://github.com/Lokaltog/vim-powerline.git
 git clone https://github.com/tsaleh/vim-tmux.git
+git clone https://github.com/vim-scripts/Dpaste.com-Plugin.git
