@@ -97,6 +97,9 @@ nnoremap <leader>v V`]
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " clear highlighted matches
 noremap <leader><space> :noh<cr>:call clearmatches()<cr>
+" spell check
+noremap <leader>s :set spell!<CR>
+set spelllang=en_us
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
 " Move around splits with <c-hjkl>
