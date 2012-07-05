@@ -4,7 +4,7 @@ if [ ! -z $1 ]
 then
     FORMAT=$1
 else
-    FORMAT="%R"
+    FORMAT="%d %b"
 fi
 OLDTZ=$TZ
 export TZ=America/New_York
