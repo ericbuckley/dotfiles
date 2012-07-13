@@ -14,7 +14,7 @@ function mirrorfiles() {
     # Copy .gitconfig
     # Any global git commands in ~/.extra will be written to .gitconfig
     # This prevents them being committed to the repository
-    rsync -avz --quiet ${HOME}/.dotfiles/git/gitconfig  ${HOME}/.gitconfig
+    rsync -avz --quiet ${HOME}/.dotfiles/gitconfig  ${HOME}/.gitconfig
 
     # Symlink everything else
     # bash_profile sources other files from the repository
@@ -24,7 +24,6 @@ function mirrorfiles() {
     fi
     ln -fs ".dotfiles/bashrc"             "${HOME}/.bashrc"
     ln -fs ".dotfiles/bin"                "${HOME}/.bin"
-    ln -fs ".dotfiles/gitconfig"          "${HOME}/.gitconfig"
     ln -fs ".dotfiles/hgrc"               "${HOME}/.hgrc"
     ln -fs ".dotfiles/jshintrc"           "${HOME}/.jshintrc"
     ln -fs ".dotfiles/pdbrc"              "${HOME}/.pdbrc"
