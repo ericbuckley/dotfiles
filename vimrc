@@ -58,6 +58,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.luac                           " Lua byte code
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.orig                           " Mercurial merge originals
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store?                      " OSX bullshit
@@ -70,7 +71,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline+=%=(%{&ff}/%Y)
 set statusline+=\ (line\ %l\/%L,\ col\ %c)
-let g:Powerline_symbols = 'unicode'
+let g:Powerline_symbols = 'fancy'
 " }}}
 
 " Backups {{{
@@ -115,7 +116,7 @@ set t_Co=256
 "let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
-set gfn=Menlo:h12
+set gfn=Menlo\ for\ Powerline:h12
 call togglebg#map('<F5>')
 " }}}
 "
@@ -130,6 +131,7 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 let g:syntastic_python_checker = 'flake8'
 let g:syntastic_python_checker_args = '--ignore="E231,E501"'
 let g:syntastic_javascript_checker = 'jshint'
+let g:syntastic_json_checker = 'jsonlint'
 " }}}
 
 " CtrlP settings {{{
