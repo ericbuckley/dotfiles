@@ -16,7 +16,7 @@ This will create symlinks for most of the files and the `vim` directory.  The
 configuration taking place in `~/.extra` is not accidentally committed.
 
 ```bash
-git clone git://github.com/necolas/dotfiles.git ~/.dotfiles
+git clone git://github.com/ericbuckley/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 bash install.sh
 ```
@@ -33,7 +33,6 @@ remote repo.
 cd ~/.dotfiles
 bash install.sh
 ```
-
 
 
 ## Adding local and private configurations
