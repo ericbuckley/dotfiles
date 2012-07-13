@@ -7,7 +7,7 @@ My dotfiles.
 ### Prerequisites
 
 * Git (1.7+)
-* Vim (7.3+) - I use MacVim installed with Homebrew
+* Vim (7.3+)
 
 ### Installation
 
