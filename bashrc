@@ -49,42 +49,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# functions for VSC prompts
-hg_ps1() {
-    hg prompt " ({{branch}})" 2> /dev/null
-}
-git_ps1() {
-    __git_ps1 " (%s)" 2> /dev/null
-}
-
-
-ny_time() {
-    sh ~/.bin/ny_time.sh "%H:%M:%S"
-}
-
-function prompt {
-    local nc='\[\e[m\]'
-    local red='\[\e[1;31m\]'
-    local green='\[\e[1;32m\]'
-    local yellow='\[\e[1;33m\]'
-    local blue='\e[\e[1;34m\]'
-    local magenta='\[\e[1;35m\]'
-    local cyan='\[\e[1;36m\]'
-
-    local sep='________________________________________________________________________________\n'
-    local inf=$green'[$(ny_time)] '$green'\u@\h:'$yellow'\w'$blue'$(hg_ps1)$(git_ps1)'$nc' \n'
-    local cmd='=> '
-    export PS1=$inf$cmd
-    export PS2=$cmd
-}
-
-if [ "$color_prompt" = yes ]; then
-    prompt
-else
-    export PS1='[\u@\h:\w] '
-fi
-unset color_prompt force_color_prompt
-
 function color_alias {
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
@@ -132,6 +96,9 @@ fi
 if [ -f /opt/local/etc/bash_completion ] && ! shopt -oq posix; then
     . /opt/local/etc/bash_completion
 fi
+
+# Custom bash prompt
+[ -r "$HOME/.dotfiles/bash_prompt" ] && source "$HOME/.dotfiles/bash_prompt"
 
 # disable Ctrl-S freezing of the screen
 stty -ixon -ixoff
