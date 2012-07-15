@@ -67,7 +67,7 @@ fi
 # and for mac os x
 if [ -x /usr/local/bin/gdircolors ]; then
     test -r ~/.dircolors && eval "$(/usr/local/bin/gdircolors -b ~/.dircolors)" || eval "$(/usr/local/bin/gdircolors -b)"
-    alias ls='gls --color=auto'
+    color_alias
 fi
 
 # some more ls aliases
