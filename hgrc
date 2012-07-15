@@ -2,7 +2,7 @@
 username = Eric Buckley <eric.buckley@gmail.com>
 
 [trusted]
-groups = dialout
+groups = dialout,deployer
 
 [extensions]
 hgext.mq =
