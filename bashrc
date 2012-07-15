@@ -65,9 +65,9 @@ if [ -x /usr/bin/dircolors ]; then
     color_alias
 fi
 # and for mac os x
-if [ -x /opt/local/bin/gdircolors ]; then
-    test -r ~/.dircolors && eval "$(/opt/local/bin/gdircolors -b ~/.dircolors)" || eval "$(/opt/local/bin/gdircolors -b)"
-    color_alias
+if [ -x /usr/local/bin/gdircolors ]; then
+    test -r ~/.dircolors && eval "$(/usr/local/bin/gdircolors -b ~/.dircolors)" || eval "$(/usr/local/bin/gdircolors -b)"
+    alias ls='gls --color=auto'
 fi
 
 # some more ls aliases
@@ -93,8 +93,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 # and for mac os x
-if [ -f /opt/local/etc/bash_completion ] && ! shopt -oq posix; then
-    . /opt/local/etc/bash_completion
+if [ -f /usr/local/etc/bash_completion.d ] && ! shopt -oq posix; then
+    / /usr/local/etc/bash_completion
 fi
 
 # Custom bash prompt
