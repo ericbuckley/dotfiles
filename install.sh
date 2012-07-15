@@ -22,6 +22,7 @@ function mirrorfiles() {
     if [ -e "${HOME}/.vim" ]; then
         rm -rf "${HOME}/.vim"
     fi
+    ln -fs ".dotfiles/ackrc"              "${HOME}/.ackrc"
     ln -fs ".dotfiles/bashrc"             "${HOME}/.bashrc"
     ln -fs ".dotfiles/bin"                "${HOME}/.bin"
     ln -fs ".dotfiles/hgrc"               "${HOME}/.hgrc"
