@@ -10,7 +10,7 @@
     "noempty": true,
     "nonew": true,
     "plusplus": true,
-    "regexp": true,
+    "regexp": false,
     "undef": true,
     "strict": true,
     "trailing": true,
@@ -39,7 +39,7 @@
     "shadow": false,
     "sub": false,
     "supernew": false,
-    "validatethis": false,
+    "validthis": false,
 
     "browser": true,
     "couch": false,
