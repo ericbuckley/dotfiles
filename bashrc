@@ -93,8 +93,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 # and for mac os x
-if [ -f /usr/local/etc/bash_completion.d ] && ! shopt -oq posix; then
-    / /usr/local/etc/bash_completion
+if [ -f /usr/local/etc/bash_completion ] && ! shopt -oq posix; then
+    . /usr/local/etc/bash_completion
 fi
 
 # Custom bash prompt
