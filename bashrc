@@ -108,3 +108,8 @@ stty -ixon -ixoff
 export EDITOR=/usr/local/bin/vim
 export PYTHONSTARTUP=~/.pythonrc.py
 export DJANGO_COLORS='light'
+
+# helpful bash functions
+external_ip () {
+    curl http://automation.whatismyip.com/n09230945.asp
+}
