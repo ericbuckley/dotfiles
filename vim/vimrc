@@ -263,3 +263,8 @@ endif
  
  nnoremap <F2> :set invpaste paste?<CR>
  set pastetoggle=<F2>
+
+" Source a local configuration file if available.
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
