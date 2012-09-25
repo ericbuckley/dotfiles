@@ -27,3 +27,5 @@
 	enabled = true
 [merge]
 	stat = true
+[github]
+	user = ericbuckley

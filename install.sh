@@ -25,6 +25,7 @@ function mirrorfiles() {
     ln -fs ".dotfiles/ackrc"              "${HOME}/.ackrc"
     ln -fs ".dotfiles/bashrc"             "${HOME}/.bashrc"
     ln -fs ".dotfiles/bin"                "${HOME}/.bin"
+    ln -fs ".dotfiles/gitconfig"          "${HOME}/.gitconfig"
     ln -fs ".dotfiles/hgrc"               "${HOME}/.hgrc"
     ln -fs ".dotfiles/jshintrc"           "${HOME}/.jshintrc"
     ln -fs ".dotfiles/pdbrc"              "${HOME}/.pdbrc"
