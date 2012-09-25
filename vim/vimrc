@@ -199,6 +199,7 @@ let g:syntastic_json_checker = 'jsonlint'
 " CtrlP settings {{{
 let g:ctrlp_working_path_mode = 2
 let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_cache_dir = $HOME.'/.vim/tmp/.cache/ctrlp'
 " }}}
 
 " Ack settings {{{
