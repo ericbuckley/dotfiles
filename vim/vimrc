@@ -206,6 +206,10 @@ let g:ctrlp_cache_dir = $HOME.'/.vim/tmp/.cache/ctrlp'
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 " }}}
 
+" Gist settings {{{
+let g:gist_post_private = 1
+" }}}
+
 " CTags {{{
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
 map <F8> :!/opt/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
