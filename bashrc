@@ -109,6 +109,12 @@ export EDITOR=/usr/local/bin/vim
 export PYTHONSTARTUP=~/.pythonrc.py
 export DJANGO_COLORS='light'
 
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+elif [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
+    source /usr/local/share/python/virtualenvwrapper.sh
+fi
+
 # helpful bash functions
 external_ip () {
     curl http://automation.whatismyip.com/n09230945.asp
