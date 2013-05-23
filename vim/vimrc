@@ -27,8 +27,6 @@ if has("syntax")
     let g:solarized_termcolors = 16
     " Set colorscheme
     silent! colorscheme solarized
-    " Set the font to the custom Menlo Powerline
-    set gfn=Menlo\ for\ Powerline:h12
 endif
 
 if has("cmdline_info")
