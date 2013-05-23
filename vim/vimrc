@@ -23,10 +23,8 @@ endif
 if has("syntax")
     " Enable syntax highlighting
     syntax enable
-    " Set 256 color terminal support
-    set t_Co=256
-    " Set dark background
-    set background=dark
+    " Set 16 color terminal support
+    let g:solarized_termcolors = 16
     " Set colorscheme
     silent! colorscheme solarized
     " Set the font to the custom Menlo Powerline
@@ -110,8 +108,6 @@ set expandtab
 set relativenumber
 " Highlight current line
 set cursorline
-" Increase default number of lines
-set lines=40
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 " Don’t reset cursor to start of line when moving around.
@@ -133,11 +129,6 @@ if exists("&undodir")
     set undodir=~/.vim/tmp/undo
 endif
 
-" Load local machine directives only if they exist
-if filereadable(glob("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
-
 set autoindent
 set hidden
 set visualbell
@@ -148,8 +139,6 @@ set spelllang=en_us
 set wrap
 set textwidth=85
 set formatoptions=qrn1
-set colorcolumn+=1
-
 
 " Custom leader button
 let mapleader = ","
@@ -167,8 +156,6 @@ nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 nnoremap <leader>v V`]
 " open .vimrc file in vertical split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-" clear highlighted matches
-noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 " spell check
 noremap <leader>s :set spell!<CR>
 " Can't be bothered to understand ESC vs <c-c> in insert mode
@@ -210,9 +197,13 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 let g:gist_post_private = 1
 " }}}
 
+" Pydoc settings {{{
+let g:pydoc_cmd = '/usr/bin/env python -m pydoc' 
+" }}}
+
 " CTags {{{
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-map <F8> :!/opt/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F8> :!/usr/bin/env ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "}}}
 
 " Django {{{
