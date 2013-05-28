@@ -117,5 +117,5 @@ fi
 
 # helpful bash functions
 external_ip () {
-    curl http://automation.whatismyip.com/n09230945.asp
+    curl http://remote-ip.herokuapp.com
 }
