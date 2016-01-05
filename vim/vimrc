@@ -6,10 +6,26 @@
 " Disable Vi compatibility
 set nocompatible
 
-" Point to location of pathogen submodule (since it's not in .vim/autoload)
-silent! runtime bundle/pathogen/autoload/pathogen.vim
-" Call pathogen plugin management
-silent! call pathogen#infect()
+" Load all Vim-Plug modules
+call plug#begin('~/.vim/plugged')
+Plug 'mileszs/ack.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
+Plug 'walm/jshint.vim'
+Plug 'elzr/vim-json'
+Plug 'scrooloose/nerdcommenter'
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-repeat'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/syntastic'
+Plug 'rizzatti/dash.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'ervandew/supertab'
+Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
+call plug#end()
 
 if has("autocmd")
     " Load files for specific filetypes
@@ -43,21 +59,26 @@ if has("cmdline_info")
     set showmode
 endif
 
+
 if has('statusline')
+    let g:airline_powerline_fonts=1
+    set ttimeoutlen=50
+    set timeoutlen=1000
     " Always show status line
     set laststatus=2
     " Broken down into easily includeable segments
     " Filename
-    set statusline=%F%m%r%h%w
+"    set statusline=%F%m%r%h%w
     " Syntastic warning messages
-    set statusline+=\ %#warningmsg#%{SyntasticStatuslineFlag()}
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
     " Filetypes
-    set statusline+=%=(%{&ff}/%Y)
+"    set statusline+=%=(%{&ff}/%Y)
     " Right aligned file nav info
-    set statusline+=\ (line\ %l\/%L,\ col\ %c)
+"    set statusline+=\ (line\ %l\/%L,\ col\ %c)
     " Set powerline symbols
-    let g:Powerline_symbols = 'fancy'
+"    let g:Powerline_symbols = 'fancy'
 endif
 
 if has("wildmenu")
@@ -109,6 +130,8 @@ set tabstop=4
 set expandtab
 " Enable relative line numbers
 set relativenumber
+" Enable the current line number to not be relative
+set number
 " Highlight current line
 set cursorline
 " Start scrolling three lines before the horizontal window border
@@ -124,6 +147,14 @@ set listchars+=eol:¬
 "Invisible character colors
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
+" Set the Cursor Shape
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " Centralize backups, swapfiles and undo history
 set backupdir=~/.vim/tmp/backup
@@ -146,11 +177,11 @@ set formatoptions=qrn1
 " Custom leader button
 let mapleader = ","
 " Shortcut to clear highlighted matches
-nnoremap <leader><space> :noh<cr>
+nnoremap <Leader><Space> :noh<cr>
 " strip all trailing whitespace in the current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " ack shortcut
-nnoremap <leader>a :Ack
+nnoremap <Leader>a :Ack
 " html fold tag
 nnoremap <leader>ft Vatzf
 " sort css propperties
@@ -177,20 +208,24 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 
 " Syntastic settings {{{
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['python', 'django', 'javascript', 'css', 'go'],
                            \ 'passive_filetypes': ['htmldjango'] }
-let g:syntastic_python_checker = 'flake8'
-let g:syntastic_python_checker_args = '--ignore="E231,E501,E127,E128,W601"'
-let g:syntastic_javascript_checker = 'jslint'
-let g:syntastic_json_checker = 'jsonlint'
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore="E231,E501,E127,E128,W601"'
+let g:syntastic_javascript_checkers = ['jshint', 'jsxhint',]
+let g:syntastic_json_checkers = ['jsonlint']
 " }}}
 
 " CtrlP settings {{{
 let g:ctrlp_working_path_mode = 2
 let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_cache_dir = $HOME.'/.vim/tmp/.cache/ctrlp'
-set wildignore+=*/CACHE/*
+let g:ctrlp_custom_ignore = { 'dir': '.*/CACHE/.*' }
 " }}}
 
 " Ack settings {{{
@@ -202,7 +237,7 @@ let g:gist_post_private = 1
 " }}}
 
 " Pydoc settings {{{
-let g:pydoc_cmd = '/usr/bin/env python -m pydoc' 
+let g:pydoc_cmd = '/usr/bin/env python -m pydoc'
 " }}}
 
 " CTags {{{
@@ -242,7 +277,7 @@ if has("autocmd")
     " will automatically indent itself to the next level of indentation:
     autocmd BufRead *.py set nosmartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
-    " Many people like to remove any extra whitespace from the 
+    " Many people like to remove any extra whitespace from the
     " ends of lines. Here is one way to do it when saving your file.
     autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
 endif
@@ -260,7 +295,7 @@ endif
      endif
  endfunction
  map <leader>n :call RenameFile()<cr>
- 
+
  nnoremap <F2> :set invpaste paste?<CR>
  set pastetoggle=<F2>
 

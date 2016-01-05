@@ -34,6 +34,7 @@ function mirrorfiles() {
     ln -fs ".dotfiles/vim"                "${HOME}/.vim"
     ln -fs ".dotfiles/vim/gvimrc"         "${HOME}/.gvimrc"
     ln -fs ".dotfiles/vim/vimrc"          "${HOME}/.vimrc"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     echo "Dotfiles update complete"
 }
