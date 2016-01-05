@@ -95,6 +95,7 @@ fi
 # and for mac os x
 if [ -f /usr/local/etc/bash_completion ] && ! shopt -oq posix; then
     . /usr/local/etc/bash_completion
+    complete -C aws_completer aws
 fi
 
 # Custom bash prompt
@@ -117,5 +118,5 @@ fi
 
 # helpful bash functions
 external_ip () {
-    curl http://remote-ip.herokuapp.com
+    curl http://ipecho.net/plain; echo
 }

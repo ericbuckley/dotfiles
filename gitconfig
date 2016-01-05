@@ -20,12 +20,16 @@
     package-head = !git archive --format=tar HEAD | gzip > HEAD.tgz
     harvest = !~/projects/scripts/harvest_git_time.py
 [branch]
-	autosetupmerge = true
+    autosetupmerge = true
 [push]
-	default = tracking
+    default = tracking
 [rerere]
-	enabled = true
+    enabled = true
 [merge]
-	stat = true
+    stat = true
 [github]
-	user = ericbuckley
+    user = ericbuckley
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
