@@ -8,7 +8,8 @@ set nocompatible
 
 " Load all Vim-Plug modules
 call plug#begin('~/.vim/plugged')
-Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-sensible'
+Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
@@ -27,18 +28,9 @@ Plug 'ervandew/supertab'
 Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 call plug#end()
 
-if has("autocmd")
-    " Load files for specific filetypes
-    filetype on
-    filetype indent on
-    filetype plugin on
-endif
-
 " Color Scheme {{{
 " }}}
 if has("syntax")
-    " Enable syntax highlighting
-    syntax enable
     " Set 16 color terminal support
     let g:solarized_termcolors = 16
     " Set colorscheme
@@ -60,7 +52,7 @@ if has("cmdline_info")
 endif
 
 
-if has('statusline')
+if has("statusline")
     let g:airline_powerline_fonts=1
     set ttimeoutlen=50
     set timeoutlen=1000
@@ -77,13 +69,9 @@ if has('statusline')
 "    set statusline+=%=(%{&ff}/%Y)
     " Right aligned file nav info
 "    set statusline+=\ (line\ %l\/%L,\ col\ %c)
-    " Set powerline symbols
-"    let g:Powerline_symbols = 'fancy'
 endif
 
 if has("wildmenu")
-    " Show a list of possible completions
-    set wildmenu
     " Tab autocomplete longest possible part of a string, then list
     set wildmode=longest,list
     if has ("wildignore")
@@ -98,8 +86,6 @@ endif
 if has("extra_search")
     " Highlight searches [use :noh to clear]
     set hlsearch
-    " Highlight dynamically as pattern is typed
-    set incsearch
     " Ignore case of searches...
     set ignorecase
     " ...unless has mixed case
@@ -113,12 +99,8 @@ if has("extra_search")
     set showmatch
 endif
 
-" Backspace through everything in INSERT mode
-set backspace=indent,eol,start
 " Optimize for fast terminal connections
 set ttyfast
-" Use UTF-8 without BOM
-set encoding=utf-8 nobomb
 
 " Use 4 spaces for indentation
 set shiftwidth=4
@@ -163,7 +145,6 @@ if exists("&undodir")
     set undodir=~/.vim/tmp/undo
 endif
 
-set autoindent
 set hidden
 set visualbell
 set undofile
@@ -181,7 +162,7 @@ nnoremap <Leader><Space> :noh<cr>
 " strip all trailing whitespace in the current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " ack shortcut
-nnoremap <Leader>a :Ack
+nnoremap <Leader>a :Ag
 " html fold tag
 nnoremap <leader>ft Vatzf
 " sort css propperties
@@ -230,6 +211,10 @@ let g:ctrlp_custom_ignore = { 'dir': '.*/CACHE/.*' }
 
 " Ack settings {{{
 let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-dir=**/CACHE"
+" }}}
+
+" AG settings {{{
+let g:ag_working_path_mode="r"
 " }}}
 
 " Gist settings {{{
