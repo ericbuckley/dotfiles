@@ -12,6 +12,7 @@ Plug 'tpope/vim-sensible'
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
 Plug 'walm/jshint.vim'
 Plug 'elzr/vim-json'
@@ -161,8 +162,6 @@ let mapleader = ","
 nnoremap <Leader><Space> :noh<cr>
 " strip all trailing whitespace in the current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-" ack shortcut
-nnoremap <Leader>a :Ag
 " html fold tag
 nnoremap <leader>ft Vatzf
 " sort css propperties
@@ -197,7 +196,7 @@ let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'passive_filetypes': ['htmldjango'] }
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = '--ignore="E231,E501,E127,E128,W601"'
-let g:syntastic_javascript_checkers = ['jshint', 'jsxhint',]
+let g:syntastic_javascript_checkers = ['jshint',]
 let g:syntastic_json_checkers = ['jsonlint']
 " }}}
 
@@ -209,12 +208,25 @@ let g:ctrlp_cache_dir = $HOME.'/.vim/tmp/.cache/ctrlp'
 let g:ctrlp_custom_ignore = { 'dir': '.*/CACHE/.*' }
 " }}}
 
-" Ack settings {{{
-let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-dir=**/CACHE"
+" Dash settings {{{
+let g:dash_map = {
+    \ 'python': ['python', 'django', 'sphinx', 'flask', 'drf']
+    \ }
+" dash shortcut
+nmap <silent> <leader>ds <Plug>DashSearch
 " }}}
 
 " AG settings {{{
 let g:ag_working_path_mode="r"
+" ag shortcut
+nnoremap <Leader>a :Ag
+" }}}
+
+" Dispatch settings {{{
+nnoremap <Leader>dt :Make test TESTS=%<CR>
+nnoremap <Leader>dat :Make test-all TESTS=%<CR>
+nnoremap <Leader>dT :Make test<CR>
+nnoremap <Leader>daT :Make test-all<CR>
 " }}}
 
 " Gist settings {{{
