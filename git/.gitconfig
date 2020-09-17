@@ -1,0 +1,53 @@
+[user]
+    name = Eric Buckley
+    email = eric.buckley@gmail.com
+    signingkey = AE3B7D7E4A847F8B338D1E5B5AB10D20471A34E0
+[color]
+    ui = auto
+[core]
+    editor = vim
+    pager = delta
+[alias]
+    pushm = push origin master
+    pullm = pull origin master
+    c = commit
+    cm = commit -m
+    cma = commit -a -m
+    ca = commit --amend
+    caa = commit -a --amend -C HEAD
+    s = status
+    d = diff
+    a = add
+    logp = log --pretty=format:'%C(red)%h%C(reset) - %C(yellow)%an%C(reset), %C(white)%ar%C(reset) : %s\n'
+    package-head = !git archive --format=tar HEAD | gzip > HEAD.tgz
+[branch]
+    autosetupmerge = true
+[push]
+    default = tracking
+[rerere]
+    enabled = true
+[merge]
+    stat = true
+[github]
+    user = ericbuckley
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    required = true
+    process = git-lfs filter-process
+[commit]
+    gpgsign = true
+[tag]
+    forceSignAnnotated = true
+[pager]
+    branch = false
+[gpg]
+    program = /usr/local/MacGPG2/bin/gpg2
+[credential]
+    helper = osxkeychain
+[pull]
+    rebase = false
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    syntax-theme = Solarized (dark)
