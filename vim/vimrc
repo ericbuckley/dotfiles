@@ -1,79 +1,76 @@
 " .vimrc
 
-" !silent is used to suppress error messages if the config line
-" references plugins/colorschemes that might be missing
-
-" Disable Vi compatibility
-set nocompatible
-
 " Load all Vim-Plug modules
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
-Plug 'rking/ag.vim'
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'
-Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
-Plug 'walm/jshint.vim'
-Plug 'elzr/vim-json'
-Plug 'scrooloose/nerdcommenter'
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-repeat'
+
+" visuals
 Plug 'altercation/vim-colors-solarized'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/syntastic'
-Plug 'rizzatti/dash.vim'
-Plug 'easymotion/vim-easymotion'
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'maximbaz/lightline-ale'
+
+" navigating
+Plug 'liuchengxu/vim-clap'
+Plug 'christoomey/vim-tmux-navigator'
+
+" editing
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+endif
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'ervandew/supertab'
-Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
+Plug 'scrooloose/nerdcommenter'
+Plug 'roxma/vim-paste-easy'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-eunuch'
+
+" building
+Plug 'w0rp/ale'
+Plug 'tpope/vim-dispatch'
+
+" github
+Plug 'tpope/vim-fugitive'
+Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
 call plug#end()
 
-" Color Scheme {{{
-" }}}
-if has("syntax")
-    " Set 16 color terminal support
-    let g:solarized_termcolors = 16
-    " Set colorscheme
-    silent! colorscheme solarized
-    if $ITERM_PROFILE == 'light'
-        set bg=light
-    else
-        set bg=dark
-    endif
+" editing defaults
+set nowrap " stop word wrapping
+autocmd FileType markdown setlocal wrap " except on markdown
+set clipboard=unnamed " use system clipboard
+set number relativenumber " enable number gutter with relative line numbers
+set list listchars=tab:▸\ ,eol:¬ " set 'invisible' characters
+set spell spelllang=en_us " enable spell check
+let mapleader="\<SPACE>" " leader key
+
+" tab widths
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab " default is 4
+autocmd FileType javascript*,yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
+
+" shortcuts
+" return to last opened file
+nmap <Leader><Leader> <c-^>
+" tab to next buffer
+nnoremap <Tab> :bnext!<CR>
+" shift tab to previous buffer
+nnoremap <S-Tab> :bprev!<CR>
+nnoremap <Leader>ev :e ~/.vim/vimrc<CR>
+nnoremap <Leader>sv :source ~/.vim/vimrc<CR>
+nnoremap <Leader>env :e $MYVIMRC<CR>
+nnoremap <Leader>snv :source $MYVIMRC<CR>
+" remove highlighting
+nnoremap <Leader>nh :noh<CR>
+
+" centralize backups, swapfiles and undo history
+set backupdir=~/.vim/tmp/backup
+set directory=~/.vim/tmp/swap
+if exists("&undodir")
+    set undodir=~/.vim/tmp/undo
 endif
 
-if has("cmdline_info")
-    " Show the cursor line and column number
-    set ruler
-    " Show partial commands in status line
-    set showcmd
-    " Show whether in insert or replace mode
-    set showmode
-endif
-
-
-if has("statusline")
-    let g:airline_powerline_fonts=1
-    set ttimeoutlen=50
-    set timeoutlen=1000
-    " Always show status line
-    set laststatus=2
-    " Broken down into easily includeable segments
-    " Filename
-"    set statusline=%F%m%r%h%w
-    " Syntastic warning messages
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    " Filetypes
-"    set statusline+=%=(%{&ff}/%Y)
-    " Right aligned file nav info
-"    set statusline+=\ (line\ %l\/%L,\ col\ %c)
-endif
-
+" ignore some files and directores
 if has("wildmenu")
-    " Tab autocomplete longest possible part of a string, then list
     set wildmode=longest,list
     if has ("wildignore")
         set wildignore+=.hg,.git,.svn
@@ -84,223 +81,61 @@ if has("wildmenu")
     endif
 endif
 
-if has("extra_search")
-    " Highlight searches [use :noh to clear]
-    set hlsearch
-    " Ignore case of searches...
-    set ignorecase
-    " ...unless has mixed case
-    set smartcase
-    " Default to very magic pattern switch
-    nnoremap / /\v
-    vnoremap / /\v
-    " Default to global replace
-    set gdefault
-    " Show match while typing
-    set showmatch
-endif
+" colorscheme
+colorscheme gruvbox
+set background=dark
+if $ITERM_PROFILE =~ '*light' | set background=light | endif
+if has('nvim') | set termguicolors | endif
 
-" Optimize for fast terminal connections
-set ttyfast
+" vim-lightline
+let g:lightline = {}
+let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.component_expand = {
+  \  'linter_checking': 'lightline#ale#checking',
+  \  'linter_infos': 'lightline#ale#infos',
+  \  'linter_warnings': 'lightline#ale#warnings',
+  \  'linter_errors': 'lightline#ale#errors',
+  \  'linter_ok': 'lightline#ale#ok',
+  \ }
+let g:lightline.component_type = {
+  \     'linter_checking': 'right',
+  \     'linter_infos': 'right',
+  \     'linter_warnings': 'warning',
+  \     'linter_errors': 'error',
+  \     'linter_ok': 'right',
+  \ }
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ]] }
 
-" Use 4 spaces for indentation
-set shiftwidth=4
-" Use 4 spaces for soft tab
-set softtabstop=4
-" Use 4 spaces for tab
-set tabstop=4
-" Expand tab to spaces
-set expandtab
-" Enable relative line numbers
-set relativenumber
-" Enable the current line number to not be relative
-set number
-" Highlight current line
-set cursorline
-" Start scrolling three lines before the horizontal window border
-set scrolloff=3
-" Don’t reset cursor to start of line when moving around.
-set nostartofline
+" clap
+nnoremap <c-p> :Clap files<CR>
+nnoremap <Leader>fp :Clap grep<CR>
+nnoremap <Leader>ff :Clap files ++finder=rg --files ~<CR>
+nnoremap <Leader>fd :Clap files ++finder=rg --files --hidden ~<CR>
+let g:clap_open_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
-" Show 'invisible' characters
-set list
-" Set characters used to indicate 'invisible' characters
-set listchars=tab:▸\
-set listchars+=eol:¬
-"Invisible character colors
-highlight NonText guifg=#4a4a59
-highlight SpecialKey guifg=#4a4a59
-" Set the Cursor Shape
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+" deoplete
+let g:deoplete#enable_at_startup = 1
+" tab complete
+"inoremap <expr><tab> pumvisible() ? "\<c-p>" : "\<tab>" "
 
-" Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/tmp/backup
-set directory=~/.vim/tmp/swap
-if exists("&undodir")
-    set undodir=~/.vim/tmp/undo
-endif
+" ultisnips
+let g:UltiSnipsExpandTrigger="<C-j>"
 
-set hidden
-set visualbell
-set undofile
-set spelllang=en_us
-
-" Whitespace stuff
-set wrap
-set textwidth=85
-set formatoptions=qrn1
-
-" Custom leader button
-let mapleader = ","
-" Shortcut to clear highlighted matches
-nnoremap <Leader><Space> :noh<cr>
-" strip all trailing whitespace in the current file
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-" html fold tag
-nnoremap <leader>ft Vatzf
-" sort css propperties
-nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-" reselect text that was just pasted
-nnoremap <leader>v V`]
-" open .vimrc file in vertical split
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-" spell check
-noremap <leader>s :set spell!<CR>
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-imap <c-c> <esc>
-" Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-" Resize splits when the window is resized
-au VimResized * exe "normal! \<c-w>="
-
-"
-" Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-" }}}
-
-" Syntastic settings {{{
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': ['python', 'django', 'javascript', 'css', 'go'],
-                           \ 'passive_filetypes': ['htmldjango'] }
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args = '--ignore="E231,E501,E127,E128,W601"'
-let g:syntastic_javascript_checkers = ['jshint',]
-let g:syntastic_json_checkers = ['jsonlint']
-" }}}
-
-" CtrlP settings {{{
-let g:ctrlp_working_path_mode = 2
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_cache_dir = $HOME.'/.vim/tmp/.cache/ctrlp'
-let g:ctrlp_custom_ignore = { 'dir': '.*/CACHE/.*' }
-" }}}
-
-" Dash settings {{{
-let g:dash_map = {
-    \ 'python': ['python', 'django', 'sphinx', 'flask', 'drf']
+" ale
+let g:ale_completion_enabled = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {
+    \ 'python': ['pylint', 'flake8'],
+    \ 'javascript': ['eslint'],
+    \ 'ruby': ['rubocop'],
     \ }
-" dash shortcut
-nmap <silent> <leader>ds <Plug>DashSearch
-" }}}
 
-" AG settings {{{
-let g:ag_working_path_mode="r"
-" ag shortcut
-nnoremap <Leader>a :Ag
-" }}}
-
-" Dispatch settings {{{
-nnoremap <Leader>dt :Make test TESTS=%<CR>
-nnoremap <Leader>dat :Make test-all TESTS=%<CR>
-nnoremap <Leader>dT :Make test<CR>
-nnoremap <Leader>daT :Make test-all<CR>
-" }}}
-
-" Gist settings {{{
+" gist
 let g:gist_post_private = 1
-" }}}
+let g:gist_clip_command = 'pbcopy'
 
-" Pydoc settings {{{
-let g:pydoc_cmd = '/usr/bin/env python -m pydoc'
-" }}}
-
-" CTags {{{
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-map <F8> :!/usr/bin/env ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-"}}}
-
-" Django {{{
-au BufNewFile,BufRead admin.py     setlocal filetype=python.django
-au BufNewFile,BufRead urls.py      setlocal filetype=python.django
-au BufNewFile,BufRead models.py    setlocal filetype=python.django
-au BufNewFile,BufRead views.py     setlocal filetype=python.django
-au BufNewFile,BufRead forms.py     setlocal filetype=python.django
-" }}}
-
-" HTML and HTMLDjango {{{
-au BufNewFile,BufRead *.html setlocal filetype=htmldjango.html
-au FileType html,jinja,htmldjango setlocal foldmethod=manual
-
-" Use <leader>f to fold the current tag.
-au FileType html,jinja,htmldjango nnoremap <buffer> <leader>f Vatzf
-"" }}}
-
-" Remember last location in file
-if has("autocmd")
-    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-        \| exe "normal g'\"" | endif
-    filetype on
-
-    " Syntax of these languages is fussy over tabs Vs spaces
-    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-    " The following line sets the smartindent mode for *.py files.
-    " It means that after typing lines which start with any of the
-    " keywords in the list (ie. def, class, if, etc) the next line
-    " will automatically indent itself to the next level of indentation:
-    autocmd BufRead *.py set nosmartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-
-    " Many people like to remove any extra whitespace from the
-    " ends of lines. Here is one way to do it when saving your file.
-    autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- function! RenameFile()
-     let old_name = expand('%')
-     let new_name = input('New file name: ', expand('%'), 'file')
-     if new_name != '' && new_name != old_name
-         exec ':saveas ' . new_name
-         exec ':silent !rm ' . old_name
-         redraw!
-     endif
- endfunction
- map <leader>n :call RenameFile()<cr>
-
- nnoremap <F2> :set invpaste paste?<CR>
- set pastetoggle=<F2>
-
-" Source a local configuration file if available.
-if filereadable(expand("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
-
-" Markdown preview
-imap <leader>p <ESC>:w!<CR>:!markdown % > %.html && open %.html<CR>
-map <leader>p <ESC>:w!<CR>:!markdown % > %.html && open %.html<CR>
+set exrc
+set secure
