@@ -1,0 +1,6 @@
+alias vi='/usr/local/bin/vi'
+alias vim='/usr/local/bin/nvim'
+
+alias proj='cd $HOME/projects'
+
+alias dsva-proxy='ssh-add -K ~/.ssh/id_rsa_vetsgov && ssh socks -D 2001 -N'
