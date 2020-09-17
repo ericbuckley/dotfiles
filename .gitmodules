@@ -1,3 +1,0 @@
-[submodule "scripts/hub"]
-	path = scripts/hub
-	url = git://github.com/defunkt/hub.git
