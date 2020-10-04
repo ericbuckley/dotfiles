@@ -45,7 +45,7 @@ let mapleader="\<SPACE>" " leader key
 
 " tab widths
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab " default is 4
-autocmd FileType javascript*,yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType javascript*,json,yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
 
 " shortcuts
@@ -98,19 +98,33 @@ let g:lightline.component_expand = {
   \  'linter_ok': 'lightline#ale#ok',
   \ }
 let g:lightline.component_type = {
-  \     'linter_checking': 'right',
-  \     'linter_infos': 'right',
-  \     'linter_warnings': 'warning',
-  \     'linter_errors': 'error',
-  \     'linter_ok': 'right',
+  \  'linter_checking': 'right',
+  \  'linter_infos': 'right',
+  \  'linter_warnings': 'warning',
+  \  'linter_errors': 'error',
+  \  'linter_ok': 'right',
   \ }
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ]] }
+let g:lightline.active = { 
+  \  'left': [
+    \  ['mode', 'paste'],
+    \  ['readonly', 'relativepath', 'modified']
+    \ ],
+  \  'right': [
+    \  [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+    \  [ ],
+    \  [ 'lineinfo', 'filetype', ],
+    \ ]
+  \ }
+let g:lightline.inactive = { 
+  \  'left': [[ 'relativepath', ]],
+  \  'right': [[ 'percent', ]],
+  \ }
 
 " clap
-nnoremap <c-p> :Clap files<CR>
+nnoremap <c-p> :Clap files ++finder=rg --files --no-ignore-vcs<CR>
 nnoremap <Leader>fp :Clap grep<CR>
-nnoremap <Leader>ff :Clap files ++finder=rg --files ~<CR>
-nnoremap <Leader>fd :Clap files ++finder=rg --files --hidden ~<CR>
+nnoremap <Leader>ff :Clap files ++finder=rg --files $HOME<CR>
+nnoremap <Leader>fd :Clap files ++finder=rg --files --hidden $HOME<CR>
 let g:clap_open_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
@@ -132,6 +146,9 @@ let g:ale_linters = {
     \ 'javascript': ['eslint'],
     \ 'ruby': ['rubocop'],
     \ }
+" map keys to use wrapping.
+"nmap <silent> <C-p> <Plug>(ale_previous_wrap)
+"nmap <silent> <C-n> <Plug>(ale_next_wrap)
 
 " gist
 let g:gist_post_private = 1
