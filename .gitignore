@@ -1,7 +1,1 @@
-*.pyc
-*.swp
 .DS_Store
-vim/.netrwhist
-vim/tmp/**/*
-vim/plugged
-vim/autoload
