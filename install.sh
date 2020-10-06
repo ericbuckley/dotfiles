@@ -1,47 +1,30 @@
-#!/bin/bash
+#!/bin/sh
 
-cd "${HOME}/.dotfiles"
+set -e
 
-# Pull down the latest changes
-# git pull origin master
+dotfilesDir=$(pwd)
 
-# Check out submodules
-git submodule --quiet update --init
+function linkDotfile {
+    # $1: parent directory
+    # $2: dotfile to link
+    dest="${HOME}/${2}"
+    dateStr=$(date +%Y-%m-%d-%H%M)
 
-cd "${OLDPWD}"
-
-function mirrorfiles() {
-    # Copy .gitconfig
-    # Any global git commands in ~/.extra will be written to .gitconfig
-    # This prevents them being committed to the repository
-    rsync -avz --quiet ${HOME}/.dotfiles/gitconfig  ${HOME}/.gitconfig
-
-    # Symlink everything else
-    # bash_profile sources other files from the repository
-    # Force remove the vim directory if it is already there
-    if [ -e "${HOME}/.vim" ]; then
-        rm -rf "${HOME}/.vim"
+    if [ -f "${dest}" ]; then
+        # Existing file
+        echo "File already exists: ${dest}"
+    else
+        echo "Creating new symlink: ${dest}"
+	mkdir -p $(dirname ${dest})
+        ln -s ${1}/${2} ${dest}
     fi
-    ln -fs ".dotfiles/ackrc"              "${HOME}/.ackrc"
-    ln -fs ".dotfiles/bashrc"             "${HOME}/.bashrc"
-    ln -fs ".dotfiles/bin"                "${HOME}/.bin"
-    ln -fs ".dotfiles/gitconfig"          "${HOME}/.gitconfig"
-    ln -fs ".dotfiles/hgrc"               "${HOME}/.hgrc"
-    ln -fs ".dotfiles/jshintrc"           "${HOME}/.jshintrc"
-    ln -fs ".dotfiles/pdbrc"              "${HOME}/.pdbrc"
-    ln -fs ".dotfiles/pythonrc.py"        "${HOME}/.pythonrc.py"
-    ln -fs ".dotfiles/tmux.conf"          "${HOME}/.tmux.conf"
-    ln -fs ".dotfiles/vim"                "${HOME}/.vim"
-    ln -fs ".dotfiles/vim/gvimrc"         "${HOME}/.gvimrc"
-    ln -fs ".dotfiles/vim/vimrc"          "${HOME}/.vimrc"
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-    echo "Dotfiles update complete"
 }
 
-read -p "This will overwrite some existing files in your home directory. Are you sure? (y/n) " -n 1
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    mirrorfiles
-    source ~/.bashrc
-fi
+for GROUP in *; do
+    if [ -d "${GROUP}" ]; then
+        for FILE in `find ${GROUP} -type f -exec realpath --relative-to ${GROUP} {} \;`
+        do
+            linkDotfile "${PWD}/${GROUP}" "${FILE}"
+        done
+    fi
+done
