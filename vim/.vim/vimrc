@@ -121,7 +121,7 @@ let g:lightline.inactive = {
   \ }
 
 " clap
-nnoremap <c-p> :Clap files ++finder=rg --files --no-ignore-vcs<CR>
+nnoremap <c-p> :Clap files ++finder=rg --files --hidden --glob=!.git/<CR>
 nnoremap <Leader>fp :Clap grep<CR>
 nnoremap <Leader>ff :Clap files ++finder=rg --files $HOME<CR>
 nnoremap <Leader>fd :Clap files ++finder=rg --files --hidden $HOME<CR>
