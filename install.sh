@@ -15,8 +15,11 @@ function linkDotfile {
     dateStr=$(date +%Y-%m-%d-%H%M)
 
     if [ -f "${dest}" ]; then
-        # Existing file
-        echo "File already exists: ${dest}"
+        read -p "Replace ${dest}? [Y/n]: "  replace
+        if [ $replace = "Y" ]; then
+            echo "Replacing symlink: ${dest}"
+            rm ${dest} && ln -s ${1}/${2} ${dest}
+        fi
     else
         echo "Creating new symlink: ${dest}"
 	mkdir -p $(dirname ${dest})
