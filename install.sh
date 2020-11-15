@@ -1,5 +1,9 @@
 #!/bin/sh
 
+
+# TODO:
+# - download zsh-nvm
+
 set -e
 
 dotfilesDir=$(pwd)
@@ -24,7 +28,11 @@ for GROUP in *; do
     if [ -d "${GROUP}" ]; then
         for FILE in `find ${GROUP} -type f -exec realpath --relative-to ${GROUP} {} \;`
         do
-            linkDotfile "${PWD}/${GROUP}" "${FILE}"
+            if [ "${FILE}" = "init.script" ]; then
+                "${PWD}/$GROUP/${FILE}"
+            else
+                linkDotfile "${PWD}/${GROUP}" "${FILE}"
+            fi
         done
     fi
 done
