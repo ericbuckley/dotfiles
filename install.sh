@@ -2,7 +2,7 @@
 
 
 # TODO:
-# - optionally configure gempath
+# - test if homebrew is installed before setting PATHs in .zshrc
 
 set -e
 
