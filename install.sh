@@ -18,7 +18,7 @@ function linkDotfile {
         read -p "Replace ${dest}? [Y/n]: "  replace
         if [ $replace = "Y" ]; then
             echo "Replacing symlink: ${dest}"
-            rm ${dest} && ln -s ${1}/${2} ${dest}
+            ln -f -s ${1}/${2} ${dest}
         fi
     else
         echo "Creating new symlink: ${dest}"
