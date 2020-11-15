@@ -4,6 +4,21 @@ My dotfiles.
 
 ## Getting started
 
+### Prerequisites (optional)
+#### required
+* git
+
+#### optional
+* awscli
+* neovim
+* python3
+* tmux
+* vim
+* zsh
+* ripgrep
+* powerline font
+
+
 ### Installation
 
 The following script will symlink **most** of the files underneath the top level
