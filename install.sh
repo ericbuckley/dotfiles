@@ -24,15 +24,16 @@ function linkDotfile {
     fi
 }
 
+for FILE in `find . -type f -name 'init.script'`
+do
+    "${PWD}/${FILE}"
+done
+
 for GROUP in *; do
     if [ -d "${GROUP}" ]; then
-        for FILE in `find ${GROUP} -type f -exec realpath --relative-to ${GROUP} {} \;`
+        for FILE in `find ${GROUP} ! -name 'init.script' -type f -exec realpath --relative-to ${GROUP} {} \;`
         do
-            if [ "${FILE}" = "init.script" ]; then
-                "${PWD}/$GROUP/${FILE}"
-            else
-                linkDotfile "${PWD}/${GROUP}" "${FILE}"
-            fi
+            linkDotfile "${PWD}/${GROUP}" "${FILE}"
         done
     fi
 done
