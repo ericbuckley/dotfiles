@@ -1,5 +1,4 @@
-alias vi='/usr/local/bin/vi'
-alias vim='/usr/local/bin/nvim'
+alias vim='nvim'
 
 alias proj='cd $HOME/projects'
 
