@@ -4,10 +4,6 @@ My dotfiles.
 
 ## Getting started
 
-### Prerequisites
-
-* ???
-
 ### Installation
 
 The following script will symlink **most** of the files underneath the top level
