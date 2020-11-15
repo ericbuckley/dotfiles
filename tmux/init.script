@@ -1,3 +1,5 @@
 #!/bin/sh
 
-git clone --depth=1 https://github.com/tmux-plugins/tmp $HOME/.tmux/plugins/tpm
+
+[ -d ~/.tmux/plugins/tpm ] && rm -rf ~/.tmux/plugins/tpm
+git clone --depth=1 git@github.com:tmux-plugins/tpm.git ~/.tmux/plugins/tpm
