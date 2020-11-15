@@ -143,7 +143,6 @@ fi
 export GPG_TTY=$(tty)
 # colors
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
-export HOMEBREW_GITHUB_API_TOKEN=0b9ac62129f664fa16d89bee9b3ba3ee845bc7d0
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
