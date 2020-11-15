@@ -1,4 +1,11 @@
 #!/bin/sh
 
-# install oh my zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# only install/init oh-my-zsh if the directory doesn't already exist
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    # install oh my zsh
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    # install zsh-nvm plugin
+    git clone https://github.com/lukechilds/zsh-nvm $HOME/.oh-my-zsh/custom/plugins/zsh-nvm
+    # remove the default .zshrc created by oh-my-zsh
+    rm "${HOME}/.zshrc"
+fi

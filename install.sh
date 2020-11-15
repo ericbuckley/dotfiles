@@ -2,7 +2,7 @@
 
 
 # TODO:
-# - download zsh-nvm
+# - optionally configure gempath
 
 set -e
 
