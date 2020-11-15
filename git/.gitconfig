@@ -51,3 +51,4 @@
     diffFilter = delta --color-only
 [delta]
     syntax-theme = Solarized (dark)
+    keep-plus-minus-markers = true
