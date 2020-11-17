@@ -116,6 +116,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH="/usr/local/opt/qt/bin:$PATH"
 # configure python path
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # configure ruby path
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 # configure ruby gem path
