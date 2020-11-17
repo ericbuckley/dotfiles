@@ -3,6 +3,7 @@
 
 # TODO:
 # - test if homebrew is installed before setting PATHs in .zshrc
+# - only attempt to replace symlink if the link is NOT already a symlink
 
 set -euo pipefail
 
