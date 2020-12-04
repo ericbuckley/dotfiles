@@ -16,6 +16,7 @@ My dotfiles.
 * vim
 * zsh
 * ripgrep
+* virtualenvwrapper
 * powerline font
 
 
