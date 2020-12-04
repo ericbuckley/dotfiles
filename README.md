@@ -31,3 +31,16 @@ as a shell script rather than symlinked.
 ```
 ./install.sh
 ```
+
+### Post Installation
+
+After opening [n]vim and install the plugins
+  ```
+  vim
+  :PlugInstall
+  ```
+Open a new tmux session and install the tpm plugins
+  ```
+  ts test
+  <ctrl-a> I
+  ```
