@@ -4,6 +4,16 @@ function ah () {
     git s
 }
 
+function ahh () {
+    NUM=$(basename -s .zip $1)
+    DIR=$HOME/Downloads/homework/$NUM
+    mkdir -p $DIR
+    mv $1 $DIR
+    unzip $DIR/${NUM}.zip -d $DIR/
+    cd $DIR
+    tmux attach -t $1 || tmux new-session -s homework -c $DIR
+}
+
 function wwd () {
     cd $HOME/projects/wwd/code/wwd
     tmux attach -t wwd || tmux new-session -s wwd
