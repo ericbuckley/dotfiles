@@ -3,8 +3,11 @@
 
 # TODO:
 # - test if homebrew is installed before setting PATHs in .zshrc
+# - only attempt to replace symlink if the link is NOT already a symlink
 
-set -e
+set -euo pipefail
+
+cd "$(dirname "$0")"
 
 dotfilesDir=$(pwd)
 
@@ -22,16 +25,17 @@ function linkDotfile {
         fi
     else
         echo "Creating new symlink: ${dest}"
-	mkdir -p $(dirname ${dest})
+        mkdir -p $(dirname ${dest})
         ln -s ${1}/${2} ${dest}
     fi
 }
 
-for FILE in `find . -type f -name 'init.script'`
-do
+# execute all init.script files
+for FILE in `find . -type f -name 'init.script'`; do
     "${PWD}/${FILE}"
 done
 
+# create all symlinks
 for GROUP in *; do
     if [ -d "${GROUP}" ]; then
         for FILE in `find ${GROUP} ! -name 'init.script' -type f -exec realpath --relative-to ${GROUP} {} \;`
