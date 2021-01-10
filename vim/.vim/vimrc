@@ -26,11 +26,14 @@ Plug 'roxma/vim-paste-easy'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
 
+" languages
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " building
 Plug 'w0rp/ale'
 Plug 'tpope/vim-dispatch'
 
-" github
+" git/github
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
 call plug#end()
