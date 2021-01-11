@@ -112,17 +112,21 @@ source $ZSH/oh-my-zsh.sh
 # zsh completion
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+export PATH="$HOME/.local/bin:$PATH"
 # configure QT path
 export PATH="/usr/local/opt/qt/bin:$PATH"
 # configure python path
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 # configure ruby path
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-# configure ruby gem path
-export PATH="$(gem environment gemdir)/bin:$PATH"
-# configure coreutils path
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+if type "gem" > /dev/null; then
+    # configure ruby gem path
+    export PATH="$(gem environment gemdir)/bin:$PATH"
+fi
+if [ -d "/usr/local/opt/coreutils" ]; then
+    # configure coreutils path on mac
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+fi
 
 # set default shell
 export SHELL=`which zsh`
