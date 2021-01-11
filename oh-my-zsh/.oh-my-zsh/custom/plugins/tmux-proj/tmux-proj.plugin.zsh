@@ -11,7 +11,7 @@ function ahh () {
     mv $1 $DIR
     unzip $DIR/${NUM}.zip -d $DIR/
     cd $DIR
-    tmux attach -t $1 || tmux new-session -s homework -c $DIR
+    tmux attach -t homework -c $DIR || tmux new-session -s homework -c $DIR
 }
 
 function wwd () {

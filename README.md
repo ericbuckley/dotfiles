@@ -9,6 +9,7 @@ My dotfiles.
 * git
 
 #### optional
+* coreutils
 * awscli
 * neovim
 * python3
