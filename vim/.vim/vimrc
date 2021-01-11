@@ -5,7 +5,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 
 " visuals
-Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
@@ -84,9 +83,14 @@ endif
 
 " colorscheme
 colorscheme gruvbox
+"colorscheme Base2Tone_MeadowDark
 set background=dark
 if $ITERM_PROFILE =~ '*light' | set background=light | endif
-if has('nvim') | set termguicolors | endif
+if has('nvim')
+    set termguicolors
+    " https://github.com/neovim/neovim/wiki/FAQ
+    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+endif
 
 " vim-lightline
 let g:lightline = {}
