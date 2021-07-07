@@ -106,6 +106,7 @@ plugins=(
     tmux-proj
     zsh-nvm
     common-aliases
+    golang
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -123,8 +124,16 @@ if type "gem" > /dev/null; then
     # configure ruby gem path
     export PATH="$(gem environment gemdir)/bin:$PATH"
 fi
+# configure gopath
+export GOPATH="$HOME/.go"
+# configure goroot on mac
+if [ -d "/usr/local/opt/go" ]; then
+    export GOROOT="$(brew --prefix golang)/libexec"
+fi
+# configure golang bin path
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+# configure coreutils path on mac
 if [ -d "/usr/local/opt/coreutils" ]; then
-    # configure coreutils path on mac
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
