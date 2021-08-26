@@ -107,6 +107,7 @@ plugins=(
     zsh-nvm
     common-aliases
     golang
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
