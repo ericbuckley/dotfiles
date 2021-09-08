@@ -32,6 +32,7 @@ function linkDotfile {
 
 # execute all init.script files
 for FILE in `find . -type f -name 'init.script'`; do
+    echo "INITIALIZING: ${PWD}/${FILE}..."
     "${PWD}/${FILE}"
 done
 
