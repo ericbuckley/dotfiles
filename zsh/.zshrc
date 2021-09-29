@@ -108,6 +108,7 @@ plugins=(
     common-aliases
     golang
     zsh-syntax-highlighting
+    taskfile
 )
 
 source $ZSH/oh-my-zsh.sh
