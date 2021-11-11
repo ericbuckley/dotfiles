@@ -134,6 +134,8 @@ if [ -d "/usr/local/opt/go" ]; then
 fi
 # configure golang bin path
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+# configure Java bin path
+export PATH="$JAVA_HOME/bin:$PATH"
 # configure coreutils path on mac
 if [ -d "/usr/local/opt/coreutils" ]; then
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
