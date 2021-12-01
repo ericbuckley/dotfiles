@@ -26,7 +26,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
 
 " languages
-if has('nvim')
+if has('nvim-0.5')
     Plug 'neovim/nvim-lspconfig'
 endif
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -174,16 +174,16 @@ let g:ale_linters = {
 let g:gist_post_private = 1
 let g:gist_clip_command = 'pbcopy'
 
-" nvim-lspconfig
-if has ('nvim')
-    let g:LanguageClient_serverCommands = {
-       \ 'go': ['gopls']
-       \ }
-endif
-
 " vim-go
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+
+
+" nvim-lspconfig
+if has ('nvim-0.5')
+    let g:LanguageClient_serverCommands = {
+       \ 'go': ['gopls']
+       \ }
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -233,6 +233,8 @@ for _, lsp in ipairs(servers) do
   }
 end
 EOF
+
+endif
 
 set exrc
 set secure
