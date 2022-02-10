@@ -13,6 +13,10 @@ My dotfiles.
 * awscli
 * neovim
 * python3
+* python-lsp-server
+* python-lsp-black
+* go
+* gopls
 * tmux
 * vim
 * zsh
