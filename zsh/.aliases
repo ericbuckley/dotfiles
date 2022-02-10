@@ -3,3 +3,7 @@ alias vim='nvim'
 alias proj='cd $HOME/projects'
 
 alias dsva-proxy='ssh-add -K ~/.ssh/id_rsa_vetsgov && ssh socks -D 2001 -N'
+
+alias urlencode='python3 -c "import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))"'
+
+alias urldecode='python3 -c "import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))"'
