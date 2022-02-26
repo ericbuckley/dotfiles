@@ -148,11 +148,14 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 let g:ale_completion_enabled = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-    \ 'python': ['pylint', 'flake8'],
+    \ 'python': ['flake8', 'pylint'],
     \ 'javascript': ['eslint'],
     \ 'ruby': ['rubocop'],
     \ 'go': ['gopls'],
     \ 'java': ['javac'],
+    \ }
+let g:ale_fixers = {
+    \ 'python': ['black']
     \ }
 " map keys to use wrapping.
 "nmap <silent> <C-p> <Plug>(ale_previous_wrap)
