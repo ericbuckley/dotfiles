@@ -1,5 +1,5 @@
 function ah () {
-    cd $HOME/projects/adhoc/code/$1
+    cd $HOME/repos/$1
     tmux new-session -A -s $1 -c $PWD
     git s
 }
