@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 
 # TODO:
@@ -17,7 +17,7 @@ function linkDotfile {
     dest="${HOME}/${2}"
     dateStr=$(date +%Y-%m-%d-%H%M)
 
-    if [ -f "${dest}" ]; then
+    if [ -f "${dest}" ] || [ -L "${dest}" ]; then
         read -p "Replace ${dest}? [Y/n]: "  replace
         if [ $replace = "Y" ]; then
             echo "Replacing symlink: ${dest}"
