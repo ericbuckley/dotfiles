@@ -19,6 +19,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdcommenter'
 Plug 'roxma/vim-paste-easy'
 Plug 'tpope/vim-surround'
+Plug 'danro/rename.vim'
 
 " languages
 if has('nvim-0.5')
@@ -148,7 +149,7 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 let g:ale_completion_enabled = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-    \ 'python': ['flake8', 'pylint'],
+    \ 'python': ['pylint', 'flake8'],
     \ 'javascript': ['eslint'],
     \ 'ruby': ['rubocop'],
     \ 'go': ['gopls'],
