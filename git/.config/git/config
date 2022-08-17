@@ -26,18 +26,21 @@
     enabled = true
 [merge]
     stat = true
-[github]
-    user = ericbuckley
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     required = true
     process = git-lfs filter-process
-[commit]
-    gpgsign = false
 [tag]
     forceSignAnnotated = false
 [pager]
     branch = false
 [pull]
     rebase = false
+
+[include]
+  path = config.personal
+[includeIf "hasconfig:remote.*.url:https://github.com/adhocteam/**"]
+	path = config.adhoc
+[includeIf "hasconfig:remote.*.url:https://github.com/CMSgov/**"]
+	path = config.adhoc
