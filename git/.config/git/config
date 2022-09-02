@@ -40,7 +40,5 @@
 
 [include]
     path = config.personal
-[includeIf "hasconfig:remote.*.url:https://github.com/adhocteam/**"]
-    path = config.adhoc
-[includeIf "hasconfig:remote.*.url:https://github.com/CMSgov/**"]
+[includeIf "gitdir:/Users/buckley/repos/"]
     path = config.adhoc
