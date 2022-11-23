@@ -42,3 +42,5 @@
     path = config.personal
 [includeIf "gitdir:/Users/buckley/repos/"]
     path = config.adhoc
+[includeIf "gitdir:/Users/buckley/repos/loc/"]
+    path = config.loc
