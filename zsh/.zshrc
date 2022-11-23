@@ -80,6 +80,10 @@ DISABLE_AUTO_TITLE="true"
 #stty start undef
 stty start '^-' stop '^-'
 
+# keybinding
+bindkey "^[b" backward-word
+bindkey "^[f" forward-word
+
 # virtualenv
 export WORKON_HOME=$HOME/.venvs
 export VIRTUALENVWRAPPER_PYTHON=`which python3`
@@ -99,16 +103,10 @@ plugins=(
     virtualenvwrapper
     docker
     docker-compose
-    github
-    iterm2
     tmux
     aws
-    doctl
     tmux-proj
-    zsh-nvm
     common-aliases
-    golang
-    zsh-syntax-highlighting
     taskfile
 )
 
@@ -121,29 +119,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/opt/qt/bin:$PATH"
 # configure python path
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-# configure ruby path
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-if type "gem" > /dev/null; then
-    # configure ruby gem path
-    export PATH="$(gem environment gemdir)/bin:$PATH"
-fi
-# configure gopath
-export GOPATH="$HOME/.go"
-# configure goroot on mac
-if [ -d "/usr/local/opt/go" ]; then
-    export GOROOT="$(brew --prefix golang)/libexec"
-fi
-# configure golang bin path
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-# configure Java bin path
-export PATH="$JAVA_HOME/bin:$PATH"
 # configure coreutils path on mac
 if [ -d "/usr/local/opt/coreutils" ]; then
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
-
-# set default shell
-export SHELL=`which zsh`
 
 # User configuration
 export DEFAULT_USER='buckley'
@@ -166,6 +145,8 @@ zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+test -e "${HOME}/repos/fed-civ-loc" && export PATH="$PATH:${HOME}/repos/fed-civ-loc/bin"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
