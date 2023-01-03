@@ -10,6 +10,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'junegunn/limelight.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " navigating
 Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
@@ -20,12 +21,16 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'roxma/vim-paste-easy'
 Plug 'tpope/vim-surround'
 Plug 'danro/rename.vim'
+if has('nvim-0.5')
+    Plug 'dcampos/nvim-snippy' | Plug 'honza/vim-snippets'
+endif
 
 " languages
 if has('nvim-0.5')
     Plug 'neovim/nvim-lspconfig'
 endif
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'hashivim/vim-terraform'
 
 " building
 Plug 'w0rp/ale'
@@ -143,8 +148,12 @@ let g:clap_open_action = {
   \ 'ctrl-v': 'vsplit',
   \ 'ctrl-x': 'vsplit' }
 
-" ultisnips
-let g:UltiSnipsExpandTrigger="<C-j>"
+" snippy
+imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
+imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
+smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
+smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
+xmap <Tab> <Plug>(snippy-cut-text)
 
 " ale
 let g:ale_completion_enabled = 0
@@ -195,6 +204,7 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', '<leader><tab>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
