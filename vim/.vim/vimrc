@@ -13,7 +13,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " navigating
-Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'christoomey/vim-tmux-navigator'
 
 " editing
@@ -137,7 +137,7 @@ nmap <Leader>ll :Limelight!!<CR>
 xmap <Leader>ll :Limelight!!<CR>
 
 " clap
-nnoremap <c-p> :Clap files ++finder=rg --files --hidden --glob=!.git/<CR>
+nnoremap <c-p> :Clap files ++finder=rg --files --hidden --glob=!.git/ .<CR>
 nnoremap <Leader>fp :Clap grep<CR>
 nnoremap <Leader>ff :Clap files ++finder=rg --files $HOME<CR>
 nnoremap <Leader>fd :Clap files ++finder=rg --files --hidden $HOME<CR>
