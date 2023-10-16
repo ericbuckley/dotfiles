@@ -137,7 +137,7 @@ nmap <Leader>ll :Limelight!!<CR>
 xmap <Leader>ll :Limelight!!<CR>
 
 " clap
-nnoremap <c-p> :Clap files ++finder=rg --files --hidden --glob=!.git/ .<CR>
+nnoremap <c-p> :Clap files<CR>
 nnoremap <Leader>fp :Clap grep<CR>
 nnoremap <Leader>ff :Clap files ++finder=rg --files $HOME<CR>
 nnoremap <Leader>fd :Clap files ++finder=rg --files --hidden $HOME<CR>
@@ -147,6 +147,10 @@ let g:clap_open_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit',
   \ 'ctrl-x': 'vsplit' }
+
+" grep
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+set grepformat=%f:%l:%c:%m
 
 " snippy
 imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
