@@ -3,7 +3,6 @@
 
 # TODO:
 # - test if homebrew is installed before setting PATHs in .zshrc
-# - only attempt to replace symlink if the link is NOT already a symlink
 
 set -euo pipefail
 
@@ -17,7 +16,11 @@ function linkDotfile {
     dest="${HOME}/${2}"
     dateStr=$(date +%Y-%m-%d-%H%M)
 
-    if [ -f "${dest}" ] || [ -L "${dest}" ]; then
+    if [ -f "${dest}" ]; then
+        if [ -L "${dest}" ] && [ "$(readlink -- "${dest}")" = "${1}/${2}" ]; then
+            # existing file is link and it already matches
+            return
+        fi
         read -p "Replace ${dest}? [Y/n]: "  replace
         if [ $replace = "Y" ]; then
             echo "Replacing symlink: ${dest}"
