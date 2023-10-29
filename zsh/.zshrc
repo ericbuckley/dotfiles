@@ -93,6 +93,10 @@ DISABLE_VENV_CD=1
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 
+# gem
+export GEM_HOME=~/.gem
+export GEM_PATH=~/.gem
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
