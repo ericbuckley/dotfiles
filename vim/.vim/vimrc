@@ -170,7 +170,8 @@ let g:ale_linters = {
     \ 'java': ['javac'],
     \ }
 let g:ale_fixers = {
-    \ 'python': ['black']
+    \ 'python': ['black'],
+    \ 'ruby': ['rubocop'],
     \ }
 " map keys to use wrapping.
 "nmap <silent> <C-p> <Plug>(ale_previous_wrap)
