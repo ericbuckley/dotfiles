@@ -1,3 +1,7 @@
+[window]
+dynamic_padding = true
+option_as_alt = "OnlyLeft"
+
 [font]
 normal = { family = "Hack", style = "Regular" }
 size = 14
