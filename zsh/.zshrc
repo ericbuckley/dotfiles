@@ -97,6 +97,9 @@ export NVM_COMPLETION=true
 export GEM_HOME=~/.gem
 export GEM_PATH=~/.gem
 
+# golang
+export GOPATH="$HOME/.golang"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -115,17 +118,25 @@ plugins=(
     zsh-syntax-highlighting
 )
 
-source $ZSH/oh-my-zsh.sh
 # zsh completion
-fpath=(/usr/local/share/zsh-completions $fpath)
+if type brew &>/dev/null; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+else
+    FPATH="/usr/local/share/zsh-completions:${FPATH}"
+fi
+source $ZSH/oh-my-zsh.sh
 
 export PATH="$HOME/.local/bin:$PATH"
-# configure QT path
-export PATH="/usr/local/opt/qt/bin:$PATH"
-# configure python path
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-# configure coreutils path on mac
-if [ -d "/usr/local/opt/coreutils" ]; then
+# configure paths for mac homebrew setup
+if [ -d "/usr/local/opt" ]; then
+    # configure QT path
+    export PATH="/usr/local/opt/qt/bin:$PATH"
+    # configure golang paths
+    export GOROOT="/usr/local/opt/go/libexec"
+    export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
+    # configure python path
+    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+    # configure coreutils path
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
@@ -148,8 +159,6 @@ export GPG_TTY=$(tty)
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
