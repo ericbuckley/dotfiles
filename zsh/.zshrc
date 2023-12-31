@@ -87,7 +87,6 @@ bindkey "^[f" forward-word
 # virtualenv
 export WORKON_HOME=$HOME/.venvs
 export VIRTUALENVWRAPPER_PYTHON=`which python3`
-DISABLE_VENV_CD=1
 
 # nvm
 export NVM_LAZY_LOAD=true
@@ -122,13 +121,13 @@ plugins=(
 if type brew &>/dev/null; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 else
-    FPATH="/usr/local/share/zsh-completions:${FPATH}"
+    FPATH="/usr/local/share/zsh/site-functions:${FPATH}"
 fi
 source $ZSH/oh-my-zsh.sh
 
 export PATH="$HOME/.local/bin:$PATH"
 # configure paths for mac homebrew setup
-if [ -d "/usr/local/opt" ]; then
+if type brew &>/dev/null; then
     # configure QT path
     export PATH="/usr/local/opt/qt/bin:$PATH"
     # configure golang paths
