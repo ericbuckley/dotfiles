@@ -113,7 +113,6 @@ plugins=(
     aws
     tmux-proj
     common-aliases
-    taskfile
     zsh-syntax-highlighting
 )
 
