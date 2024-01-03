@@ -4,7 +4,7 @@ option_as_alt = "OnlyLeft"
 
 [font]
 normal = { family = "Hack", style = "Regular" }
-size = 14
+size = 16
 
 # Colors (Solarized Dark)
 [colors]
