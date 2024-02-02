@@ -106,7 +106,7 @@ export GOPATH="$HOME/.golang"
 plugins=(
     git
     gnu-utils
-    virtualenvwrapper
+    virtualenv
     docker
     docker-compose
     tmux
