@@ -25,6 +25,7 @@ Plug 'danro/rename.vim'
 if has('nvim-0.5')
     Plug 'dcampos/nvim-snippy' | Plug 'honza/vim-snippets'
 endif
+Plug 'github/copilot.vim'
 
 " languages
 if has('nvim-0.5')
