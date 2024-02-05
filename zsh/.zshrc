@@ -138,6 +138,10 @@ if type brew &>/dev/null; then
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
+# fly.io configuration
+export FLYCTL_INSTALL="$HOME/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
 # User configuration
 export DEFAULT_USER='buckley'
 # You may need to manually set your language environment
