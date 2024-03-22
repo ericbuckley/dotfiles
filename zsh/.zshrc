@@ -105,12 +105,13 @@ export GOPATH="$HOME/.golang"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    gnu-utils
-    virtualenv
+#    virtualenv
     docker
     docker-compose
+    podman
     tmux
     aws
+    azure
     tmux-proj
     common-aliases
     zsh-syntax-highlighting
@@ -136,6 +137,8 @@ if type brew &>/dev/null; then
     export PATH="/usr/local/opt/python/libexec/bin:$PATH"
     # configure coreutils path
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    # configure java
+    export PATH="/usr/local/opt/openjdk/bin:$PATH"
 fi
 
 # fly.io configuration
