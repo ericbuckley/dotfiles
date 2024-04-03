@@ -141,6 +141,7 @@ xmap <Leader>ll :Limelight!!<CR>
 " clap
 nnoremap <c-p> :Clap files<CR>
 nnoremap <Leader>fp :Clap grep<CR>
+nnoremap <Leader>fb :Clap buffers<CR>
 nnoremap <Leader>ff :Clap files ++finder=rg --files $HOME<CR>
 nnoremap <Leader>fd :Clap files ++finder=rg --files --hidden $HOME<CR>
 let g:clap_preview_direction = 'UD'
