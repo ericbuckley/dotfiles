@@ -40,5 +40,6 @@
 
 [include]
     path = config.personal
-[includeIf "gitdir:/Users/buckley/repos/cdc"]
+    path = ~/.gitconfig.local
+[includeIf "gitdir:/Users/buckley/repos/cdc/**"]
     path = config.cdc
