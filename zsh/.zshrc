@@ -1,38 +1,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bullet-train"
-BULLETTRAIN_PROMPT_ORDER=(
-    virtualenv
-    aws
-    custom
-    context
-    dir
-    git
-    cmd_exec_time
-)
-BULLETTRAIN_PROMPT_CHAR='⟩'
-BULLETTRAIN_CONTEXT_DEFAULT_USER='buckley'
-BULLETTRAIN_VIRTUALENV_BG='black'
-BULLETTRAIN_VIRTUALENV_FG='white'
-BULLETTRAIN_NVM_BG='black'
-BULLETTRAIN_NVM_FG='white'
-BULLETTRAIN_AWS_BG='black'
-BULLETTRAIN_AWS_FG='white'
-BULLETTRAIN_DIR_BG='blue'
-BULLETTRAIN_DIR_FG='black'
-BULLETTRAIN_GIT_COLORIZE_DIRTY=true
-BULLETTRAIN_GIT_BG='green'
-BULLETTRAIN_GIT_DIRTY=''
-BULLETTRAIN_GIT_CLEAN=''
-BULLETTRAIN_GIT_ADDED=''
-BULLETTRAIN_GIT_MODIFIED=''
-BULLETTRAIN_GIT_DELETED=''
-BULLETTRAIN_GIT_RENAMED=''
-BULLETTRAIN_GIT_UNTRACKED=''
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -117,6 +87,7 @@ plugins=(
     zsh-syntax-highlighting
 )
 
+
 # zsh completion
 if type brew &>/dev/null; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -137,6 +108,8 @@ if type brew &>/dev/null; then
     export PATH="/usr/local/opt/python/libexec/bin:$PATH"
     # configure coreutils path
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    # configure grep path
+    export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
     # configure java
     export PATH="/usr/local/opt/openjdk/bin:$PATH"
 fi
@@ -165,6 +138,15 @@ zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -172,7 +154,6 @@ zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 #
 #########################
 source $HOME/.aliases
-
 
 # load any host specific zsh configurations
 test -e "${HOME}/.zshrc.local" && source "${HOME}/.zshrc.local"

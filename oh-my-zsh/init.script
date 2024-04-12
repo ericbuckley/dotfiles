@@ -9,6 +9,9 @@ fi
 curl -sfLo "$HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme" \
     --create-dirs \
     https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme
+# install powerlevel10k theme
+rm -rf ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 # install zsh-nvm plugin
 curl -sfLo "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm/zsh-nvm.plugin.zsh" \
     --create-dirs \
