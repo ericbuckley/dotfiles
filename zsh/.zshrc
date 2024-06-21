@@ -58,6 +58,9 @@ bindkey "^[f" forward-word
 export WORKON_HOME=$HOME/.venvs
 export VIRTUALENVWRAPPER_PYTHON=`which python3`
 
+# pipx
+export PIPX_HOME=$HOME/.pipx
+
 # nvm
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
