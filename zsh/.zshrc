@@ -85,9 +85,11 @@ plugins=(
     tmux
     aws
     azure
-    tmux-proj
     common-aliases
     zsh-syntax-highlighting
+    # custom plugins
+    tmux-proj
+    atuin
 )
 
 
