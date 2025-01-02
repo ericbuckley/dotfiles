@@ -1,9 +1,14 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# Path for local installs
+export PATH="$HOME/.local/bin:$PATH"
+if [[ "$(uname -m)" == "arm64" ]]; then
+  # Path of homebrew installation on Apple Silicon
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -101,22 +106,21 @@ else
 fi
 source $ZSH/oh-my-zsh.sh
 
-export PATH="$HOME/.local/bin:$PATH"
 # configure paths for mac homebrew setup
 if type brew &>/dev/null; then
     # configure QT path
-    export PATH="/usr/local/opt/qt/bin:$PATH"
+    export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
     # configure golang paths
-    export GOROOT="/usr/local/opt/go/libexec"
+    export GOROOT="$(brew --prefix)/opt/go/libexec"
     export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
     # configure python path
-    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+    export PATH="$(brew --prefix)/opt/python/libexec/bin:$PATH"
     # configure coreutils path
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
     # configure grep path
-    export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
     # configure java
-    export PATH="/usr/local/opt/openjdk/bin:$PATH"
+    export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
 fi
 
 # fly.io configuration
