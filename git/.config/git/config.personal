@@ -1,8 +1,0 @@
-[user]
-    name = Eric Buckley
-    email = eric.buckley@gmail.com
-    signingkey = 8595BDE1D3F14151
-[github]
-    user = ericbuckley
-[commit]
-    gpgsign = true

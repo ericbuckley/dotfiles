@@ -1,0 +1,4 @@
+#!/bin/sh
+
+touch $HOME/.gitconfig.local
+echo "Add your custom git gpg signing key to ~/.gitconfig.local"

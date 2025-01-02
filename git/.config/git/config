@@ -1,6 +1,8 @@
 [user]
     name = Eric Buckley
     email = eric.buckley@gmail.com
+[github]
+    user = ericbuckley
 [color]
     ui = auto
 [core]
@@ -37,9 +39,5 @@
     branch = false
 [pull]
     rebase = false
-
 [include]
-    path = config.personal
     path = ~/.gitconfig.local
-[includeIf "gitdir:/Users/buckley/repos/cdc/**"]
-    path = config.cdc
