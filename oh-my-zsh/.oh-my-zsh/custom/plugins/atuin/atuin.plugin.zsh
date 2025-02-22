@@ -6,6 +6,12 @@
 # instead, we manually add any error the shellcheck step finds in the file to
 # the above line ...
 
+# Setup the default environment for Atuin
+. "$HOME/.atuin/bin/env"
+
+# Initialize Atuin for zsh
+eval "$(atuin init zsh)"
+
 # Source this in your ~/.zshrc
 autoload -U add-zsh-hook
 
