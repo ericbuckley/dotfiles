@@ -114,7 +114,7 @@ if type brew &>/dev/null; then
     export GOROOT="$(brew --prefix)/opt/go/libexec"
     export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
     # configure python path
-    export PATH="$(brew --prefix)/opt/python/libexec/bin:$PATH"
+    export PATH="$(brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
     # configure coreutils path
     export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
     # configure grep path
