@@ -7,7 +7,9 @@
 # the above line ...
 
 # Setup the default environment for Atuin
-. "$HOME/.atuin/bin/env"
+if [ -f "$HOME/.atuin/bin/env" ]; then
+    . "$HOME/.atuin/bin/env"
+fi
 
 # Initialize Atuin for zsh
 eval "$(atuin init zsh)"
