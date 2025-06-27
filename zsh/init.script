@@ -6,4 +6,4 @@ fi
 # install zsh syntax highlighting
 mkdir -p "${ZSH_CUSTOM}/plugins/"
 rm -rf "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
-git clone --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
+git clone --depth 1 --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"

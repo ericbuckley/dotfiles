@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
-[ -d ~/.tmux/plugins/tpm ] && rm -rf ~/.tmux/plugins/tpm
+[ -d "${HOME}/.tmux/plugins/tpm" ] && rm -rf "${HOME}/.tmux/plugins/tpm"
 git clone --quiet --depth=1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 echo "Install tmux plugins with 'prefix'+'I' after starting tmux"
