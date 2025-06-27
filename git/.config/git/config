@@ -1,12 +1,6 @@
 [user]
     name = Eric Buckley
     email = eric.buckley@gmail.com
-[github]
-    user = ericbuckley
-[color]
-    ui = auto
-[core]
-    editor = vim
 [alias]
     pushm = push origin master
     pullm = pull origin master
@@ -22,22 +16,46 @@
     package-head = !git archive --format=tar HEAD | gzip > HEAD.tgz
 [branch]
     autosetupmerge = true
-[push]
-    default = tracking
-[rerere]
-    enabled = true
-[merge]
-    stat = true
+    sort = -committerdate
+[color]
+    ui = auto
+[column]
+    ui = auto
+[core]
+    editor = vim
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     required = true
     process = git-lfs filter-process
-[tag]
-    forceSignAnnotated = false
+[github]
+    user = ericbuckley
+[include]
+    path = ~/.gitconfig.local
+[init]
+    defaultBranch = main
+[merge]
+    stat = true
 [pager]
     branch = false
 [pull]
     rebase = false
-[include]
-    path = ~/.gitconfig.local
+[push]
+    default = tracking
+    autoSetupRemote = true
+    followTags = true
+[rerere]
+    enabled = true
+    autoUpdate = true
+[tag]
+    forceSignAnnotated = false
+    sort = version:refname
