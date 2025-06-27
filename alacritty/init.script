@@ -1,5 +1,5 @@
 #!/bin/sh
 
 # alacritty themes
-mkdir -p ~/.config/alacritty/themes
-git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+[ -d "${HOME}/.config/alacritty/themes" ] && rm -rf "${HOME}/.config/alacritty/themes"
+git clone --depth 1 --quiet https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
