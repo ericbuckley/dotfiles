@@ -1,18 +1,22 @@
 #!/bin/sh
 
+
+ZCUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+
 # only install/init oh-my-zsh if the directory doesn't already exist
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     # install oh my zsh
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
-# install bullet-train theme
-curl -sfLo "$HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme" \
-    --create-dirs \
-    https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme
 # install powerlevel10k theme
-rm -rf ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+[ -d "${ZCUSTOM}/themes/powerlevel10k" ] && rm -rf "${ZCUSTOM}/themes/powerlevel10k"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZCUSTOM}/themes/powerlevel10k"
 # install zsh-nvm plugin
-curl -sfLo "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm/zsh-nvm.plugin.zsh" \
+[ -d "${ZCUSTOM}/plugins/zsh-nvm" ] && rm -rf "${ZCUSTOM}/plugins/zsh-nvm"
+curl -sfLo "${ZCUSTOM}/plugins/zsh-nvm/zsh-nvm.plugin.zsh" \
     --create-dirs \
     https://raw.githubusercontent.com/lukechilds/zsh-nvm/master/zsh-nvm.plugin.zsh
+# install bullet-train theme
+curl -sfLo "${ZCUSTOM}/themes/bullet-train.zsh-theme" \
+    --create-dirs \
+    https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme
