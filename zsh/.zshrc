@@ -8,8 +8,6 @@ if [[ "$(uname -m)" == "arm64" ]]; then
   export PATH="/opt/homebrew/bin:$PATH"
 fi
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -97,6 +95,12 @@ plugins=(
     atuin
 )
 
+# pure prompt
+FPATH="$FPATH:$HOME/.config/zsh/pure"
+autoload -U promptinit; promptinit
+prompt pure
+zstyle :prompt:pure:git:branch color green
+zstyle :prompt:pure:git:dirty color magenta
 
 # zsh completion
 if type brew &>/dev/null; then
@@ -146,15 +150,6 @@ export GPG_TTY=$(tty)
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh

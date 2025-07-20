@@ -1,9 +1,9 @@
 #!/bin/sh
 
-if [ -z ${ZSH_CUSTOM+x} ]; then
-    ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
-fi
-# install zsh syntax highlighting
-mkdir -p "${ZSH_CUSTOM}/plugins/"
-rm -rf "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
-git clone --depth 1 --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
+ZCONFIG="${HOME}/.config/zsh"
+echo "Making zsh config directory: ${ZCONFIG}"
+mkdir -p "${ZCONFIG}"
+
+# install zsh-pure prompt
+[ -d "${ZCONFIG}/pure" ] && rm -rf "${ZCONFIG}/pure"
+git clone --depth=1 --quiet https://github.com/sindresorhus/pure.git "${ZCONFIG}/pure"

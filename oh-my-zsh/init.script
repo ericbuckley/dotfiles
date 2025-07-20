@@ -2,21 +2,19 @@
 
 
 ZCUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+mkdir -p "${ZCUSTOM}/plugins/"
 
 # only install/init oh-my-zsh if the directory doesn't already exist
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     # install oh my zsh
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
-# install powerlevel10k theme
-[ -d "${ZCUSTOM}/themes/powerlevel10k" ] && rm -rf "${ZCUSTOM}/themes/powerlevel10k"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZCUSTOM}/themes/powerlevel10k"
 # install zsh-nvm plugin
 [ -d "${ZCUSTOM}/plugins/zsh-nvm" ] && rm -rf "${ZCUSTOM}/plugins/zsh-nvm"
 curl -sfLo "${ZCUSTOM}/plugins/zsh-nvm/zsh-nvm.plugin.zsh" \
     --create-dirs \
     https://raw.githubusercontent.com/lukechilds/zsh-nvm/master/zsh-nvm.plugin.zsh
-# install bullet-train theme
-curl -sfLo "${ZCUSTOM}/themes/bullet-train.zsh-theme" \
-    --create-dirs \
-    https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme
+# install zsh-syntax-highlighting
+[ -d "${ZCUSTOM}/plugins/zsh-syntax-highlighting" ] && rm -rf "${ZCUSTOM}/plugins/zsh-syntax-highlighting"
+git clone --depth 1 --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git \
+    "${ZCUSTOM}/plugins/zsh-syntax-highlighting"
