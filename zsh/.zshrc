@@ -16,7 +16,7 @@ fi
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -81,18 +81,15 @@ export GOPATH="$HOME/.golang"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-#    virtualenv
     docker
     docker-compose
-    podman
     tmux
-    aws
-    azure
     common-aliases
-    zsh-syntax-highlighting
     # custom plugins
     tmux-proj
     atuin
+    # always load zsh syntax highlighting last
+    zsh-syntax-highlighting
 )
 
 # pure prompt
@@ -107,6 +104,12 @@ if type brew &>/dev/null; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 else
     FPATH="/usr/local/share/zsh/site-functions:${FPATH}"
+fi
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
 fi
 source $ZSH/oh-my-zsh.sh
 
