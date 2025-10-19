@@ -75,6 +75,7 @@ export GEM_PATH=~/.gem
 # golang
 export GOPATH="$HOME/.golang"
 
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -82,9 +83,8 @@ export GOPATH="$HOME/.golang"
 plugins=(
     git
     docker
-    docker-compose
     tmux
-    common-aliases
+    eza
     # custom plugins
     tmux-proj
     atuin
@@ -126,9 +126,20 @@ if type brew &>/dev/null; then
     export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
     # configure grep path
     export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
-    # configure java
-    export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
 fi
+# java
+# Set JAVA_HOME depending on OS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS (Homebrew)
+    export JAVA_HOME="$(brew --prefix openjdk@21)"
+elif [[ -x "/usr/libexec/java_home" ]]; then
+    # macOS fallback (Apple's java_home tool)
+    export JAVA_HOME="$(/usr/libexec/java_home)"
+elif command -v update-java-alternatives >/dev/null 2>&1; then
+    # Debian/Ubuntu
+    export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(which java)")")")"
+fi
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # fly.io configuration
 export FLYCTL_INSTALL="$HOME/.fly"
