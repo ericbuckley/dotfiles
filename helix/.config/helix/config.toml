@@ -1,0 +1,23 @@
+theme = "gruvbox"
+[editor]
+# Sync clipboard with system clipboard
+default-yank-register = "+"
+
+[keys.normal]
+# I didn't like that Ctrl+C was the default "toggle comments" shortcut
+"#" = "toggle_comments"
+
+# I didn't feel like learning a different way
+# to go to the beginning/end of a line so
+# I remapped ^ and $
+"^" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+
+[keys.select]
+"^" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+
+[keys.normal.space]
+# I write a lot of text so I need to constantly reflow,
+# and missed vim's `gq` shortcut
+l = ":reflow"
