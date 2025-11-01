@@ -175,7 +175,7 @@ lua << EOF
     local mapf = function(mode, lhs, fn)
         vim.keymap.set(mode, lhs, fn, { noremap = true, silent = true })
     end
-    local sopts = { hidden = true, no_ignore = true }
+    local sopts = { hidden = true, no_ignore = false }
 
     mapf('n', '<C-p>', function() builtin.find_files(sopts) end)
     mapf('n', '<Leader>fp', function() builtin.live_grep(sopts) end)
