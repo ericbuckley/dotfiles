@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # TODO:
 # - test if homebrew is installed before setting PATHs in .zshrc
 
@@ -8,43 +7,40 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-dotfilesDir=$(pwd)
-
 function linkDotfile {
-    # $1: parent directory
-    # $2: dotfile to link
-    dest="${HOME}/${2}"
-    dateStr=$(date +%Y-%m-%d-%H%M)
+	# $1: parent directory
+	# $2: dotfile to link
+	DEST="${HOME}/${2}"
 
-    if [ -f "${dest}" ]; then
-        if [ -L "${dest}" ] && [ "$(readlink -- "${dest}")" = "${1}/${2}" ]; then
-            # existing file is link and it already matches
-            return
-        fi
-        read -p "Replace ${dest}? [Y/n]: "  replace
-        if [ $replace = "Y" ]; then
-            echo "Replacing symlink: ${dest}"
-            ln -f -s ${1}/${2} ${dest}
-        fi
-    else
-        echo "Creating new symlink: ${dest}"
-        mkdir -p $(dirname ${dest})
-        ln -s ${1}/${2} ${dest}
-    fi
+	if [ -f "${DEST}" ]; then
+		if [ -L "${DEST}" ] && [ "$(readlink -- "${DEST}")" = "${1}/${2}" ]; then
+			# existing file is link and it already matches
+			return
+		fi
+		read -r -p "Replace ${DEST}? [Y/n]: " REPLACE
+		if [ "$REPLACE" = "Y" ]; then
+			echo "Replacing symlink: ${DEST}"
+			ln -f -s "${1}/${2}" "${DEST}"
+		fi
+	else
+		echo "Creating new symlink: ${DEST}"
+		mkdir -p "$(dirname "${DEST}")"
+		ln -f -s "${1}/${2}" "${DEST}"
+	fi
 }
 
 # execute all init.script files
-for FILE in `find . -type f -name 'init.script'`; do
-    echo "INITIALIZING: ${PWD}/${FILE}..."
-    "${PWD}/${FILE}"
+find . -type f -name "init.script" | while read -r FILE; do
+	echo "INITIALIZING: ${PWD}/${FILE}..."
+	"${PWD}/${FILE}"
 done
 
 # create all symlinks
 for GROUP in *; do
-    if [ -d "${GROUP}" ]; then
-        for FILE in `find ${GROUP} ! -name 'init.script' -type f -exec realpath --relative-to ${GROUP} {} \;`
-        do
-            linkDotfile "${PWD}/${GROUP}" "${FILE}"
-        done
-    fi
+	if [ -d "${GROUP}" ]; then
+		find "${GROUP}" ! -name 'init.script' -type f | while read -r FILE; do
+			RELPATH=$(realpath --relative-to="${GROUP}" "${FILE}")
+			linkDotfile "${PWD}/${GROUP}" "${RELPATH}"
+		done
+	fi
 done
