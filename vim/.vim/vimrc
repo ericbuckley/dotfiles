@@ -5,39 +5,24 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 
 " visuals
-Plug 'morhetz/gruvbox'
-Plug 'itchyny/lightline.vim' | Plug 'maximbaz/lightline-ale'
-Plug 'junegunn/limelight.vim'
-Plug 'chrisbra/colorizer'
+Plug 'altercation/vim-colors-solarized'
+Plug 'itchyny/lightline.vim'
 
 " editing
-Plug 'scrooloose/nerdcommenter'
 Plug 'roxma/vim-paste-easy'
 Plug 'tpope/vim-surround'
-Plug 'danro/rename.vim'
+Plug 'preservim/nerdcommenter'
 
 " navigating
 Plug 'christoomey/vim-tmux-navigator'
-
-" languages
-Plug 'w0rp/ale'
-Plug 'hashivim/vim-terraform'
-
-" ai
-Plug 'Exafunction/windsurf.vim', { 'branch': 'main' }
-
-" building
-Plug 'tpope/vim-dispatch'
-
-" git/github
-Plug 'tpope/vim-fugitive'
-Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
 call plug#end()
 
 " editing defaults
 set nowrap " stop word wrapping
 set clipboard=unnamedplus " use full system clipboard
 set number relativenumber " enable number gutter with relative line numbers
+autocmd InsertEnter * set norelativenumber
+autocmd InsertLeave * set relativenumber
 set list listchars=tab:▸\ ,eol:¬ " set 'invisible' characters
 set spell spelllang=en_us " enable spell check
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab " default is 4
@@ -64,11 +49,14 @@ nnoremap <Leader>sv :source ~/.vim/vimrc<CR>
 nnoremap <Leader>nh :noh<CR>
 
 " centralize backups, swapfiles and undo history
+if !isdirectory(expand("~/.vim/tmp/backup"))
+  call mkdir(expand("~/.vim/tmp/backup"), "p")
+  call mkdir(expand("~/.vim/tmp/swap"), "p")
+  call mkdir(expand("~/.vim/tmp/undo"), "p")
+endif
 set backupdir=~/.vim/tmp/backup
 set directory=~/.vim/tmp/swap
-if exists("&undodir")
-    set undodir=~/.vim/tmp/undo
-endif
+set undodir=~/.vim/tmp/undo
 
 " ignore some files and directores
 if has("wildmenu")
@@ -77,41 +65,33 @@ if has("wildmenu")
         set wildignore+=.hg,.git,.svn
         set wildignore+=*.a,*.o,*.obj,*.exe,*.dll,*.pyc
         set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
-        set wildignore+=.DS_Store,.git,.hg,.svn
+        set wildignore+=.DS_Store
         set wildignore+=*~,*.swp,*.tmp
     endif
 endif
 
+" push yank register to pbcopy on mac
+augroup YankToMacClipboard
+  autocmd!
+  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname == '' |
+        \ call system('pbcopy', getreg('"')) |
+        \ endif
+augroup END
+
 " colorscheme
-colorscheme gruvbox
-set termguicolors
+colorscheme solarized
+set background=dark
 syntax enable
 
 " vim-lightline
 let g:lightline = {}
 let g:lightline.colorscheme = 'one'
-let g:lightline.component_expand = {
-  \  'linter_checking': 'lightline#ale#checking',
-  \  'linter_infos': 'lightline#ale#infos',
-  \  'linter_warnings': 'lightline#ale#warnings',
-  \  'linter_errors': 'lightline#ale#errors',
-  \  'linter_ok': 'lightline#ale#ok',
-  \ }
-let g:lightline.component_type = {
-  \  'linter_checking': 'right',
-  \  'linter_infos': 'right',
-  \  'linter_warnings': 'warning',
-  \  'linter_errors': 'error',
-  \  'linter_ok': 'right',
-  \ }
 let g:lightline.active = { 
   \  'left': [
     \  ['mode', 'paste'],
     \  ['readonly', 'relativepath', 'modified']
     \ ],
   \  'right': [
-    \  [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
-    \  [ ],
     \  [ 'lineinfo', 'filetype', ],
     \ ]
   \ }
@@ -119,28 +99,10 @@ let g:lightline.inactive = {
   \  'left': [[ 'relativepath', ]],
   \  'right': [[ 'percent', ]],
   \ }
-let g:lightline#ale#indicator_checking  = "⟳"
-let g:lightline#ale#indicator_ok        = "✔"
-let g:lightline#ale#indicator_infos     = "»"
-let g:lightline#ale#indicator_warnings  = "▲"
-let g:lightline#ale#indicator_errors    = "✘"
-
-" limelight
-nmap <Leader>ll :Limelight!!<CR>
-xmap <Leader>ll :Limelight!!<CR>
 
 " grep
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set grepformat=%f:%l:%c:%m
-
-" ale
-let g:ale_set_signs = 1
-let g:ale_completion_enabled = 0
-let g:ale_lint_on_text_changed = 'never'
-
-" gist
-let g:gist_post_private = 1
-let g:gist_clip_command = 'pbcopy'
 
 " Open current GH file in browser using the ghcli
 command GHBrowse silent! execute "!gh browse " . expand('%:h') . "/" . expand('%:t') . ":" . line('.')
