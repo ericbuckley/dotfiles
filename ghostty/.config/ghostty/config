@@ -1,0 +1,21 @@
+# vim: set ft=dosini :
+
+# theme
+theme = "Builtin Solarized Dark"
+
+# font settings
+font-family = Hack Nerd Font
+font-size = 16
+font-thicken = true
+bold-color = bright
+
+# cursor settings
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+# macOS-specific
+macos-option-as-alt = left
+macos-titlebar-proxy-icon = hidden
+
+auto-update = check
