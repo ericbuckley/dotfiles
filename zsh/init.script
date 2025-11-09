@@ -1,7 +1,6 @@
 #!/bin/sh
 
 ZCONFIG="${HOME}/.config/zsh"
-echo "Making zsh config directory: ${ZCONFIG}"
 mkdir -p "${ZCONFIG}"
 
 # install zsh-pure prompt
