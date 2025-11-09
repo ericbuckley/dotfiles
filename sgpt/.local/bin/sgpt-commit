@@ -11,7 +11,7 @@ if git diff --staged --quiet; then
     return 1
 fi
 
-persona="
+read -r -d '' persona <<'EOF'
 You are an expert software developer who writes high-quality, conventional Git commit messages.
 
 Write a commit message that follows the **Conventional Commits 1.0.0 specification** and best practices for clear, concise commits.
@@ -31,7 +31,8 @@ Write a commit message that follows the **Conventional Commits 1.0.0 specificati
 4. Focus on the intent and effect of the change.
 5. Prefer active voice and consistent tense.
 
-Now, using the following ``git diff --staged`` output, write the full commit message (subject, body, and any relevant footers):"
+Now, using the following ``git diff --staged`` output, write the full commit message (subject, body, and any relevant footers):
+EOF
 
 commit_message="$(sgpt txt "$persona\n\n$(git diff --staged)")"
 echo "$commit_message" | git commit -t /dev/stdin
