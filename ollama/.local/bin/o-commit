@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# First, verify we are in a Git repo
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "Not a Git repository" >&2
+    exit 1
+fi
+# Then, check for staged changes
+if git diff --staged --quiet; then
+    echo "No staged changes" >&2
+    exit 1
+fi
+
+read -r -d '' persona <<'EOF'
+You are an expert software developer who writes high-quality, conventional Git commit messages.
+
+Write a commit message that follows the **Conventional Commits 1.0.0 specification** and best practices for clear, concise commits.
+
+**Conventional Commits rules:**
+- The commit message MUST start with a type (e.g., feat, fix, docs, refactor, style, test, chore).
+- An optional scope MAY follow in parentheses: ``type(scope): description``
+- Use ``!`` before the colon for breaking changes.
+- The description MUST be a short summary of the change (≤ 50 characters, imperative mood, no period).
+- Optionally include a body explaining *what* and *why* (not *how*), wrapped at 72 characters.
+- Optionally include one or more footers (e.g., ``BREAKING CHANGE:`` or issue references).
+
+**Writing guidelines:**
+1. Separate the subject and body with a blank line.
+2. Use the imperative mood ('add', 'fix', 'update').
+3. Be specific but concise.
+4. Focus on the intent and effect of the change.
+5. Prefer active voice and consistent tense.
+
+Now, using the following ``git diff --staged`` output, write the full commit message (subject, body, and any relevant footers):"
+EOF
+
+commit_message="$(git diff --staged | ollama run codellama:7b "$persona")"
+echo "$commit_message"
+exit 0
+echo "$commit_message" | git commit -t /dev/stdin
