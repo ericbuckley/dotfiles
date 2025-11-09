@@ -28,45 +28,7 @@ require("lazy").setup({
   { "danro/rename.vim" },
 
   -- === Navigation ===
-  {
-      "nvim-telescope/telescope.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      keys = {
-        { "<C-p>",
-            function()
-                require("telescope.builtin").find_files({
-                    hidden = true,
-                    find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
-                })
-            end, desc = "Find files including dotfiles"
-        },
-        { "<leader>fp", function() require("telescope.builtin").live_grep() end, desc = "Live grep" },
-        { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Buffers" },
-      },
-      config = function()
-        local actions = require("telescope.actions")
-        require("telescope").setup({
-          defaults = {
-            mappings = {
-              i = {
-                ["<C-t>"] = actions.select_tab,
-                ["<C-s>"] = actions.select_horizontal,
-                ["<C-v>"] = actions.select_vertical,
-                ["<C-j>"] = actions.move_selection_next,
-                ["<C-k>"] = actions.move_selection_previous,
-              },
-              n = {
-                ["<C-t>"] = actions.select_tab,
-                ["<C-s>"] = actions.select_horizontal,
-                ["<C-v>"] = actions.select_vertical,
-                ["j"] = actions.move_selection_next,
-                ["k"] = actions.move_selection_previous,
-              },
-            },
-          },
-        })
-      end,
-  },
+  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, },
   { "christoomey/vim-tmux-navigator" },
 
   -- === Languages ===
@@ -78,10 +40,12 @@ require("lazy").setup({
 
   -- === AI ===
   { "Exafunction/windsurf.vim", branch = "main" },
+  { "dustinblackman/oatmeal.nvim", cmd = { "Oatmeal" } },
 
   -- === Build & Git ===
   { "tpope/vim-dispatch" },
   { "tpope/vim-fugitive" },
+  { "tpope/vim-rhubarb" },
   { "mattn/webapi-vim" },
   { "mattn/gist-vim" },
 })
@@ -106,6 +70,8 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"
 vim.g.mapleader = " "
 
 -- Filetype-specific indentation
@@ -130,13 +96,27 @@ vim.api.nvim_create_autocmd("FileType", {
 --  Keymaps
 -- ============================================================================
 vim.keymap.set("n", "<leader><leader>", "<C-^>")
-vim.keymap.set("n", "<Tab>", ":bnext!<CR>", { silent = true })
-vim.keymap.set("n", "<S-Tab>", ":bprev!<CR>", { silent = true })
-vim.keymap.set("n", "<leader>ev", ":e $MYVIMRC<CR>")
-vim.keymap.set("n", "<leader>sv", ":source $MYVIMRC<CR>")
-vim.keymap.set("n", "<leader>nh", ":noh<CR>")
-vim.keymap.set("n", "<leader>ll", ":Limelight!!<CR>")
-vim.keymap.set("x", "<leader>ll", ":Limelight!!<CR>")
+vim.keymap.set("t", "<C-[>", [[<C-\><C-n>]], { desc = "Escape terminal mode" })
+vim.keymap.set("n", "<Tab>", ":bnext!<CR>", { desc = "Next buffer", silent = true })
+vim.keymap.set("n", "<S-Tab>", ":bprev!<CR>", { desc = "Previous buffer", silent = true })
+vim.keymap.set("n", "<leader>ev", ":e $MYVIMRC<CR>", { desc = "Edit Vim config" })
+vim.keymap.set("n", "<leader>sv", ":source $MYVIMRC<CR>", { desc = "Source Vim config" })
+vim.keymap.set("n", "<leader>nh", ":noh<CR>", { desc = "Clear search highlights" })
+vim.keymap.set("n", "<leader>ll", ":Limelight!!<CR>", { desc = "Toggle Limelight" })
+vim.keymap.set("x", "<leader>ll", ":Limelight!!<CR>", { desc = "Toggle Limelight" })
+vim.keymap.set("n", "<leader>fp",
+    function() require("telescope.builtin").live_grep() end,
+    { desc = "Find term in files" }
+)
+vim.keymap.set("n", "<leader>fb",
+    function() require("telescope.builtin").buffers() end,
+    { desc = "Find buffers" }
+)
+vim.keymap.set("n", "<C-p>", function() require("telescope.builtin").find_files({
+    hidden = true,
+    find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+}) end, { desc = "Find files in project" })
+vim.keymap.set("n", "<leader>om", ":Oatmeal<CR>", { desc = "Start Oatmeal session" })
 
 -- ============================================================================
 --  Files, Backups, and Undo
@@ -158,6 +138,38 @@ vim.opt.wildignore = {
   ".hg", ".git", ".svn", "*.a", "*.o", "*.obj", "*.exe", "*.dll", "*.pyc",
   "*.bmp", "*.gif", "*.ico", "*.jpg", "*.png", ".DS_Store", "*~", "*.swp", "*.tmp"
 }
+
+-- ============================================================================
+--  Load project-specific settings
+-- ============================================================================
+vim.o.exrc = true
+vim.o.secure = true
+
+
+-- ============================================================================
+--  Telescope configuration
+-- ============================================================================
+local actions = require("telescope.actions")
+require("telescope").setup({
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-t>"] = actions.select_tab,
+        ["<C-s>"] = actions.select_horizontal,
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+      },
+      n = {
+        ["<C-t>"] = actions.select_tab,
+        ["<C-s>"] = actions.select_horizontal,
+        ["<C-v>"] = actions.select_vertical,
+        ["j"] = actions.move_selection_next,
+        ["k"] = actions.move_selection_previous,
+      },
+    },
+  },
+})
 
 -- ============================================================================
 --  LuaLine configuration
@@ -260,22 +272,26 @@ vim.diagnostic.config({
 -- ============================================================================
 require("mason").setup()
 local on_attach = require("on_attach")
-for _, name in ipairs({ "pylsp", "gopls", "rust_analyzer" }) do
+local servers = { "pylsp", "jdtls", "gopls", "rust_analyzer" }
+-- Define base configs (do NOT enable yet)
+for _, name in ipairs(servers) do
   vim.lsp.config(name, {
     on_attach = on_attach.on_attach,
     flags = { debounce_text_changes = 150 },
   })
 end
+-- Enable servers after VimEnter, so .exrc can override
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    for _, name in ipairs(servers) do
+      vim.lsp.enable(name)
+    end
+  end,
+})
 
 -- ============================================================================
---  Grep + GitHub commands
+--  Oatmeal configuration
 -- ============================================================================
-vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-vim.opt.grepformat = "%f:%l:%c:%m"
-vim.api.nvim_create_user_command("GHBrowse", function()
-  local path = vim.fn.expand("%:h") .. "/" .. vim.fn.expand("%:t") .. ":" .. vim.fn.line(".")
-  vim.fn.system("gh browse " .. path)
-end, {})
-
-vim.opt.exrc = true
-vim.opt.secure = true
+require("oatmeal").setup({
+    use_default_keymaps = false,
+})
