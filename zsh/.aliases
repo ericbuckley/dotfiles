@@ -1,9 +1,9 @@
 # vim: ft=zsh
 alias sudo='sudo '
-
 alias c='clear'
 
 alias vim='nvim'
+alias lg='lazygit'
 
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))"'
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))"'
