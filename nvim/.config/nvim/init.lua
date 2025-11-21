@@ -8,8 +8,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Set leader key early before lazy.nvim plugins are loaded
+vim.g.mapleader = " "
+
 -- ============================================================================
---  Plugins (converted from your Vim-Plug list)
+--  Plugins
 -- ============================================================================
 require("lazy").setup({
   -- Sensible defaults
@@ -25,11 +28,11 @@ require("lazy").setup({
   { "preservim/nerdcommenter" },
   { "roxma/vim-paste-easy" },
   { "tpope/vim-surround" },
-  { "danro/rename.vim" },
 
   -- === Navigation ===
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, },
   { "christoomey/vim-tmux-navigator" },
+  { "tpope/vim-eunuch" },
 
   -- === Languages ===
   { "w0rp/ale" },
@@ -46,13 +49,13 @@ require("lazy").setup({
   { "tpope/vim-dispatch" },
   { "tpope/vim-fugitive" },
   { "tpope/vim-rhubarb" },
-  { "mattn/webapi-vim" },
-  { "mattn/gist-vim" },
+  { "mattn/gist-vim", dependencies = { "mattn/webapi-vim" }, },
 })
 
 -- ============================================================================
 --  General Options
 -- ============================================================================
+vim.g.mapleader = " "
 vim.opt.encoding = "utf-8"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
@@ -72,9 +75,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m"
-vim.g.mapleader = " "
-
--- Filetype-specific indentation
+-- Filetype-specific settings
 vim.api.nvim_create_augroup("FileTypes", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
   group = "FileTypes",
@@ -272,7 +273,7 @@ vim.diagnostic.config({
 -- ============================================================================
 require("mason").setup()
 local on_attach = require("on_attach")
-local servers = { "pylsp", "jdtls", "gopls", "rust_analyzer" }
+local servers = { "ty", "jdtls", "gopls", "rust_analyzer", "ts_ls" }
 -- Define base configs (do NOT enable yet)
 for _, name in ipairs(servers) do
   vim.lsp.config(name, {
