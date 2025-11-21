@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 export PATH="$HOME/.local/bin:$PATH"
 if [[ "$(uname -m)" == "arm64" ]]; then
   # Path of homebrew installation on Apple Silicon
-  export PATH="/opt/homebrew/bin:$PATH"
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 fi
 
 # Uncomment the following line to use case-sensitive completion.
@@ -56,6 +56,9 @@ stty start '^-' stop '^-'
 # keybinding
 bindkey "^[b" backward-word
 bindkey "^[f" forward-word
+
+# config
+export XDG_CONFIG_HOME=$HOME/.config
 
 # virtualenv
 export WORKON_HOME=$HOME/.venvs
