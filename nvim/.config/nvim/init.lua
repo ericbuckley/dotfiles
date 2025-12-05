@@ -50,6 +50,10 @@ require("lazy").setup({
   { "tpope/vim-fugitive" },
   { "tpope/vim-rhubarb" },
   { "mattn/gist-vim", dependencies = { "mattn/webapi-vim" }, },
+}, {
+    rocks = {
+        enabled = false,
+    },
 })
 
 -- ============================================================================
@@ -145,7 +149,6 @@ vim.opt.wildignore = {
 -- ============================================================================
 vim.o.exrc = true
 vim.o.secure = true
-
 
 -- ============================================================================
 --  Telescope configuration
@@ -244,6 +247,7 @@ vim.g.ale_use_neovim_diagnostics_api = 1
 vim.g.ale_fixers = {
   python = { 'ruff' },
   java = { 'google_java_format' },
+  javascript = { 'prettierd' },
   go = { 'gofmt' },
   rust = { 'rustfmt' },
   sh = { 'shfmt' },
