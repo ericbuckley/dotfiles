@@ -1,2 +1,2 @@
 #!/bin/sh
-aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around next
+aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around next --stdin
