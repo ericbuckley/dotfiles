@@ -1,8 +1,7 @@
 #!/bin/sh
 
-ZCONFIG="${HOME}/.config/zsh"
-mkdir -p "${ZCONFIG}"
+ZDOTDIR=${ZDOTDIR:-$HOME}
 
-# install zsh-pure prompt
-[ -d "${ZCONFIG}/pure" ] && rm -rf "${ZCONFIG}/pure"
-git clone --depth=1 --quiet https://github.com/sindresorhus/pure.git "${ZCONFIG}/pure"
+if [ ! -d "${ZDOTDIR}/.antidote" ]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "${ZDOTDIR}/.antidote"
+fi

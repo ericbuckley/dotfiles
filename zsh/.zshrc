@@ -1,180 +1,75 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+ZDOTDIR=${ZDOTDIR:-$HOME}
 
 # Path for local installs
 export PATH="$HOME/.local/bin:$PATH"
-if [[ "$(uname -m)" == "arm64" ]]; then
-  # Path of homebrew installation on Apple Silicon
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+# configure homebrew
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# initialize antidote
+source ${ZDOTDIR}/.antidote/antidote.zsh
+source <(antidote init)
+# install zsh plugins
+antidote bundle <<EOF
+sindresorhus/pure
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+atuinsh/atuin
+MichaelAquilina/zsh-you-should-use
+wushenrong/zsh-eza
+fdellwing/zsh-bat
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/tmux
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-
-# disable software flow control [ctrl-s/ctrl-q]
-#stty ixoff -ixon
-#stty stop undef
-#stty start undef
-stty start '^-' stop '^-'
-
-# keybinding
-bindkey "^[b" backward-word
-bindkey "^[f" forward-word
-
-# config
-export XDG_CONFIG_HOME=$HOME/.config
-
-# virtualenv
-export WORKON_HOME=$HOME/.venvs
-export VIRTUALENVWRAPPER_PYTHON=`which python3`
-
-# pipx
-export PIPX_HOME=$HOME/.pipx
-
-# nvm
-export NVM_LAZY_LOAD=true
-export NVM_COMPLETION=true
-
-# gem
-export GEM_HOME=~/.gem
-export GEM_PATH=~/.gem
-
-# golang
-export GOPATH="$HOME/.golang"
-
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    docker
-    tmux
-    eza
-    # custom plugins
-    tmux-proj
-    atuin
-    # always load zsh syntax highlighting last
-    zsh-syntax-highlighting
-)
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions
+EOF
 
 # pure prompt
-FPATH="$FPATH:$HOME/.config/zsh/pure"
-autoload -U promptinit; promptinit
-prompt pure
 zstyle :prompt:pure:git:branch color green
 zstyle :prompt:pure:git:dirty color magenta
 
-# zsh completion
-if type brew &>/dev/null; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-else
-    FPATH="/usr/local/share/zsh/site-functions:${FPATH}"
-fi
+# faster zsh completion startup
 autoload -Uz compinit
-if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+if [[ -n ${ZDOTDIR}/.zcompdump(#qNmh+24) ]]; then
     compinit
 else
     compinit -C
 fi
-source $ZSH/oh-my-zsh.sh
 
 # configure paths for mac homebrew setup
 if type brew &>/dev/null; then
-    # configure QT path
-    export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
-    # configure golang paths
-    export GOROOT="$(brew --prefix)/opt/go/libexec"
-    export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
     # configure python path
-    export PATH="$(brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
+    export PATH="${HOMEBREW_PREFIX}/opt/python@3.13/libexec/bin:$PATH"
+    # configure java path
+    export JAVA_HOME="${HOMEBREW_PREFIX}/opt/openjdk/libexec"
+    export PATH="${JAVA_HOME}/bin:$PATH"
+    # configure golang paths
+    export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
+    export GOPATH="$HOME/.golang"
+    export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
     # configure coreutils path
-    export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:$PATH"
     # configure grep path
-    export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
+    export PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin:$PATH"
 fi
-# java
-# Set JAVA_HOME depending on OS
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS (Homebrew)
-    export JAVA_HOME="$(brew --prefix openjdk@21)"
-elif [[ -x "/usr/libexec/java_home" ]]; then
-    # macOS fallback (Apple's java_home tool)
-    export JAVA_HOME="$(/usr/libexec/java_home)"
-elif command -v update-java-alternatives >/dev/null 2>&1; then
-    # Debian/Ubuntu
-    export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(which java)")")")"
-fi
-export PATH="$JAVA_HOME/bin:$PATH"
 
-# fly.io configuration
-export FLYCTL_INSTALL="$HOME/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
-
-# User configuration
-export DEFAULT_USER='buckley'
+# Default editor
+export EDITOR='nvim'
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
-# Compilation flags
-export ARCHFLAGS="-arch x86_64"
-# ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='nvim'
-fi
+# gpg
 export GPG_TTY=$(tty)
-# colors
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-#########################
-source $HOME/.aliases
-
+[[ -f "$HOME/.aliases" ]] && source $HOME/.aliases
 # load any host specific zsh configurations
-test -e "${HOME}/.zshrc.local" && source "${HOME}/.zshrc.local"
+[[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
+# remove duplicate entries in PATH
+typeset -U path
