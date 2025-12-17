@@ -5,7 +5,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 
 " visuals
-Plug 'altercation/vim-colors-solarized'
+Plug 'romainl/flattened'
 Plug 'itchyny/lightline.vim'
 
 " editing
@@ -79,13 +79,16 @@ augroup YankToMacClipboard
 augroup END
 
 " colorscheme
-colorscheme solarized
 set background=dark
 syntax enable
+if has('termguicolors')
+  set termguicolors
+endif
+colorscheme flattened_dark
 
 " vim-lightline
 let g:lightline = {}
-let g:lightline.colorscheme = 'one'
+let g:lightline.colorscheme = 'solarized'
 let g:lightline.active = { 
   \  'left': [
     \  ['mode', 'paste'],
