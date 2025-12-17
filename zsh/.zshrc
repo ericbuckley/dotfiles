@@ -47,7 +47,7 @@ if type brew &>/dev/null; then
     # configure python path
     export PATH="${HOMEBREW_PREFIX}/opt/python@3.13/libexec/bin:$PATH"
     # configure java path
-    export JAVA_HOME="${HOMEBREW_PREFIX}/opt/openjdk/libexec"
+    export JAVA_HOME="${HOMEBREW_PREFIX}/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
     export PATH="${JAVA_HOME}/bin:$PATH"
     # configure golang paths
     export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
