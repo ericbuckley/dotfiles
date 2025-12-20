@@ -115,19 +115,17 @@ alt-c = 'workspace C'
 alt-m = 'workspace M'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-t = 'move-node-to-workspace T'
-alt-shift-w = 'move-node-to-workspace W'
-alt-shift-c = 'move-node-to-workspace C'
-alt-shift-m = 'move-node-to-workspace M'
+alt-shift-1 = 'move-node-to-workspace 1 --focus-follows-window'
+alt-shift-2 = 'move-node-to-workspace 2 --focus-follows-window'
+alt-shift-3 = 'move-node-to-workspace 3 --focus-follows-window'
+alt-shift-t = 'move-node-to-workspace T --focus-follows-window'
+alt-shift-w = 'move-node-to-workspace W --focus-follows-window'
+alt-shift-c = 'move-node-to-workspace C --focus-follows-window'
+alt-shift-m = 'move-node-to-workspace M --focus-follows-window'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-#alt-tab = 'workspace --wrap-around next'
-#alt-shift-tab = 'workspace --wrap-around prev'
-alt-tab = 'exec-and-forget ~/.config/aerospace/next_nonempty_workspace.sh'
-alt-shift-tab = 'exec-and-forget ~/.config/aerospace/prev_nonempty_workspace.sh'
+alt-tab = "exec-and-forget sh -c 'aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around next --stdin'"
+alt-shift-tab = "exec-and-forget sh -c 'aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around prev --stdin'"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-semicolon = 'mode service'
