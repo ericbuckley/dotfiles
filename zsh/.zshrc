@@ -9,6 +9,9 @@ elif [[ -x /usr/local/bin/brew ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# default eza params
+_EZA_PARAMS=('--git' '--group' '--group-directories-first' '--time-style=long-iso' '--color-scale=all')
+
 # initialize antidote
 source ${ZDOTDIR}/.antidote/antidote.zsh
 source <(antidote init)
@@ -18,7 +21,7 @@ sindresorhus/pure
 
 atuinsh/atuin
 MichaelAquilina/zsh-you-should-use
-wushenrong/zsh-eza
+z-shell/zsh-eza
 fdellwing/zsh-bat
 
 getantidote/use-omz
@@ -33,6 +36,7 @@ EOF
 # pure prompt
 zstyle :prompt:pure:git:branch color green
 zstyle :prompt:pure:git:dirty color magenta
+
 
 # faster zsh completion startup
 autoload -Uz compinit
