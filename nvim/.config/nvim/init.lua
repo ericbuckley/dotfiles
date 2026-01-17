@@ -28,6 +28,7 @@ require("lazy").setup({
   { "preservim/nerdcommenter" },
   { "roxma/vim-paste-easy" },
   { "tpope/vim-surround" },
+  { "oxy2dev/markview.nvim", lazy = false },
 
   -- === Navigation ===
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, },
@@ -42,8 +43,8 @@ require("lazy").setup({
   { "mason-org/mason.nvim" },
 
   -- === AI ===
-  { "Exafunction/windsurf.vim", branch = "main" },
-  { "dustinblackman/oatmeal.nvim", cmd = { "Oatmeal" } },
+  --{ "Exafunction/windsurf.vim", branch = "main" },
+  { "milanglacier/minuet-ai.nvim", dependencies = { "nvim-lua/plenary.nvim" }, },
 
   -- === Build & Git ===
   { "tpope/vim-dispatch" },
@@ -51,9 +52,7 @@ require("lazy").setup({
   { "tpope/vim-rhubarb" },
   { "mattn/gist-vim", dependencies = { "mattn/webapi-vim" }, },
 }, {
-    rocks = {
-        enabled = false,
-    },
+    rocks = { enabled = false, },
 })
 
 -- ============================================================================
@@ -295,8 +294,20 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 -- ============================================================================
---  Oatmeal configuration
+--  Minuet configuration
 -- ============================================================================
-require("oatmeal").setup({
-    use_default_keymaps = false,
+require("minuet").setup({
+    provider = "gemini",
+    virtualtext = {
+        auto_trigger_ft = { '*' },
+        keymap = {
+            -- accept whole completion
+            accept = '<Tab>',
+            -- Cycle to prev completion item, or manually invoke completion
+            prev = '<C-p>',
+            -- Cycle to next completion item, or manually invoke completion
+            next = '<C-n>',
+            dismiss = '<C-e>',
+        },
+    },
 })
