@@ -5,7 +5,7 @@ function usage {
   cat <<EOF
 review [--verbose] [--context TEXT] [--help] [git-diff-arguments...]
 
-Ask an LLM to review code changes. This tool passes arguments directly to 'git diff',
+Ask gemini to review code changes. This tool passes arguments directly to 'git diff',
 allowing you to use any git diff syntax or options.
 
 Options:
@@ -51,7 +51,7 @@ Dot Notation:
   - Three dots (A...B): Compare common ancestor of A and B with B
 
 Depends on:
-- llm: https://github.com/simonw/llm
+- gemini: https://github.com/google-gemini/gemini-cli
 - bat: https://github.com/sharkdp/bat (optional)
 EOF
   exit "${1:-0}"
@@ -129,8 +129,8 @@ error() {
   usage 1
 }
 
-if ! command -v sgpt >/dev/null 2>&1; then
-  error "Missing required command sgpt."
+if ! command -v gemini >/dev/null 2>&1; then
+  error "Missing required command gemini."
 fi
 
 # Default unified context if none specified. The idea here is to increase the
@@ -212,9 +212,9 @@ $additional_context"
 fi
 
 if command -v bat >/dev/null 2>&1; then
-  sgpt txt "$prompt\n\n$diff_output" | bat --paging=never --style=plain --language=markdown
+  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-pro-preview" -e "" "$prompt" | bat --paging=never --style=plain --language=markdown
 else
-  sgpt txt "$prompt\n\n$diff_output"
+  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-pro-preview" -e "" "$prompt"
 fi
 exit_status=${PIPESTATUS[1]}
 
@@ -222,6 +222,6 @@ if [[ "$exit_status" -eq 130 ]]; then
   # User pressed Ctrl+C, exit silently
   exit 130
 elif [[ "$exit_status" -ne 0 ]]; then
-  echo "Error: sgpt command failed." >&2
+  echo "Error: gemini command failed." >&2
   exit 1
 fi
