@@ -69,6 +69,8 @@ export EDITOR='nvim'
 export LANG=en_US.UTF-8
 # gpg
 export GPG_TTY=$(tty)
+# Force Emacs keybindings (overrides EDITOR=nvim default)
+bindkey -e
 
 # For a full list of active aliases, run `alias`.
 [[ -f "$HOME/.aliases" ]] && source $HOME/.aliases
