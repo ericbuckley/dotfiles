@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+function usage {
+  cat <<EOF
+gemini-pr-desc [--verbose] [--context TEXT] [--help] [git-diff-arguments...]
+
+Ask gemini to create a pull request description. This tool passes arguments directly to 'git diff',
+allowing you to use any git diff syntax or options.
+
+Options:
+  -c, --context TEXT  Add additional context for creating the description, appended to the system prompt
+  -h, --help          Show this help message
+  -v, --verbose       Enable verbose output
+
+Review Examples:
+  # PR description between head and main
+  gemini-pr-review main
+
+  # Review with additional context
+  gemini-pr-review --context "Be sure to add information on the why the files were deleted" main
+
+Dot Notation:
+  - Two dots (A..B): Direct comparison between A and B
+  - Three dots (A...B): Compare common ancestor of A and B with B
+
+Depends on:
+- gemini: https://github.com/google-gemini/gemini-cli
+- bat: https://github.com/sharkdp/bat (optional)
+EOF
+  exit "${1:-0}"
+}
+
+readonly RED='\033[0;31m'
+readonly BLUE='\033[0;34m'
+readonly RESET='\033[0m'
+
+info() {
+  printf "${BLUE}• %s${RESET}\n" "$1" >&2
+}
+
+error() {
+  printf "${RED}❌ %s${RESET}\n" "$1" >&2
+  usage 1
+}
+
+git_args=()
+has_unified_context=false
+context_value=10
+additional_context=""
+
+# Process only our custom arguments, pass everything else to git
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -v|--verbose)
+      set -x
+      shift
+      ;;
+    -c|--context)
+      shift
+      if [[ $# -gt 0 ]]; then
+        additional_context="$1"
+        shift
+      else
+        error "Missing value for --context option"
+      fi
+      ;;
+    -U[0-9]*)
+      # Form: -U10
+      has_unified_context=true
+      context_value="${1#-U}"
+      git_args+=("$1")
+      shift
+      ;;
+    -U)
+      # Form: -U 10
+      has_unified_context=true
+      shift
+      if [[ $# -gt 0 && "$1" =~ ^[0-9]+$ ]]; then
+        context_value="$1"
+        # normalize to `-U10` to ease our checking later on
+        git_args+=("-U$1")
+        shift
+      else
+        error "Missing value for -U option"
+      fi
+      ;;
+    --unified=*)
+      # Form: --unified=10
+      has_unified_context=true
+      context_value="${1#--unified=}"
+      git_args+=("$1")
+      shift
+      ;;
+    -h|--help)
+      usage
+      ;;
+    *)
+      # Store all other arguments to pass to git diff
+      git_args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if ! command -v gemini >/dev/null 2>&1; then
+  error "Missing required command gemini."
+fi
+
+# Default unified context if none specified. The idea here is to increase the
+# context (git defaults to 3 lines) so that the LLM has more context for its
+# review. Later on we'll check if this generates too much output and shorten it
+# if so
+if [[ "$has_unified_context" == false ]]; then
+  git_args=("-U$context_value" "${git_args[@]}")
+fi
+
+# Run git diff
+diff_output=$(git diff "${git_args[@]}" 2>/dev/null || error "Git diff command failed. Check your arguments.")
+
+prompt="Act as a senior software engineer. I need you to generate a GitHub Pull Request description based on the code changes I will provide below.
+
+Please format the output strictly using the following Markdown template and constraints:
+
+##  Description
+* **Constraint:** Start with a high-level summary of **2 to 3 sentences**.
+* **Constraint:** If the changes are complex, add a deeper explanation, but the total length of this section must not exceed **8 sentences**.
+* **Tone:** Professional, concise, and focused on the business value or technical fix.
+
+## Related Issues
+* **Constraint:** Provide a line for an issue link. If no issue is visible in the branch name, use '[Optional: Insert Issue Link Here]'.
+
+## 3. Additional Notes
+* **The What and Why:** Write **1 to 2 sentences** explaining specifically *what* changed and *why* it was necessary.
+* **Details:** If there are specific technical details (like configuration changes, new dependencies, or refactors), list them here as bullet points.
+
+## 4. Checklist
+* **Constraint:** You MUST include the following checklist exactly as written below, with empty checkboxes ('[ ]'):
+
+- [ ] I have ensured that the pull request is of a manageable size, allowing it to be reviewed within a single session.
+- [ ] I have reviewed my changes to ensure they are clear, concise, and well-documented.
+- [ ] I have updated the documentation, if applicable.
+- [ ] I have added or updated test cases to cover my changes, if applicable."
+
+# Add the additional context if provided
+if [[ -n "$additional_context" ]]; then
+  prompt="$prompt
+
+## Additional Context
+$additional_context"
+fi
+
+if command -v bat >/dev/null 2>&1; then
+  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-pro-preview" -e "" "$prompt" | bat --paging=never --style=plain --language=markdown
+else
+  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-pro-preview" -e "" "$prompt"
+fi
+exit_status=${PIPESTATUS[1]}
+
+if [[ "$exit_status" -eq 130 ]]; then
+  # User pressed Ctrl+C, exit silently
+  exit 130
+elif [[ "$exit_status" -ne 0 ]]; then
+  echo "Error: gemini command failed." >&2
+  exit 1
+fi

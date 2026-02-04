@@ -3,7 +3,7 @@ set -euo pipefail
 
 function usage {
   cat <<EOF
-review [--verbose] [--context TEXT] [--help] [git-diff-arguments...]
+gemini-review [--verbose] [--context TEXT] [--help] [git-diff-arguments...]
 
 Ask gemini to review code changes. This tool passes arguments directly to 'git diff',
 allowing you to use any git diff syntax or options.
@@ -15,36 +15,36 @@ Options:
 
 Review Examples:
   # Review unstaged changes
-  review
+  gemini-review
 
   # Review with additional context
-  review --context "Focus your review on possible authentication bypasses"
+  gemini-review --context "Focus your review on possible authentication bypasses"
 
   # Review with context from a file
-  review --context "$(cat PR_DESCRIPTION.md)"
+  gemini-review --context "$(cat PR_DESCRIPTION.md)"
 
   # Review staged changes
-  review --cached
+  gemini-review --cached
 
   # Review changes between HEAD and main
-  review main
+  gemini-review main
 
   # Review changes between two branches
-  review main feature-branch
+  gemini-review main feature-branch
   # OR
-  review main..feature-branch
+  gemini-review main..feature-branch
 
   # Review only changes since branch diverged from main
-  review main...feature-branch
+  gemini-review main...feature-branch
 
   # Review a remote branch
-  review origin/main..origin/feature-branch
+  gemini-review origin/main..origin/feature-branch
 
   # Limit review to specific files
-  review main -- src/components/
+  gemini-review main -- src/components/
 
   # Adjust context lines
-  review -U5 main
+  gemini-review -U5 main
 
 Dot Notation:
   - Two dots (A..B): Direct comparison between A and B
