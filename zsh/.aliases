@@ -11,8 +11,4 @@ alias urldecode='python3 -c "import sys, urllib.parse as ul; print(ul.unquote_pl
 alias dco='docker compose'
 alias dcb='docker compose build'
 alias dcrr='docker compose run --rm --service-ports'
-alias docker-clean=' \
-  docker container prune -f ; \
-  docker image prune -f ; \
-  docker network prune -f ; \
-  docker volume prune -f '
+alias docker-clean='docker system prune -a --volumes -f'
