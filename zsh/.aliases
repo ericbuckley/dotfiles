@@ -12,3 +12,24 @@ alias dco='docker compose'
 alias dcb='docker compose build'
 alias dcrr='docker compose run --rm --service-ports'
 alias docker-clean='docker system prune -a --volumes -f'
+
+# Gemini CLI shortcuts
+# General quick question (Headless, no extensions)
+sg-ask() {
+  gemini -m "gemini-2.5-flash" -e "" -p "$*"
+}
+
+# Shell command generator (Returns ONLY the command)
+sg-ex() {
+  gemini -m "gemini-2.5-flash" -e "" -p "Provide only the executable shell command for: $*. Do not include markdown backticks, explanations, or any other text."
+}
+
+# Code generator
+sg-code() {
+  gemini -m "gemini-2.5-flash" -e "" -p "Provide only the source code for: $*. Do not include explanations."
+}
+
+# Explain something (Supports piping)
+sg-explain() {
+  gemini -m "gemini-2.5-flash" -e "" -p "Explain the following concisely: $*"
+}
