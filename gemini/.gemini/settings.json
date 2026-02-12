@@ -1,0 +1,19 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "ui": {
+    "theme": "GitHub"
+  },
+  "general": {
+    "vimMode": false,
+    "enableAutoUpdate": false,
+    "previewFeatures": true,
+    "sessionRetention.enabled": true
+  },
+  "output": {
+    "format": "text"
+  }
+}
