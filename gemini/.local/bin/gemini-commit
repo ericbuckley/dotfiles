@@ -34,5 +34,5 @@ Write a commit message that follows the **Conventional Commits 1.0.0 specificati
 Now, using the following ``git diff --staged`` output, write the full commit message (subject, body, and any relevant footers):
 EOF
 
-commit_message=$(git diff --staged | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-flash-preview" -e "" "$persona")
+commit_message=$(git diff -U10 --staged | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-flash-preview" -e "" "$persona")
 echo "$commit_message" | git commit -t /dev/stdin
