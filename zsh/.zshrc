@@ -1,16 +1,27 @@
 ZDOTDIR=${ZDOTDIR:-$HOME}
 
-# Path for local installs
+# keep duplicate entries out of path
+typeset -U path
+# set default locale
+export LANG=en_US.UTF-8
+# path for local installs
 export PATH="$HOME/.local/bin:$PATH"
-# configure homebrew
-if [[ -x /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -x /usr/local/bin/brew ]]; then
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
-
-# default eza params
-_EZA_PARAMS=('--git' '--group' '--group-directories-first' '--time-style=long-iso' '--color-scale=all')
+# configure homebrew [optionally]
+for brew_path in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    if [[ -x "$brew_path" ]]; then
+        eval "$("$brew_path" shellenv)"; break
+    fi
+done
+# faster zsh completion startup
+autoload -Uz compinit
+compinit -u ${${ZDOTDIR}/.zcompdump(#qNmh+24):+-C}
+# eza settings
+_EZA_PARAMS=('--git' '--group' '--icons' '--group-directories-first' '--time-style=long-iso' '--color-scale=all')
+# pure prompt settings
+zstyle :prompt:pure:git:branch color green
+zstyle :prompt:pure:git:dirty color magenta
+# omz settings
+DISABLE_AUTO_UPDATE="true"
 
 # initialize antidote
 source ${ZDOTDIR}/.antidote/antidote.zsh
@@ -33,18 +44,6 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
 EOF
 
-# pure prompt
-zstyle :prompt:pure:git:branch color green
-zstyle :prompt:pure:git:dirty color magenta
-
-
-# faster zsh completion startup
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qNmh+24) ]]; then
-    compinit
-else
-    compinit -C
-fi
 
 # configure paths for mac homebrew setup
 if type brew &>/dev/null; then
@@ -63,12 +62,10 @@ if type brew &>/dev/null; then
     export PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin:$PATH"
 fi
 
-# Default editor
-export EDITOR='nvim'
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
 # gpg
 export GPG_TTY=$(tty)
+# default editor
+export EDITOR='nvim'
 # Force Emacs keybindings (overrides EDITOR=nvim default)
 bindkey -e
 
@@ -76,6 +73,3 @@ bindkey -e
 [[ -f "$HOME/.aliases" ]] && source $HOME/.aliases
 # load any host specific zsh configurations
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
-
-# remove duplicate entries in PATH
-typeset -U path
