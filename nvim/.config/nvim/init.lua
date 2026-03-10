@@ -48,7 +48,8 @@ require("lazy").setup({
 
   -- === Build & Git ===
   { "tpope/vim-dispatch" },
-  { "tpope/vim-fugitive" },
+  --{ "tpope/vim-fugitive" },
+  { "NeogitOrg/neogit", dependencies = { "plenary.nvim", "esmuellert/codediff.nvim", "nvim-telescope/telescope.nvim" } },
   { "tpope/vim-rhubarb" },
   { "mattn/gist-vim", dependencies = { "mattn/webapi-vim" }, },
 }, {
@@ -120,7 +121,7 @@ vim.keymap.set("n", "<C-p>", function() require("telescope.builtin").find_files(
     hidden = true,
     find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
 }) end, { desc = "Find files in project" })
-vim.keymap.set("n", "<leader>om", ":Oatmeal<CR>", { desc = "Start Oatmeal session" })
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
 
 -- ============================================================================
 --  Files, Backups, and Undo
