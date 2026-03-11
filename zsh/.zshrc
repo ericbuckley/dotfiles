@@ -66,6 +66,10 @@ fi
 export GPG_TTY=$(tty)
 # default editor
 export EDITOR='nvim'
+# default bat settings
+export BAT_STYLE='changes,grid,header-filename,snip'
+export BAT_PAGING='never'
+export GIT_PAGER='bat'
 # Force Emacs keybindings (overrides EDITOR=nvim default)
 bindkey -e
 
