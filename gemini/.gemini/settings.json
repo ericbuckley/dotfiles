@@ -11,7 +11,12 @@
     "vimMode": false,
     "enableAutoUpdate": false,
     "previewFeatures": true,
-    "sessionRetention.enabled": true
+    "sessionRetention.enabled": true,
+    "sessionRetention": {
+      "warningAcknowledged": true,
+      "enabled": true,
+      "maxAge": "30d"
+    }
   },
   "output": {
     "format": "text"
