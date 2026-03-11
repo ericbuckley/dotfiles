@@ -151,9 +151,9 @@ $additional_context"
 fi
 
 if command -v bat >/dev/null 2>&1; then
-  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-pro-preview" -e "" "$prompt" | bat --paging=never --style=plain --language=markdown
+  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3.1-pro-preview" -e "" "$prompt" | bat --paging=never --style=plain --language=markdown
 else
-  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-pro-preview" -e "" "$prompt"
+  echo "$diff_output" | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3.1-pro-preview" -e "" "$prompt"
 fi
 exit_status=${PIPESTATUS[1]}
 
