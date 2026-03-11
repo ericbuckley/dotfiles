@@ -19,10 +19,9 @@ require("lazy").setup({
   { "tpope/vim-sensible" },
 
   -- === Visuals ===
-  { "morhetz/gruvbox" },
+  { "rebelot/kanagawa.nvim" }, -- colorscheme
   { "nvim-lualine/lualine.nvim" },
   { "junegunn/limelight.vim" },
-  { "chrisbra/colorizer" },
 
   -- === Editing ===
   { "preservim/nerdcommenter" },
@@ -63,7 +62,7 @@ vim.g.mapleader = " "
 vim.opt.encoding = "utf-8"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme kanagawa")
 
 vim.opt.wrap = false
 vim.opt.clipboard = "unnamedplus"
