@@ -48,6 +48,7 @@ require("lazy").setup({
   -- === Build & Git ===
   { "tpope/vim-dispatch" },
   --{ "tpope/vim-fugitive" },
+  { "FabijanZulj/blame.nvim" },
   { "NeogitOrg/neogit", dependencies = { "plenary.nvim", "esmuellert/codediff.nvim", "nvim-telescope/telescope.nvim" } },
   { "tpope/vim-rhubarb" },
   { "mattn/gist-vim", dependencies = { "mattn/webapi-vim" }, },
@@ -311,3 +312,8 @@ require("minuet").setup({
         },
     },
 })
+
+-- ============================================================================
+--  Blame configuration
+-- ============================================================================
+require('blame').setup {}
