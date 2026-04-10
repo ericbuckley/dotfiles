@@ -6,6 +6,7 @@ typeset -U path
 export LANG=en_US.UTF-8
 # path for local installs
 export PATH="$HOME/.local/bin:$PATH"
+
 # configure homebrew [optionally]
 for brew_path in /opt/homebrew/bin/brew /usr/local/bin/brew; do
     if [[ -x "$brew_path" ]]; then
@@ -49,9 +50,6 @@ EOF
 if type brew &>/dev/null; then
     # configure python path
     export PATH="${HOMEBREW_PREFIX}/opt/python@3.13/libexec/bin:$PATH"
-    # configure java path
-    export JAVA_HOME="${HOMEBREW_PREFIX}/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
-    export PATH="${JAVA_HOME}/bin:$PATH"
     # configure golang paths
     export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
     export GOPATH="$HOME/.golang"
@@ -60,6 +58,21 @@ if type brew &>/dev/null; then
     export PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:$PATH"
     # configure grep path
     export PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin:$PATH"
+    if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
+        . "$(brew --prefix asdf)/libexec/asdf.sh"
+    fi
+fi
+
+# configure asdf
+if type asdf &>/dev/null; then
+    ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+    export PATH="${ASDF_DATA_DIR}/shims:$PATH"
+    if [ -f "${ASDF_DATA_DIR}/asdf.sh" ]; then
+        . "${ASDF_DATA_DIR}/asdf.sh"
+    fi
+    if [ -f "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" ]; then
+        . "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh"
+    fi
 fi
 
 # gpg
