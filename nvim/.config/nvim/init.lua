@@ -252,7 +252,7 @@ vim.g.ale_fixers = {
   rust = { 'rustfmt' },
   sh = { 'shfmt' },
   xml = { 'xmlformatter' },
-  sql = { 'sqruff' },
+  sql = { 'sqfluff' },
 }
 
 vim.diagnostic.config({
