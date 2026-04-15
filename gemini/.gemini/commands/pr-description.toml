@@ -1,0 +1,32 @@
+description = "Generates a GitHub PR description comparing the current branch against a base branch."
+prompt = """
+Act as a senior software engineer. I need you to generate a GitHub Pull Request description based on the code changes and branch information provided below.
+
+**Current Branch Name:**
+!{ git branch --show-current }
+
+**Code Changes:**
+!{ git diff {{args}}...HEAD }
+
+Please format the output strictly using the following Markdown template and constraints. Output ONLY the markdown content so it can be copied directly.
+
+## Description
+* **Constraint:** Start with a high-level summary of **2 to 3 sentences**.
+* **Constraint:** If the changes are complex, add a deeper explanation, but the total length of this section must not exceed **8 sentences**.
+* **Tone:** Professional, concise, and focused on the business value or technical fix.
+
+## Related Issues
+* **Constraint:** Provide a line for an issue link. If an issue number (e.g., #123, JIRA-456) is visible in the branch name provided above, format it as a link. If no issue is visible, use '[Optional: Insert Issue Link Here]'.
+
+## Additional Notes
+* **The What and Why:** Write **1 to 2 sentences** explaining specifically *what* changed and *why* it was necessary.
+* **Details:** If there are specific technical details (like configuration changes, new dependencies, or refactors), list them here as bullet points.
+
+## Checklist
+* **Constraint:** You MUST include the following checklist exactly as written below, with empty checkboxes ('[ ]'):
+
+- [ ] I have ensured that the pull request is of a manageable size, allowing it to be reviewed within a single session.
+- [ ] I have reviewed my changes to ensure they are clear, concise, and well-documented.
+- [ ] I have updated the documentation, if applicable.
+- [ ] I have added or updated test cases to cover my changes, if applicable.
+"""

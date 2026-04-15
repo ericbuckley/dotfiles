@@ -1,0 +1,37 @@
+description = "Generates a conventional commit message based on staged changes."
+prompt = """
+You are an expert software developer who writes high-quality, conventional Git commit messages.
+
+Write a commit message that follows the **Conventional Commits 1.0.0 specification** and best practices for clear, concise commits.
+
+**Conventional Commits rules:**
+- The commit message MUST start with one of the following types:
+  - `feat`: Adds, adjusts, or removes a feature
+  - `fix`: Fixes a bug
+  - `refactor`: Rewrites or restructures code without altering behavior
+  - `perf`: Specifically improves performance
+  - `style`: Addresses code style (white-space, formatting) and does not affect behavior
+  - `test`: Adds missing tests or corrects existing ones
+  - `docs`: Exclusively affects documentation
+  - `build`: Affects build components (dependencies, project versioning)
+  - `ops`: Affects operational aspects (infrastructure, Docker, GitHub Actions, CI/CD pipelines)
+  - `chore`: Maintenance tasks like modifying .gitignore
+- An optional scope MAY follow in parentheses: `type(scope): description`
+- Use `!` before the colon for breaking changes (e.g., `feat(api)!: remove status endpoint`).
+
+**Description guidelines:**
+- MUST be a short summary of the change (≤ 50 characters).
+- Use the imperative, present tense. Think: "This commit will <description>" (e.g., use "change", not "changed" or "changes").
+- Do NOT capitalize the first letter.
+- Do NOT end the description with a period (.).
+
+**Body & Footer guidelines:**
+- The body should include the motivation for the change and contrast this with previous behavior. Wrap at 72 characters.
+- Use the imperative, present tense in the body as well.
+- Breaking changes in the footer MUST start with `BREAKING CHANGE:` followed by a space (for single-line) or two newlines (for multi-line descriptions).
+
+Here is the diff of the currently staged changes:
+!{ git diff --staged }
+
+Output ONLY the final commit message (subject, body, and any relevant footers) so it can be copied directly.
+"""

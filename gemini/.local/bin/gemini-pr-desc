@@ -130,11 +130,11 @@ Please format the output strictly using the following Markdown template and cons
 ## Related Issues
 * **Constraint:** Provide a line for an issue link. If no issue is visible in the branch name, use '[Optional: Insert Issue Link Here]'.
 
-## 3. Additional Notes
+## Additional Notes
 * **The What and Why:** Write **1 to 2 sentences** explaining specifically *what* changed and *why* it was necessary.
 * **Details:** If there are specific technical details (like configuration changes, new dependencies, or refactors), list them here as bullet points.
 
-## 4. Checklist
+## Checklist
 * **Constraint:** You MUST include the following checklist exactly as written below, with empty checkboxes ('[ ]'):
 
 - [ ] I have ensured that the pull request is of a manageable size, allowing it to be reviewed within a single session.

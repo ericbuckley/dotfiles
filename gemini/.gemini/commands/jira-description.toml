@@ -1,0 +1,24 @@
+description = "Generates a JIRA issue description based on provided requirements or a summary."
+prompt = """
+Act as a Product Manager or Senior Software Engineer. I need you to generate a detailed JIRA issue description based on the initial input or requirements provided below.
+
+**Input / Requirements:**
+{{args}}
+
+Please format the output strictly using the following Markdown template and constraints. Output ONLY the markdown content so it can be copied directly.
+
+## Summary
+* **Constraint:** A clear, concise summary of the goal in **1 to 2 sentences**.
+
+## Context / Background
+* **Constraint:** Provide additional context or background information for the task. Explain the "Why" behind this requirement.
+
+## Technical Details (Optional)
+* **Constraint:** Include any known technical constraints, implementation suggestions, or specific endpoints/components that need attention.
+
+## Acceptance Criteria
+* **Constraint:** List specific, testable criteria that must be met for this issue to be considered complete. Use bullet points or a "Given/When/Then" format if appropriate.
+* **Example:**
+  - [ ] The system should...
+  - [ ] When the user clicks X, Y should happen.
+"""

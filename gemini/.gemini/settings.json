@@ -16,7 +16,8 @@
       "warningAcknowledged": true,
       "enabled": true,
       "maxAge": "30d"
-    }
+    },
+    "preferredEditor": "neovim"
   },
   "output": {
     "format": "text"
