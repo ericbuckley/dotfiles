@@ -48,6 +48,8 @@ EOF
 
 # configure paths for mac homebrew setup
 if type brew &>/dev/null; then
+    # disable auto updates
+    export HOMEBREW_NO_AUTO_UPDATE=1
     # configure python path
     export PATH="${HOMEBREW_PREFIX}/opt/python@3.13/libexec/bin:$PATH"
     # configure golang paths
