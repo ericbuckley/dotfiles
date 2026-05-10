@@ -1,0 +1,10 @@
+{
+  "tui.editor.cursorUp": ["up", "ctrl+k"],
+  "tui.editor.cursorDown": ["down", "ctrl+j"],
+  "tui.editor.pageUp": ["pageUp", "ctrl+u"],
+  "tui.editor.pageDown": ["pageDown", "ctrl+d"],
+  "tui.select.up": ["up", "ctrl+k"],
+  "tui.select.down": ["down", "ctrl+j"],
+  "tui.select.pageUp": ["pageUp", "ctrl+u"],
+  "tui.select.pageDown": ["pageDown", "ctrl+d"]
+}
