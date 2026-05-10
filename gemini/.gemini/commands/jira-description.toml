@@ -7,6 +7,9 @@ Act as a Product Manager or Senior Software Engineer. I need you to generate a d
 
 Please format the output strictly using the following Markdown template and constraints. Output ONLY the markdown content so it can be copied directly.
 
+# Title
+* **Constraint:** A clear concise title for the ticket, ideally less than 6 words.
+
 ## Summary
 * **Constraint:** A clear, concise summary of the goal in **1 to 2 sentences**.
 
