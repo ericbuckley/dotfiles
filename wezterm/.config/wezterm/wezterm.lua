@@ -14,6 +14,10 @@ config.font = wezterm.font_with_fallback({
     harfbuzz_features = { "zero=1", "cv01=1" },
   },
   {
+    family = "VictorMono Nerd Font",
+    weight = "Medium",
+  },
+  {
     family = "Hack Nerd Font",
     weight = "Regular",
   },
