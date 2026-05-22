@@ -34,7 +34,8 @@ Write a commit message that follows the **Conventional Commits 1.0.0 specificati
 Now, using the following ``git diff --staged`` output, write the full commit message (subject, body, and any relevant footers):
 EOF
 
-if ! commit_message=$(git diff -U10 --staged | NODE_OPTIONS="--no-deprecation" gemini -m "gemini-3-flash-preview" -e "" "$persona"); then
+# Use the pi agent in headless (print) mode to generate the commit message
+if ! commit_message=$(git diff -U10 --staged | pi --model google/gemini-flash-lite-latest --no-session --no-tools -nc -ne -ns -np --system-prompt "$persona" -p ""); then
     echo "Failed to generate commit message" >&2
     exit 1
 fi
