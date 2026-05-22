@@ -25,7 +25,7 @@ zstyle :prompt:pure:git:dirty color magenta
 DISABLE_AUTO_UPDATE="true"
 
 # initialize antidote
-source ${ZDOTDIR}/.antidote/antidote.zsh
+source "${ZDOTDIR}/.antidote/antidote.zsh"
 source <(antidote init)
 # install zsh plugins
 antidote bundle <<EOF
@@ -91,6 +91,6 @@ export GIT_PAGER='bat'
 bindkey -e
 
 # For a full list of active aliases, run `alias`.
-[[ -f "$HOME/.aliases" ]] && source $HOME/.aliases
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 # load any host specific zsh configurations
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
