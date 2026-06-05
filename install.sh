@@ -17,7 +17,14 @@ function linkDotfile {
 			# existing file is link and it already matches
 			return
 		fi
-		read -r -p "Replace ${DEST}? [Y/n]: " REPLACE
+		# Handle existing files. Use /dev/tty for read to ensure it works even if stdin is redirected
+		REPLACE="n"
+		if [ -t 0 ]; then
+			read -r -p "Replace ${DEST}? [Y/n]: " REPLACE || REPLACE="n"
+		else
+			echo "Skipping ${DEST} (not a TTY)"
+		fi
+		
 		if [ "$REPLACE" = "Y" ]; then
 			echo "Replacing symlink: ${DEST}"
 			ln -f -s "${1}/${2}" "${DEST}"
