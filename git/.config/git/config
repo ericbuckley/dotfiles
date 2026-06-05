@@ -23,6 +23,7 @@
     ui = auto
 [core]
     editor = vim
+    pager = delta
 [diff]
     algorithm = histogram
     colorMoved = plain
@@ -60,4 +61,12 @@
     forceSignAnnotated = false
     sort = version:refname
 [gpg]
-	program = /usr/local/bin/gpg
+    program = /usr/local/bin/gpg
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    side-by-side = true
+    line-numbers = true
+    decorations = true
+    navigate = true
+    pager = less
