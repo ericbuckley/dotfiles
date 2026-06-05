@@ -31,6 +31,7 @@ config.font_size = 16.0
 config.front_end = "WebGpu"
 config.window_decorations = "RESIZE"
 config.enable_kitty_keyboard = true
+config.hide_tab_bar_if_only_one_tab = true
 
 -- Default to dark if we can't determine the state
 local appearance = wezterm.gui and wezterm.gui.get_appearance() or "Dark"
