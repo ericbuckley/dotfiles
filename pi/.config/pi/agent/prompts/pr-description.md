@@ -12,7 +12,7 @@ Instructions:
 - Inspect the actual git diff yourself before writing.
 - If an issue identifier such as `#123` or `ABC-456` appears in the branch name, mention it in Related Issues. Otherwise use `[Optional: Insert Issue Link Here]`.
 
-Format the output exactly like this Markdown template and output only the markdown:
+Format the output exactly like this Markdown template. Wrap the entire output in a markdown code block (```markdown) to ensure it is treated as raw text when viewed or copied, preventing premature rendering. Output only the code block containing the markdown.
 
 ## Description
 - Start with a high-level summary in 2 to 3 sentences.
