@@ -84,9 +84,9 @@ export EDITOR='nvim'
 # pi configuration
 export PI_CODING_AGENT_DIR="$HOME/.config/pi/agent"
 # default bat settings
+export PAGER='bat'
 export BAT_STYLE='changes,grid,header-filename,snip'
 export BAT_PAGING='never'
-export GIT_PAGER='bat'
 # Force Emacs keybindings (overrides EDITOR=nvim default)
 bindkey -e
 
