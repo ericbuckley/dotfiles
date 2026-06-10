@@ -7,6 +7,10 @@ $ARGUMENTS
 
 Format the output exactly as Markdown and output only the markdown:
 
+## Title
+- Write a brief and descriptive title that summarizes the core issue or feature request.
+- Aim to keep it at less then 10 words.
+
 ## Summary
 - Write a clear, concise summary of the goal in 1 to 2 sentences.
 
