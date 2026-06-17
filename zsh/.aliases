@@ -38,5 +38,5 @@ pi-pr-desc() {
   local prompt
 
   prompt=$(sed "s/\$1/${base}/g" "$template")
-  pi --model google/gemini-flash-lite-latest --no-session -nc -ne -ns -np -p "$prompt" $base" 2>/dev/null
+  pi --model google/gemini-flash-lite-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
