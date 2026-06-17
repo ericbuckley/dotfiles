@@ -3,6 +3,8 @@ description: Generate a conventional commit message from staged git changes
 ---
 Review the currently staged git changes and write a commit message that follows the Conventional Commits 1.0.0 specification.
 
+Run `rtk git diff -U10 --staged` to inspect the staged changes.
+
 Requirements:
 - Inspect the staged changes yourself using git tools.
 - Choose the most appropriate type from: feat, fix, refactor, perf, style, test, docs, build, ops, chore.
