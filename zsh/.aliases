@@ -40,3 +40,12 @@ pi-pr-desc() {
   prompt=$(sed "s/\$1/${base}/g" "$template")
   pi --model google/gemini-flash-lite-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
+
+pi-jira-desc() {
+  local desc="${1}"
+  local template="${PI_CODING_AGENT_DIR}/prompts/jira-description.md"
+  local prompt
+
+  prompt=$(sed "s/\$1/${desc}/g" "$template")
+  pi --model google/gemini-flash-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
+}

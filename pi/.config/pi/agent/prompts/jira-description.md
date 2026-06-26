@@ -3,7 +3,7 @@ description: Generate a JIRA issue description from requirements or notes
 ---
 Generate a detailed JIRA issue description from the following input:
 
-$ARGUMENTS
+$1
 
 Format the output exactly as Markdown and output only the markdown:
 
