@@ -40,6 +40,7 @@ getantidote/use-omz
 ohmyzsh/ohmyzsh path:plugins/git
 ohmyzsh/ohmyzsh path:plugins/docker
 ohmyzsh/ohmyzsh path:plugins/tmux
+ohmyzsh/ohmyzsh path:plugins/kubectl
 
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
