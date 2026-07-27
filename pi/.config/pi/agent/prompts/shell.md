@@ -4,7 +4,7 @@ argument-hint: "<question>"
 ---
 Translate the following question into one shell command that answers it:
 
-$@
+$1
 
 Requirements:
 - Target zsh on macOS, using portable Unix commands where practical.

@@ -14,6 +14,45 @@ alias dcrr='docker compose run --rm --service-ports'
 alias docker-clean='docker system prune -a --volumes -f'
 
 # PI CLI shortcuts
+piq() {
+  emulate -L zsh
+
+  local print_only=false
+  if [[ "$1" == "-p" || "$1" == "--print" ]]; then
+    print_only=true
+    shift
+  fi
+
+  if (( $# == 0 )); then
+    echo 'Usage: piq [-p|--print] <question>' >&2
+    return 2
+  fi
+
+  local template="${PI_CODING_AGENT_DIR}/prompts/shell.md"
+  local generated
+
+  if ! generated=$(pi \
+    --model google/gemini-flash-lite-latest \
+    --thinking off \
+    --no-session -nc -ne -ns -nt -np \
+    --prompt-template "$template" \
+    -p "/shell $*"); then
+    return 1
+  fi
+
+  if [[ -z "${generated//[[:space:]]/}" ]]; then
+    echo 'Generated command was empty' >&2
+    return 1
+  fi
+
+  if [[ "$print_only" == true || ! -o interactive ]]; then
+    printf '%s\n' "$generated"
+  else
+    # Put the command in the next prompt for review; never execute it automatically.
+    print -z -- "$generated"
+  fi
+}
+
 pi-commit() {
   local template="${PI_CODING_AGENT_DIR}/prompts/commit.md"
   local commit_message
@@ -44,6 +83,15 @@ pi-pr-desc() {
 pi-jira-desc() {
   local desc="${1}"
   local template="${PI_CODING_AGENT_DIR}/prompts/jira-description.md"
+  local prompt
+
+  prompt=$(sed "s/\$1/${desc}/g" "$template")
+  pi --model google/gemini-flash-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
+}
+
+pi-shell() {
+  local desc="${1}"
+  local template="${PI_CODING_AGENT_DIR}/prompts/shell.md"
   local prompt
 
   prompt=$(sed "s/\$1/${desc}/g" "$template")
