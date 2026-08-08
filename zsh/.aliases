@@ -76,7 +76,8 @@ pi-pr-desc() {
   local template="${PI_CODING_AGENT_DIR}/prompts/pr-description.md"
   local prompt
 
-  prompt=$(sed "s/\$1/${base}/g" "$template")
+  prompt=$(<"$template")
+  prompt=${prompt//\$1/$base}
   pi --model google/gemini-flash-lite-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
 
@@ -85,7 +86,8 @@ pi-jira-desc() {
   local template="${PI_CODING_AGENT_DIR}/prompts/jira-description.md"
   local prompt
 
-  prompt=$(sed "s/\$1/${desc}/g" "$template")
+  prompt=$(<"$template")
+  prompt=${prompt//\$1/$desc}
   pi --model google/gemini-flash-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
 
@@ -94,6 +96,7 @@ pi-shell() {
   local template="${PI_CODING_AGENT_DIR}/prompts/shell.md"
   local prompt
 
-  prompt=$(sed "s/\$1/${desc}/g" "$template")
+  prompt=$(<"$template")
+  prompt=${prompt//\$1/$desc}
   pi --model google/gemini-flash-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
