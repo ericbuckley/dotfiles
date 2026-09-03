@@ -65,7 +65,6 @@
 [interactive]
     diffFilter = delta --color-only
 [delta]
-    side-by-side = true
     line-numbers = true
     decorations = true
     navigate = true
