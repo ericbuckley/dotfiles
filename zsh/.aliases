@@ -57,7 +57,7 @@ pi-commit() {
   local template="${PI_CODING_AGENT_DIR}/prompts/commit.md"
   local commit_message
 
-  commit_message=$(pi --model google/gemini-flash-lite-latest --no-session -nc -ne -ns -np -p "$(cat "$template")" 2>/dev/null)
+  commit_message=$(pi --model openai-codex/gpt-5.6-luna --no-session -nc -ne -ns -np -p "$(cat "$template")" 2>/dev/null)
 
   if [[ -z "${commit_message//[[:space:]]/}" ]]; then
     echo "Generated commit message was empty" >&2
@@ -78,7 +78,7 @@ pi-pr-desc() {
 
   prompt=$(<"$template")
   prompt=${prompt//\$1/$base}
-  pi --model google/gemini-flash-lite-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
+  pi --model openai-codex/gpt-5.6-luna --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
 
 pi-jira-desc() {
@@ -88,7 +88,7 @@ pi-jira-desc() {
 
   prompt=$(<"$template")
   prompt=${prompt//\$1/$desc}
-  pi --model google/gemini-flash-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
+  pi --model openai-codex/gpt-5.6-luna --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
 
 pi-shell() {
@@ -98,5 +98,5 @@ pi-shell() {
 
   prompt=$(<"$template")
   prompt=${prompt//\$1/$desc}
-  pi --model google/gemini-flash-latest --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
+  pi --model openai-codex/gpt-5.6-luna --no-session -nc -ne -ns -np -p "$prompt" 2>/dev/null
 }
