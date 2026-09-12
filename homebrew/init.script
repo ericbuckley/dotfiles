@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -eu
+
+if [ "$(uname)" != "Darwin" ]; then
+  echo "Skipping Homebrew installation on non-macOS system."
+  exit 0
+fi
+
+command -v brew >/dev/null || {
+ echo "Installing homebrew..."
+ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+brew bundle install --file="$repo_root/homebrew/Brewfile" --upgrade

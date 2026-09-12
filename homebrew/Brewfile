@@ -1,0 +1,145 @@
+tap "nikitabobko/tap", trusted: true
+# Polyglot tool version manager
+brew "mise"
+# Improved shell history for zsh, bash, fish and nushell
+brew "atuin"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Cross-platform make
+brew "cmake"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# General-purpose data compression with high compression ratio
+brew "xz"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# Modern, maintained replacement for ls
+brew "eza"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Command-line tools for fly.io services
+brew "flyctl"
+# Libraries to talk to Microsoft SQL Server and Sybase databases
+brew "freetds"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GNU compiler collection
+brew "gcc"
+# GitHub command-line tool
+brew "gh"
+# Distributed revision control system
+brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Audit git repos for secrets
+brew "gitleaks"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+# GNU Transport Layer Security (TLS) Library
+brew "gnutls"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Bash and Zsh completion for Gradle
+brew "gradle-completion"
+# GNU grep, egrep and fgrep
+brew "grep"
+# Kubernetes package manager
+brew "helm"
+# Improved top (interactive process viewer)
+brew "htop"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Cross-platform TUI database management tool
+brew "lazysql"
+# Postgres C API library
+brew "libpq"
+# Java-based project management
+brew "maven"
+# Mac App Store command-line client used by the `mas` entries below.
+brew "mas"
+# Run a Kubernetes cluster locally
+brew "minikube"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# AI agent toolkit
+brew "pi-coding-agent"
+# Passphrase entry dialog utilizing the Assuan protocol
+brew "pinentry"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# CLI proxy to minimize LLM token consumption
+brew "rtk"
+# Safe, concurrent, practical language
+brew "rust"
+# Microsoft SQL Server command-line interface
+brew "sqlcmd"
+# Terminal multiplexer
+brew "tmux"
+# Vulnerability scanner for container images, file systems, and Git repos
+brew "trivy"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+# Internet file retriever
+brew "wget"
+
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace", trusted: true
+
+# Android SDK component
+cask "android-platform-tools"
+
+# Font with a programmer's perspective and a nerd-font glyph set
+cask "font-fira-code-nerd-font"
+cask "font-hack-nerd-font"
+cask "font-maple-mono"
+cask "font-maple-mono-nf"
+cask "font-sf-pro"
+cask "font-victor-mono-nerd-font"
+
+# Application casks added from the Applications audit.
+cask "bitwarden"
+cask "brave-browser"
+cask "cyberduck"
+cask "daisydisk"
+cask "docker-desktop"
+cask "firefox"
+cask "gpg-suite-no-mail"
+cask "handbrake-app"
+cask "hazeover"
+cask "itsycal"
+cask "jabra-direct"
+cask "logi-options+"
+cask "microsoft-edge"
+cask "microsoft-excel"
+cask "microsoft-powerpoint"
+cask "microsoft-word"
+cask "private-internet-access"
+cask "raycast"
+cask "signal"
+cask "simplenote"
+cask "slack"
+cask "spotify"
+cask "tableplus"
+cask "transmission"
+cask "viscosity"
+cask "vlc"
+cask "wezterm"
+cask "whatsapp"
+cask "windows-app"
+cask "yubico-authenticator"
+cask "zoom"
+
+# Mac App Store apps. The App Store must be signed in; paid apps must be owned.
+mas "Microsoft To Do", id: 1274495053
+mas "Keynote", id: 361285480
+mas "Numbers", id: 361304891
+mas "Pages", id: 361309726
+mas "World Clock Widget", id: 956377119

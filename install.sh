@@ -37,10 +37,27 @@ function linkDotfile {
 	fi
 }
 
-# execute all init.script files
-find . -type f -name "init.script" | while read -r FILE; do
+runInitScript() {
+	FILE="$1"
 	echo "INITIALIZING: ${PWD}/${FILE}..."
 	"${PWD}/${FILE}"
+}
+
+# Execute dependency-sensitive init scripts first. The remaining scripts are
+# independent and run afterward in a stable, sorted order.
+for FILE in homebrew/init.script mise/init.script; do
+	if [ -f "${FILE}" ]; then
+		runInitScript "${FILE}"
+	fi
+done
+
+find . -type f -name "init.script" -print | sort | while read -r FILE; do
+	case "${FILE#./}" in
+		homebrew/init.script|mise/init.script)
+			continue
+			;;
+	esac
+	runInitScript "${FILE#./}"
 done
 
 # create all symlinks
