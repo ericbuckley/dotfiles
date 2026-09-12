@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -eu
+
+# Homebrew installs mise before this script runs. Fall back to its absolute
+# path so this also works when Homebrew was installed during this invocation.
+MISE=$(command -v mise 2>/dev/null || true)
+if [ -z "$MISE" ] && command -v brew >/dev/null 2>&1; then
+    MISE_PREFIX=$(brew --prefix mise 2>/dev/null || true)
+    if [ -x "${MISE_PREFIX}/bin/mise" ]; then
+        MISE="${MISE_PREFIX}/bin/mise"
+    fi
+fi
+
+if [ -z "$MISE" ]; then
+    echo "mise is not installed; run the Homebrew initialization first." >&2
+    exit 1
+fi
+
+echo "Installing mise-managed runtimes..."
+# Fuzzy versions resolve to the latest matching patch/hotfix release.
+"$MISE" install java@openjdk-21
+"$MISE" install java@zulu-8
+"$MISE" install python@3.12
