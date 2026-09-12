@@ -7,6 +7,29 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+DOTFILES_IGNORE="${PWD}/.ignore"
+
+is_ignored() {
+	local repo_file="${1#./}"
+	local pattern
+
+	[ -f "${DOTFILES_IGNORE}" ] || return 1
+
+	while IFS= read -r pattern || [ -n "${pattern}" ]; do
+		case "${pattern}" in
+			''|\#*)
+				continue
+				;;
+		esac
+
+		if [[ "${repo_file}" == ${pattern} ]]; then
+			return 0
+		fi
+	done < "${DOTFILES_IGNORE}"
+
+	return 1
+}
+
 function linkDotfile {
 	# $1: parent directory
 	# $2: dotfile to link
@@ -64,6 +87,12 @@ done
 for GROUP in *; do
 	if [ -d "${GROUP}" ]; then
 		find "${GROUP}" ! -name 'init.script' -type f | while read -r FILE; do
+			# Installer inputs and other repository-only files are listed here
+			# instead of being linked into the home directory.
+			if is_ignored "${FILE}"; then
+				continue
+			fi
+
 			RELPATH=$(realpath --relative-to="${GROUP}" "${FILE}")
 			linkDotfile "${PWD}/${GROUP}" "${RELPATH}"
 		done

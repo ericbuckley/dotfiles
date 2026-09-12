@@ -28,7 +28,7 @@ To install or update the dotfiles:
 ```
 
 **Mechanism:**
-1.  **Symlinking:** Iterates through all group directories. For each file (excluding `init.script`), it creates a symbolic link in `$HOME` pointing to the file in the repo. It prompts before replacing existing files.
+1.  **Symlinking:** Iterates through all group directories. For each file (excluding `init.script` and paths listed in `.ignore`), it creates a symbolic link in `$HOME` pointing to the file in the repo. It prompts before replacing existing files.
 2.  **Initialization:** Finds and executes all `init.script` files found in the repository (e.g., installing zsh antidote, tmux tpm).
 
 ## Key Configurations
@@ -54,5 +54,6 @@ To install or update the dotfiles:
 ## Development Conventions
 
 *   **Adding Configs:** Create a new directory for the tool (if it doesn't exist) and replicate the path structure relative to `$HOME`. Run `./install.sh` to link it.
+*   **Ignoring Files:** Add repository-only files to `.ignore` when they should not be symlinked into `$HOME`.
 *   **Scripts:** Use `init.script` for actions that require execution (installing binaries, downloading plugins) instead of just linking.
 *   **Idempotency:** The `install.sh` script is designed to be run multiple times safely. It checks if links already exist and match.
