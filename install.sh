@@ -17,10 +17,11 @@ function linkDotfile {
 			# existing file is link and it already matches
 			return
 		fi
-		# Handle existing files. Use /dev/tty for read to ensure it works even if stdin is redirected
+		# The callers below use find | while, so stdin is a pipe even when the
+		# installer was launched from a terminal. Read the prompt from the TTY.
 		REPLACE="n"
-		if [ -t 0 ]; then
-			read -r -p "Replace ${DEST}? [Y/n]: " REPLACE || REPLACE="n"
+		if [ -t 1 ] && [ -r /dev/tty ]; then
+			read -r -p "Replace ${DEST}? [Y/n]: " REPLACE </dev/tty || REPLACE="n"
 		else
 			echo "Skipping ${DEST} (not a TTY)"
 		fi
