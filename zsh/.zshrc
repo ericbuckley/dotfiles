@@ -13,9 +13,6 @@ for brew_path in /opt/homebrew/bin/brew /usr/local/bin/brew; do
         eval "$("$brew_path" shellenv)"; break
     fi
 done
-# faster zsh completion startup
-autoload -Uz compinit
-compinit -u ${${ZDOTDIR}/.zcompdump(#qNmh+24):+-C}
 # eza settings
 _EZA_PARAMS=('--git' '--group' '--icons' '--group-directories-first' '--time-style=long-iso' '--color-scale=all')
 # pure prompt settings
@@ -23,6 +20,8 @@ zstyle :prompt:pure:git:branch color green
 zstyle :prompt:pure:git:dirty color magenta
 # omz settings
 DISABLE_AUTO_UPDATE="true"
+# docker settings
+zstyle ':omz:plugins:docker' legacy-completion yes
 
 # initialize antidote
 source "${ZDOTDIR}/.antidote/antidote.zsh"
@@ -35,6 +34,7 @@ atuinsh/atuin
 MichaelAquilina/zsh-you-should-use
 z-shell/zsh-eza
 fdellwing/zsh-bat
+bigH/git-fuzzy path:bin kind:path
 
 getantidote/use-omz
 ohmyzsh/ohmyzsh path:plugins/git
@@ -46,13 +46,14 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
 EOF
 
+# faster zsh completion startup
+autoload -Uz compinit
+compinit -u ${${ZDOTDIR}/.zcompdump(#qNmh+24):+-C}
 
 # configure paths for mac homebrew setup
 if type brew &>/dev/null; then
     # disable auto updates
     export HOMEBREW_NO_AUTO_UPDATE=1
-    # configure python path
-    export PATH="${HOMEBREW_PREFIX}/opt/python@3.13/libexec/bin:$PATH"
     # configure golang paths
     export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
     export GOPATH="$HOME/.golang"
@@ -61,21 +62,11 @@ if type brew &>/dev/null; then
     export PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:$PATH"
     # configure grep path
     export PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin:$PATH"
-    if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
-        . "$(brew --prefix asdf)/libexec/asdf.sh"
-    fi
 fi
 
-# configure asdf
-if type asdf &>/dev/null; then
-    ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
-    export PATH="${ASDF_DATA_DIR}/shims:$PATH"
-    if [ -f "${ASDF_DATA_DIR}/asdf.sh" ]; then
-        . "${ASDF_DATA_DIR}/asdf.sh"
-    fi
-    if [ -f "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" ]; then
-        . "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh"
-    fi
+# configure mise
+if type mise &>/dev/null; then
+    eval "$(mise activate zsh)"
 fi
 
 # gpg
