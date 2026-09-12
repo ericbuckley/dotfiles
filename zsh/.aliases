@@ -13,6 +13,30 @@ alias dcb='docker compose build'
 alias dcrr='docker compose run --rm --service-ports'
 alias docker-clean='docker system prune -a --volumes -f'
 
+# Tmux dev workflow
+tmuxdev() {
+    emulate -L zsh
+
+    local session="${1:-${PWD##*/}}"
+    local dir="${2:-$PWD}"
+    local target="${session}:tool"
+
+    if tmux has-session -t "$session" 2>/dev/null; then
+        echo "tmux session already exists: $session" >&2
+    else
+        tmux new-session -d -s "$session" -n edit -c "$dir"
+        tmux new-window -t "$session" -n tool -c "$dir"
+        tmux new-window -t "$session" -n run -c "$dir"
+    fi
+
+    # Switch the current client instead of nesting a second tmux client.
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux switch-client -t "$target"
+    else
+        tmux attach-session -t "$target"
+    fi
+}
+
 # PI CLI shortcuts
 piq() {
   emulate -L zsh
