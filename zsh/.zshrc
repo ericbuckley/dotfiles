@@ -64,6 +64,11 @@ if type brew &>/dev/null; then
     export PATH="${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin:$PATH"
 fi
 
+# add Docker Desktop commands to PATH
+if [[ -d "$HOME/.docker/bin" ]]; then
+    export PATH="$PATH:/Users/buckley/.docker/bin"
+fi
+
 # configure mise
 if type mise &>/dev/null; then
     eval "$(mise activate zsh)"
