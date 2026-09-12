@@ -77,8 +77,6 @@ brew "pinentry"
 brew "ripgrep"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
-# Safe, concurrent, practical language
-brew "rust"
 # Microsoft SQL Server command-line interface
 brew "sqlcmd"
 # Terminal multiplexer
