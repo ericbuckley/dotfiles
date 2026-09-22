@@ -156,10 +156,12 @@ run = 'move-node-to-workspace T'
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
+if.window-title-regex-substring = 'work'
 run = 'move-node-to-workspace W'
 
 [[on-window-detected]]
-if.app-id="com.brave.Browser"
+if.app-id='org.mozilla.firefox'
+if.window-title-regex-substring = 'personal'
 run = 'move-node-to-workspace P'
 
 [[on-window-detected]]
