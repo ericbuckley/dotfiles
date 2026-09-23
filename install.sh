@@ -1,13 +1,15 @@
 #!/bin/bash
 
-# TODO:
-# - test if homebrew is installed before setting PATHs in .zshrc
+# Install dotfiles: run initialization scripts in dependency order, then
+# symlink managed files into $HOME while excluding .dotfilesignore entries.
+#
+# Usage: ./install.sh
 
 set -euo pipefail
 
 cd "$(dirname "$0")"
 
-DOTFILES_IGNORE="${PWD}/.ignore"
+DOTFILES_IGNORE="${PWD}/.dotfilesignore"
 
 is_ignored() {
 	local repo_file="${1#./}"
@@ -22,7 +24,7 @@ is_ignored() {
 				;;
 		esac
 
-		if [[ "${repo_file}" == ${pattern} ]]; then
+		if [[ "${repo_file}" == "${pattern}" ]]; then
 			return 0
 		fi
 	done < "${DOTFILES_IGNORE}"
