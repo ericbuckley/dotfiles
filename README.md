@@ -27,6 +27,12 @@ To install or update the dotfiles:
 ./install.sh
 ```
 
+To skip the Homebrew and mise initialization steps (while still running other init scripts and creating symlinks):
+
+```bash
+./install.sh --no-brew-mise
+```
+
 **Mechanism:**
 1.  **Symlinking:** Iterates through all group directories. For each file (excluding `init.script` and paths listed in `.dotfilesignore`), it creates a symbolic link in `$HOME` pointing to the file in the repo. It prompts before replacing existing files.
 2.  **Initialization:** Finds and executes all `init.script` files found in the repository (e.g., installing zsh antidote, tmux tpm).
