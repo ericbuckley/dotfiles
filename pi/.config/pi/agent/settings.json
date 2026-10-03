@@ -1,0 +1,18 @@
+{
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-6-luna",
+  "theme": "dark",
+  "enabledModels": [
+    "google/gemini-flash-latest",
+    "google/gemini-flash-lite-latest",
+    "openai-codex/gpt-6-luna",
+    "openai-codex/gpt-6.1-sol"
+  ],
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "git:github.com/mattleong/pi-better-openai",
+    "npm:pi-web-access",
+    "npm:@tenchi4u/pi-bifrost",
+    "npm:@sevten/pi-data-masking"
+  ]
+}
