@@ -1,6 +1,4 @@
 tap "nikitabobko/tap", trusted: true
-# Polyglot tool version manager
-brew "mise"
 # Improved shell history for zsh, bash, fish and nushell
 brew "atuin"
 # Bourne-Again SHell, a UNIX command interpreter
@@ -11,8 +9,6 @@ brew "bat"
 brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# General-purpose data compression with high compression ratio
-brew "xz"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Modern, maintained replacement for ls
@@ -21,8 +17,6 @@ brew "eza"
 brew "fd"
 # Command-line tools for fly.io services
 brew "flyctl"
-# Libraries to talk to Microsoft SQL Server and Sybase databases
-brew "freetds"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GNU compiler collection
@@ -41,12 +35,8 @@ brew "gnu-sed"
 brew "gnutls"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
-# Bash and Zsh completion for Gradle
-brew "gradle-completion"
 # GNU grep, egrep and fgrep
 brew "grep"
-# Kubernetes package manager
-brew "helm"
 # Improved top (interactive process viewer)
 brew "htop"
 # Lightweight and flexible command-line JSON processor
@@ -57,12 +47,10 @@ brew "lazygit"
 brew "lazysql"
 # Postgres C API library
 brew "libpq"
-# Java-based project management
-brew "maven"
 # Mac App Store command-line client used by the `mas` entries below.
 brew "mas"
-# Run a Kubernetes cluster locally
-brew "minikube"
+# Polyglot tool version manager
+brew "mise"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Open-source, cross-platform JavaScript runtime environment
@@ -77,16 +65,14 @@ brew "pinentry"
 brew "ripgrep"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
-# Microsoft SQL Server command-line interface
-brew "sqlcmd"
 # Terminal multiplexer
 brew "tmux"
 # Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
-# Internet file retriever
-brew "wget"
+# General-purpose data compression with high compression ratio
+brew "xz"
 
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace", trusted: true
@@ -120,12 +106,12 @@ cask "simplenote"
 cask "slack"
 cask "spotify"
 cask "tableplus"
+cask "tinycast"
 cask "transmission"
 cask "viscosity"
 cask "vlc"
 cask "wezterm"
 cask "whatsapp"
-cask "windows-app"
 cask "yubico-authenticator"
 cask "zoom"
 
