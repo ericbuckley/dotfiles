@@ -18,6 +18,10 @@
     "general": [
       "openai-codex/gpt-6-luna"
     ],
+    "coding": [
+      "openai-codex/gpt-6-luna",
+      "openai-codex/gpt-6.1-sol"
+    ],
     "frontier": [
       "openai-codex/gpt-6.1-sol"
     ]
