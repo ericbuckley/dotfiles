@@ -3,9 +3,31 @@
 # Install dotfiles: run initialization scripts in dependency order, then
 # symlink managed files into $HOME while excluding .dotfilesignore entries.
 #
-# Usage: ./install.sh
+# Usage: ./install.sh [--no-brew-mise]
 
 set -euo pipefail
+
+usage() {
+    echo "Usage: $0 [--no-brew-mise]"
+}
+
+SKIP_HOMEBREW_MISE_INIT=false
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --no-brew-mise)
+            SKIP_HOMEBREW_MISE_INIT=true
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            usage >&2
+            exit 2
+            ;;
+    esac
+    shift
+done
 
 cd "$(dirname "$0")"
 
@@ -70,11 +92,15 @@ runInitScript() {
 
 # Execute dependency-sensitive init scripts first. The remaining scripts are
 # independent and run afterward in a stable, sorted order.
-for FILE in homebrew/init.script mise/init.script; do
-	if [ -f "${FILE}" ]; then
-		runInitScript "${FILE}"
-	fi
-done
+if [ "${SKIP_HOMEBREW_MISE_INIT}" = false ]; then
+	for FILE in homebrew/init.script mise/init.script; do
+		if [ -f "${FILE}" ]; then
+			runInitScript "${FILE}"
+		fi
+	done
+else
+	echo "Skipping Homebrew and mise initialization."
+fi
 
 find . -type f -name "init.script" -print | sort | while read -r FILE; do
 	case "${FILE#./}" in
