@@ -1,7 +1,8 @@
 {
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-6-luna",
-  "theme": "dark",
+  "theme": "system",
+  "tuiMode": "regular",
   "enabledModels": [
     "google/gemini-flash-latest",
     "google/gemini-flash-lite-latest",
@@ -14,5 +15,8 @@
     "npm:pi-web-access",
     "npm:@tenchi4u/pi-bifrost",
     "npm:@sevten/pi-data-masking"
-  ]
+  ],
+  "lastChangelogVersion": "1.0.0",
+  "fullscreenExitOutput": "transcript",
+  "enableInstallTelemetry": false
 }
