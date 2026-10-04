@@ -22,15 +22,21 @@ require("lazy").setup({
   { "rebelot/kanagawa.nvim" }, -- colorscheme
   { "nvim-lualine/lualine.nvim" },
   { "junegunn/limelight.vim" },
+  { "f-person/auto-dark-mode.nvim" },
 
   -- === Editing ===
   { "preservim/nerdcommenter" },
   { "roxma/vim-paste-easy" },
   { "tpope/vim-surround" },
-  { "oxy2dev/markview.nvim", lazy = false },
 
   -- === Navigation ===
-  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    },
+  },
   { "christoomey/vim-tmux-navigator" },
   { "tpope/vim-eunuch" },
 
@@ -42,13 +48,11 @@ require("lazy").setup({
   { "mason-org/mason.nvim" },
 
   -- === AI ===
-  --{ "Exafunction/windsurf.vim", branch = "main" },
   { "milanglacier/minuet-ai.nvim", dependencies = { "nvim-lua/plenary.nvim" }, },
 
   -- === Build & Git ===
   { "tpope/vim-dispatch" },
-  --{ "tpope/vim-fugitive" },
-  { "FabijanZulj/blame.nvim" },
+  { "tpope/vim-fugitive" },
   { "NeogitOrg/neogit", dependencies = { "plenary.nvim", "esmuellert/codediff.nvim", "nvim-telescope/telescope.nvim" } },
   { "tpope/vim-rhubarb" },
   { "mattn/gist-vim", dependencies = { "mattn/webapi-vim" }, },
@@ -79,6 +83,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.updatetime = 300
 -- Filetype-specific settings
 vim.api.nvim_create_augroup("FileTypes", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -122,6 +127,9 @@ vim.keymap.set("n", "<C-p>", function() require("telescope.builtin").find_files(
     find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
 }) end, { desc = "Find files in project" })
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
+--vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "Open LazyGit UI" })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })
+
 
 -- ============================================================================
 --  Files, Backups, and Undo
@@ -149,6 +157,21 @@ vim.opt.wildignore = {
 -- ============================================================================
 vim.o.exrc = true
 vim.o.secure = true
+
+-- ============================================================================
+--  ColorScheme configuration
+-- ============================================================================
+require("auto-dark-mode").setup({
+  update_interval = 1000,
+  set_dark_mode = function()
+    vim.api.nvim_set_option("background", "dark")
+    vim.cmd("colorscheme kanagawa-dragon")
+  end,
+  set_light_mode = function()
+    vim.api.nvim_set_option("background", "light")
+    vim.cmd("colorscheme kanagawa-wave")
+  end,
+})
 
 -- ============================================================================
 --  Telescope configuration
@@ -253,15 +276,14 @@ vim.g.ale_fixers = {
   sh = { 'shfmt' },
   xml = { 'xmlformatter' },
   sql = { 'sqfluff' },
+  markdown = { 'prettier' },
 }
 
 vim.diagnostic.config({
-  virtual_text = { prefix = "●" },
-  signs = true,
-  virtual_text = true,
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+  virtual_text = { prefix = "●" },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "✘",
@@ -278,6 +300,7 @@ vim.diagnostic.config({
 require("mason").setup()
 local on_attach = require("on_attach")
 local servers = { "ty", "jdtls", "gopls", "rust_analyzer", "ts_ls" }
+vim.lsp.log.set_level 'info'
 -- Define base configs (do NOT enable yet)
 for _, name in ipairs(servers) do
   vim.lsp.config(name, {
@@ -298,12 +321,28 @@ vim.api.nvim_create_autocmd("VimEnter", {
 --  Minuet configuration
 -- ============================================================================
 require("minuet").setup({
+    notify = "debug",
     provider = "gemini",
+    provider_options = {
+        gemini = {
+            model = "gemini-flash-lite-latest",
+            stream = true,
+        },
+        openai = {
+            model = "gpt-5-nano",
+            stream = true,
+            optional = {
+                max_completion_tokens = 128,
+                -- for thinking models
+                reasoning_effort = 'minimal',
+            },
+        },
+    },
     virtualtext = {
         auto_trigger_ft = { '*' },
         keymap = {
             -- accept whole completion
-            accept = '<Tab>',
+            accept = '<C-y>',
             -- Cycle to prev completion item, or manually invoke completion
             prev = '<C-p>',
             -- Cycle to next completion item, or manually invoke completion
@@ -312,8 +351,3 @@ require("minuet").setup({
         },
     },
 })
-
--- ============================================================================
---  Blame configuration
--- ============================================================================
-require('blame').setup {}
