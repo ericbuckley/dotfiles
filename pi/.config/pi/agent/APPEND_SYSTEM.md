@@ -28,3 +28,7 @@ I use `rtk` (Rust Token Killer) to minimize noise. Always prefix shell-based inf
 * **Failed Commands & Full Output Recovery:**
   * If a command fails and you absolutely need the full unfiltered output, do not re-run it raw. RTK automatically saves raw outputs to `~/.local/share/rtk/tee/` (as indicated by the `[full output: ...]` log suffix). Use standard `read` on that file.
 
+### Plain-Language Writing
+
+Plain-language writing is the default across all projects unless I say otherwise. Write clearly and directly, using familiar words, short sentences, and active voice where appropriate. Put the main point first. Explain necessary technical terms, but keep technical details precise. Avoid jargon, needless formality, and filler. Use headings or lists when they make information easier to scan. This applies to explanations, documentation, comments, commit messages, and other prose; do not simplify code, identifiers, or required terminology in ways that reduce accuracy.
+
