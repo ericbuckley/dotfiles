@@ -17,8 +17,10 @@ if [ -z "$MISE" ]; then
     exit 1
 fi
 
+echo "Installing mise completion..."
+"$MISE" completion zsh --install
+
 echo "Installing mise-managed runtimes..."
 # Fuzzy versions resolve to the latest matching patch/hotfix release.
-"$MISE" install java@openjdk-21
-"$MISE" install java@zulu-8
-"$MISE" install python@3.12
+"$MISE" install python@3.14
+"$MISE" install go@1.27
