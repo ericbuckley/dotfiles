@@ -16,7 +16,6 @@
     "npm:@tenchi4u/pi-bifrost",
     "npm:@sevten/pi-data-masking"
   ],
-  "lastChangelogVersion": "1.0.0",
   "fullscreenExitOutput": "transcript",
   "enableInstallTelemetry": false
 }
