@@ -1,9 +1,11 @@
-tap "nikitabobko/tap", trusted: true
+tap "xo/xo", trusted: true
+tap "acsandmann/tap", trusted: true
+
 # Improved shell history for zsh, bash, fish and nushell
 brew "atuin"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
-# Clone of cat(1) with syntax highlighting and Git integration
+# Clone of cat with syntax highlighting and Git integration
 brew "bat"
 # Cross-platform make
 brew "cmake"
@@ -43,8 +45,6 @@ brew "htop"
 brew "jq"
 # Simple terminal UI for git commands
 brew "lazygit"
-# Cross-platform TUI database management tool
-brew "lazysql"
 # Postgres C API library
 brew "libpq"
 # Mac App Store command-line client used by the `mas` entries below.
@@ -74,8 +74,10 @@ brew "uv"
 # General-purpose data compression with high compression ratio
 brew "xz"
 
-# AeroSpace is an i3-like tiling window manager for macOS
-cask "nikitabobko/tap/aerospace", trusted: true
+# Tiling manager for macos
+brew "acsandmann/tap/rift"
+# Universal command-line interface for SQL databases
+brew "xo/xo/usql"
 
 # Android SDK component
 cask "android-platform-tools"
@@ -94,6 +96,8 @@ cask "cyberduck"
 cask "daisydisk"
 cask "docker-desktop"
 cask "firefox"
+cask "ghostty"
+cask "google-chrome"
 cask "gpg-suite-no-mail"
 cask "handbrake-app"
 cask "hazeover"
@@ -110,7 +114,6 @@ cask "tinycast"
 cask "transmission"
 cask "viscosity"
 cask "vlc"
-cask "wezterm"
 cask "whatsapp"
 cask "yubico-authenticator"
 cask "zoom"
