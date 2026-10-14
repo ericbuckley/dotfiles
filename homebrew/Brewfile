@@ -83,11 +83,7 @@ brew "xo/xo/usql"
 cask "android-platform-tools"
 
 # Font with a programmer's perspective and a nerd-font glyph set
-cask "font-fira-code-nerd-font"
-cask "font-hack-nerd-font"
-cask "font-maple-mono"
-cask "font-maple-mono-nf"
-cask "font-sf-pro"
+cask "font-iosevka-term-nerd-font"
 cask "font-victor-mono-nerd-font"
 
 # Application casks added from the Applications audit.
