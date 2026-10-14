@@ -7,7 +7,8 @@ This repository contains personal configuration files (dotfiles) for a macOS/Lin
 The repository is organized into "groups" (directories), each representing a tool or logical collection of configs.
 
 *   **Group Directories:** (e.g., `zsh/`, `nvim/`, `tmux/`) contain the configuration files.
-*   **File Mapping:** Files inside a group are mapped relative to the user's home directory (`$HOME`).
+*   **Archive Directory:** `archive/` stores retired or unused configurations for reference. The installer skips everything inside it, including `init.script` files.
+*   **File Mapping:** Files inside an active group are mapped relative to the user's home directory (`$HOME`).
     *   Example: `nvim/.config/nvim/init.lua` is symlinked to `~/.config/nvim/init.lua`.
 *   **Initialization Scripts:** Files named `init.script` within a group are executed by the installer rather than symlinked.
 
@@ -35,7 +36,7 @@ To skip the Homebrew and mise initialization steps (while still running other in
 
 **Mechanism:**
 1.  **Symlinking:** Iterates through all group directories. For each file (excluding `init.script` and paths listed in `.dotfilesignore`), it creates a symbolic link in `$HOME` pointing to the file in the repo. It prompts before replacing existing files.
-2.  **Initialization:** Finds and executes all `init.script` files found in the repository (e.g., installing zsh antidote, tmux tpm).
+2.  **Initialization:** Finds and executes active `init.script` files in the repository (e.g., installing zsh antidote, tmux tpm). Scripts inside `archive/` are not run.
 
 ## Key Configurations
 
@@ -60,6 +61,7 @@ To skip the Homebrew and mise initialization steps (while still running other in
 ## Development Conventions
 
 *   **Adding Configs:** Create a new directory for the tool (if it doesn't exist) and replicate the path structure relative to `$HOME`. Run `./install.sh` to link it.
+*   **Retiring Configs:** Move unused groups into `archive/` to keep them in the repository without installing or running them. Move a group back out of `archive/` when you want the installer to manage it again.
 *   **Ignoring Files:** Add repository-only files to `.dotfilesignore` when they should not be symlinked into `$HOME`.
 *   **Scripts:** Use `init.script` for actions that require execution (installing binaries, downloading plugins) instead of just linking.
 *   **Idempotency:** The `install.sh` script is designed to be run multiple times safely. It checks if links already exist and match.

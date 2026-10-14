@@ -104,7 +104,7 @@ fi
 
 find . -type f -name "init.script" -print | sort | while read -r FILE; do
 	case "${FILE#./}" in
-		homebrew/init.script|mise/init.script)
+		archive/*|homebrew/init.script|mise/init.script)
 			continue
 			;;
 	esac
@@ -113,6 +113,9 @@ done
 
 # create all symlinks
 for GROUP in *; do
+	if [ "${GROUP}" = "archive" ]; then
+		continue
+	fi
 	if [ -d "${GROUP}" ]; then
 		find "${GROUP}" ! -name 'init.script' -type f | while read -r FILE; do
 			# Installer inputs and other repository-only files are listed here
