@@ -41,6 +41,9 @@ vertical = 10
 active_label = "name"
 display_style = "label"
 
+[settings.ui.stack_line]
+enabled = false
+
 [settings.gestures]
 enabled = true
 invert_horizontal_swipe = true
