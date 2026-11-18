@@ -7,7 +7,7 @@
     "google/gemini-flash-latest",
     "google/gemini-flash-lite-latest",
     "openai-codex/gpt-6-luna",
-    "openai-codex/gpt-6.1-sol"
+    "openai-codex/gpt-6.2-sol"
   ],
   "defaultThinkingLevel": "high",
   "packages": [

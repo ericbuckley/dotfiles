@@ -20,10 +20,10 @@
     ],
     "coding": [
       "openai-codex/gpt-6-luna",
-      "openai-codex/gpt-6.1-sol"
+      "openai-codex/gpt-6.2-sol"
     ],
     "frontier": [
-      "openai-codex/gpt-6.1-sol"
+      "openai-codex/gpt-6.2-sol"
     ]
   },
   "rules": [
@@ -129,7 +129,7 @@
       "openai-codex/gpt-6-luna": [
         "scoped"
       ],
-      "openai-codex/gpt-6.1-sol": [
+      "openai-codex/gpt-6.2-sol": [
         "scoped"
       ]
     }
