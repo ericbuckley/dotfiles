@@ -64,6 +64,11 @@ require("lazy").setup({
 --  General Options
 -- ============================================================================
 vim.g.mapleader = " "
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 vim.opt.encoding = "utf-8"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
@@ -300,7 +305,6 @@ vim.diagnostic.config({
 require("mason").setup()
 local on_attach = require("on_attach")
 local servers = { "ty", "jdtls", "gopls", "rust_analyzer", "ts_ls" }
-vim.lsp.log.set_level 'info'
 -- Define base configs (do NOT enable yet)
 for _, name in ipairs(servers) do
   vim.lsp.config(name, {
