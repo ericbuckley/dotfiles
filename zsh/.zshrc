@@ -74,8 +74,13 @@ if type mise &>/dev/null; then
     eval "$(mise activate zsh)"
 fi
 
+
+# tty reset
+stty sane
+ttyctl -f
 # gpg
 export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
 # default editor
 export EDITOR='nvim'
 # pi configuration
